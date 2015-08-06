@@ -1,9 +1,14 @@
-        <!-- Sidebar -->
-        <div id="sidebar-wrapper">
-            <nav id="spy">
-                <ul class="sidebar-nav nav">
-                 
-                    				<!-- SIDEBAR USERPIC -->
+
+<!--
+sidebar partial for profile pages
+used in layouts/application
+
+-->
+
+  <div id="sidebar-wrapper" class="col-md-1">
+            <div id="sidebar">
+                <ul class="nav list-group">
+									<!-- SIDEBAR USERPIC -->
 									<div class="profile-userpic">
 										<img src="https://scontent-ams3-1.xx.fbcdn.net/hphotos-xaf1/v/t1.0-9/401132_244364565632679_626066299_n.jpg?oh=f1a5c62cc16c77184e51d0a4aee93915&oe=5641C210" class="img-responsive" alt="">
 									</div>
@@ -15,15 +20,23 @@
 										</div>
 									</div>
 									<!-- END SIDEBAR USER TITLE -->
-                    
-								<li><%= link_to "Personal info", '#' %></li>
-								<li><%= link_to "Stats", '#' %></li>
-								<li><%= link_to "Past problems", '#' %></li>
-								<li><%= link_to "My problems", '#' %></li>
-								<li><%= link_to "My solutions", '#' %></li>
-                    
+									
+                    <li>
+                        <a class="list-group-item" href="#"><i class="icon-home icon-1x"></i>Personal info</a>
+                    </li>
+                    <li>
+                        <a class="list-group-item" href="#"><i class="icon-home icon-1x"></i>Stats</a>
+                    </li>
+                    <li>
+                        <a class="list-group-item" href="#"><i class="icon-home icon-1x"></i>Past problems</a>
+                    </li>
+                    <li>
+                        <a class="list-group-item" href="#"><i class="icon-home icon-1x"></i>My problems</a>
+                    </li>
+                    <li>
+                        <a class="list-group-item" href="#"><i class="icon-home icon-1x"></i>My solutions</a>
+                    </li>
                 </ul>
-            </nav>
+            </div>
         </div>
-
-
+				
