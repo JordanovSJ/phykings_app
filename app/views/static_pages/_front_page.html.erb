@@ -1,0 +1,33 @@
+<!--
+Front_page partial for not logged_in users.
+Used in home page. 
+-->
+
+<!--
+provides a url for a background image.
+used in layouts/application.
+-->
+<% provide(:background_img, 'https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcRL2lI5MjJE_hM-pNN9Fz8fi4_v9h9ZfGg_h3YfMMWidjebfdTR') %>
+
+<!--
+front_page_text_partial 
+-->
+<div class="container col-md-10 col-md-offset-2">
+	<div  class="nav navbar-nav navbar-left"  >
+		<textareat rows="10" cols="50">	
+			<% if params[:info_partial].nil? %>
+				<%= render 'mission' %>
+			<% else %>
+				<%= render params[:info_partial] %>
+			<% end %> 
+		</textareat>
+	</div>
+</div>
+
+
+
+
+
+
+
+this is front page
