@@ -15,7 +15,7 @@ $gray-medium-light: #eaeaea;
 /* universal */
 
 body {
-  padding-top: 150px;
+  padding-top: 200px;
 }
 
 section {
@@ -76,6 +76,11 @@ p {
     color: white;
     text-decoration: none;
   }
+}
+
+
+header{
+	height: 200px;
 }
 
 /* footer */

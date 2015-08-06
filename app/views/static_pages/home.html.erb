@@ -2,13 +2,16 @@
 Home page.
 Only renders partials depending on if logged_in.
 -->
-this is home page
+
 <%= render 'home_page_logged_in' %>
+<%= render 'layouts/sidebar_profile' %>
 
 
 <!--
 if logged_in
 	render 'home_page_logged_in'
+	render 'layouts/sidebar_profile'
+
 else
 	render 'front_page'
 
