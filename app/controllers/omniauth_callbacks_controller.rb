@@ -17,6 +17,7 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
     end
   end
   
+  # This method handles the callback from Google.
   def google_oauth2
 	
 		#~ raise request.env["omniauth.auth"].to_yaml

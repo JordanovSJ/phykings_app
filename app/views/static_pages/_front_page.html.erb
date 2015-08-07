@@ -13,21 +13,14 @@ used in layouts/application.
 front_page_text_partial 
 -->
 <div class="container col-md-10 col-md-offset-2">
-	<div  class="nav navbar-nav navbar-left"  >
-		<textareat rows="10" cols="50">	
-			<% if params[:info_partial].nil? %>
-				<%= render 'mission' %>
-			<% else %>
-				<%= render params[:info_partial] %>
-			<% end %> 
-		</textareat>
-	</div>
+
+
+	<% if params[:info_partial].nil? %>
+		<%= render 'mission' %>
+	<% else %>
+		<%= render params[:info_partial] %>
+	<% end %> 
+
+	this is front page
 </div>
 
-
-
-
-
-
-
-this is front page

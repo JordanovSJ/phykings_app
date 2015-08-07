@@ -34,6 +34,7 @@ class User < ActiveRecord::Base
 		end
 	end
 	
+	# Method to extract user profile information from Google account info.
 	def self.from_omniauth_google(auth)
 		where(provider: auth.provider, uid: auth.uid).first_or_initialize do |user|
 			user.email = auth.info.email # fill the email field

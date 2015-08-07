@@ -1,7 +1,7 @@
 class StaticPagesController < ApplicationController
 	
 	def home
-		 
+		 render 'homescreen'
 	end
 	
 	def front_page_text

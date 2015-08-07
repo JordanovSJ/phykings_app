@@ -16,8 +16,12 @@ else
 end
 -->
 
-
-<%=	render 'front_page'%>
+<% if user_signed_in? %>
+	<%= render 'home_page_logged_in' %>
+	<%= render 'layouts/sidebar_profile' %>
+<% else %>
+	<%=	render 'front_page'%>
+<% end %>
 
          
             
