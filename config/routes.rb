@@ -1,8 +1,4 @@
 Rails.application.routes.draw do
-<<<<<<< HEAD
-	
-=======
-
 	# The second argument defines the place of the controller that is going to handle the
 	# omniauth callback.
   devise_for :users, :controllers => { :omniauth_callbacks => "omniauth_callbacks" }
@@ -19,8 +15,6 @@ Rails.application.routes.draw do
 
   # Example of named route that can be invoked with purchase_url(id: product.id)
   #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase
->>>>>>> static-pages-sasho
-
 
 
   # The priority is based upon order of creation: first created -> highest priority.
