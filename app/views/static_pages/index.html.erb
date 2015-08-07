@@ -11,5 +11,5 @@
 	<%= link_to "Sign in", new_user_session_url %>
 	<%= link_to "Sign up", new_user_registration_url %>
 	<%= link_to "Facebook", user_omniauth_authorize_path(:facebook) %>
-	<%= link_to "Google+", '#' %>
+	<%= link_to "Google+", user_omniauth_authorize_path(:google_oauth2) %>
 <% end %>

@@ -243,6 +243,8 @@ Devise.setup do |config|
   # A key step was to include the scope and the needed info_fields.
   config.omniauth :facebook, ENV["FB_APP_ID"], ENV["FB_SECRET"],
 									scope: 'public_profile,email', info_fields: 'email,first_name,last_name,locale,age_range'
+									
+	config.omniauth :google_oauth2, ENV["GOOGLE_ID"], ENV["GOOGLE_SECRET"]
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or

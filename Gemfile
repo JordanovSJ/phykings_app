@@ -37,6 +37,7 @@ gem 'devise'
 gem 'carmen-rails'
 
 gem 'omniauth-facebook'
+gem 'omniauth-google-oauth2'
 
 # Needed to define ENV variables.
 gem 'figaro', "~> 0.7.0"
