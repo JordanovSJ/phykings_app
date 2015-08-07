@@ -5,9 +5,7 @@ class StaticPagesController < ApplicationController
 	end
 	
 	def front_page_text
-			#@front_page_text_partial=params[:info_partial]
-			render 'home'
-			#redirect_to root_url
+			render 'home'	
 	end
 	
 	def about
