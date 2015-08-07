@@ -36,6 +36,11 @@ gem 'bootstrap-sass'
 gem 'devise'
 gem 'carmen-rails'
 
+gem 'omniauth-facebook'
+
+# Needed to define ENV variables.
+gem 'figaro', "~> 0.7.0"
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'

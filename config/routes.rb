@@ -1,5 +1,10 @@
 Rails.application.routes.draw do
-  devise_for :users
+
+	# The second argument defines the place of the controller that is going to handle the
+	# omniauth callback.
+  devise_for :users, :controllers => { :omniauth_callbacks => "omniauth_callbacks" }
+  
+  
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

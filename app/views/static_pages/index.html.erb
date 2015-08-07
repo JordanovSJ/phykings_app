@@ -1,5 +1,6 @@
 <% if user_signed_in? %>
 	<%= link_to "Sign out", destroy_user_session_url, method: "DELETE" %> <br/>
+	<%= current_user.email %> <br/>
 	<%= current_user.first_name %> <br/>
 	<%= current_user.last_name %> <br/>
 	<%= current_user.age %> <br/>
@@ -9,6 +10,6 @@
 <% else %>
 	<%= link_to "Sign in", new_user_session_url %>
 	<%= link_to "Sign up", new_user_registration_url %>
-	<%= link_to "Facebook", '#' %>
+	<%= link_to "Facebook", user_omniauth_authorize_path(:facebook) %>
 	<%= link_to "Google+", '#' %>
 <% end %>
