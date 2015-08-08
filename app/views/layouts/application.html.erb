@@ -11,15 +11,17 @@
 <body>
 	
 	<% if user_signed_in? %>
-		<%= render 'layouts/header_in' %>
 		
-			<div class="container col-md-10">
-				<% flash.each do |message_type, message| %>
-					<div class="alert alert-<%= message_type %>"><%= message %></div>
-				<% end %>
+			<div class="container col-sm-12">
 				
 				<div id="wrapper">
-
+					<% flash.each do |message_type, message| %>
+						<div class="alert alert-<%= message_type %>"><%= message %></div>
+					<% end %>
+				
+				
+					<%= render 'layouts/logged_in/header' %>
+					<%= render 'layouts/logged_in' %>
 					<%= yield %>
 
 				</div>
