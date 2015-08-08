@@ -11,14 +11,62 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150807101951) do
+ActiveRecord::Schema.define(version: 20150807133208) do
 
   create_table "problems", force: :cascade do |t|
     t.string   "title"
     t.text     "content"
     t.float    "answer"
+    t.integer  "creator_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  add_index "problems", ["creator_id", "created_at"], name: "index_problems_on_creator_id_and_created_at"
+  add_index "problems", ["creator_id"], name: "index_problems_on_creator_id"
+
+  create_table "relations", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "problem_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "relations", ["problem_id"], name: "index_relations_on_problem_id"
+  add_index "relations", ["user_id", "problem_id"], name: "index_relations_on_user_id_and_problem_id", unique: true
+  add_index "relations", ["user_id"], name: "index_relations_on_user_id"
+
+  create_table "users", force: :cascade do |t|
+    t.string   "email",                  default: "", null: false
+    t.string   "encrypted_password",     default: "", null: false
+    t.string   "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",          default: 0,  null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
+    t.string   "confirmation_token"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
+    t.string   "unconfirmed_email"
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
+    t.string   "first_name"
+    t.string   "last_name"
+    t.integer  "age"
+    t.string   "country"
+    t.string   "school_name"
+    t.string   "provider"
+    t.string   "uid"
+    t.string   "image"
+  end
+
+  add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
+  add_index "users", ["email"], name: "index_users_on_email", unique: true
+  add_index "users", ["provider"], name: "index_users_on_provider"
+  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  add_index "users", ["uid"], name: "index_users_on_uid"
 
 end

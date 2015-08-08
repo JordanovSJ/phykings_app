@@ -6,9 +6,30 @@
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
-<body>
 
-<%= yield %>
+ <body background= <%= yield(:background_img) %> >
+ 
+<!--
+ if logged_in
+	render 'layouts/header_in
+else 
+	render 'layouts/header_out
+end
+-->
 
-</body>
+	<%= render 'layouts/header_out' %>
+	
+	  <div class="container col-md-10 col-md-offset-1">
+      <% flash.each do |message_type, message| %>
+        <div class="alert alert-<%= message_type %>"><%= message %></div>
+      <% end %>
+      
+			<div id="wrapper">
+
+			<%= yield %>
+			<%= render 'layouts/footer' %>
+				 <%= debug(params) if Rails.env.development? %>
+     </div>
+	  </div>
+ </body>
 </html>

@@ -1,16 +1,19 @@
 
 
 one:
+  id: 1
   title:	zada4ata na sa6o alex 
   content: kolko prusta ima nenko
   created_at: <%= 3.years.ago %>
   
 two:
+  id: 2
   title:	zada4ata na nenko
   content: kolko prusta nqam nenko
   created_at: <%= 5.years.ago %>
 
 most_recent:
+  id: 3
   title:	zada4ata na elza
   content: kolko zuba ima elza
   created_at: <%= 1.years.ago %>

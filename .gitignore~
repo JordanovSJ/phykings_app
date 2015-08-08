@@ -15,9 +15,3 @@
 /log/*
 !/log/.keep
 /tmp
-
-# Ignore Spring files.
-/spring/*.pid
-
-# Ignore application configuration
-/config/application.yml
