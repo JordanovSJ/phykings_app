@@ -76,7 +76,16 @@ img.grayscale {
    width: 30%;
 }
 
-.header .btn-lg:hover {
+.header .btn-xs {
+   
+   border-color:#eeeeee;
+   padding:15px;
+   background-color:transparent;
+   color:#ffffff;
+   width: 100%;
+}
+
+.header .btn-lg:hover, .header .btn-xs:hover {
    background-color:#eeeeee;
    color:#777777;
 }
@@ -126,7 +135,7 @@ img.grayscale {
   background-color: $main-green;
 }
 
-.alt .lead {
+.alt .lead, .field label, .header h2 {
   color: $black;
 }
 
