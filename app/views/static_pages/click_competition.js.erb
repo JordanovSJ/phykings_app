@@ -1,0 +1,3 @@
+$("#sidebar").html("<%= escape_javascript(render 'layouts/logged_in/sidebar_competitions') %>");
+$link = $("#"+"<%= params[:sidebar_item] %>");
+$link[0].click()

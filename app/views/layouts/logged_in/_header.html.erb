@@ -11,15 +11,15 @@
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li><a href="#">Home</a></li>
+            <li><%= link_to "Home", {controller: "static_pages", action: "click_home"}, remote: true %></li> 
             
             <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               Competitions <b class="caret"></b>
             </a>
             <ul class="dropdown-menu">
-              <li><%= link_to "Active comepetitions", "#" %></li>
-              <li><%= link_to "CREATE", "#" %></li>  
+              <li><%= link_to "Active competitions", {controller: "static_pages", action: "click_competition", sidebar_item: "competitions-active"}, remote: true  %></li>
+              <li><%= link_to "CREATE", {controller: "static_pages", action: "click_competition", sidebar_item: "competitions-create"}, remote: true %></li>  
 						</ul>    
 						</li>
             
@@ -28,11 +28,11 @@
               Problems and solutions <b class="caret"></b>
             </a>
             <ul class="dropdown-menu">
-              <li><%= link_to "Upload Problem", "#" %></li> 
-              <li><%= link_to "My problems", "#" %></li>   
-              <li><%= link_to "My solutions", "#" %></li>
-              <li><%= link_to "Past problems", "#" %></li>   
-              <li><%= link_to "Problems without solutions", "#" %></li>
+              <li><%= link_to "Upload Problem", {controller: "static_pages", action: "click_p_and_s"}, remote: true  %></li> 
+              <li><%= link_to "My problems", {controller: "static_pages", action: "click_p_and_s"}, remote: true   %></li>   
+              <li><%= link_to "My solutions", {controller: "static_pages", action: "click_p_and_s"}, remote: true   %></li>
+              <li><%= link_to "Past problems", {controller: "static_pages", action: "click_p_and_s"}, remote: true   %></li>   
+              <li><%= link_to "Problems without solutions", {controller: "static_pages", action: "click_p_and_s"}, remote: true   %></li>
 						</ul>
 						</li>
             
@@ -41,10 +41,11 @@
               Help <b class="caret"></b>
             </a>
             <ul class="dropdown-menu">
-              <li><%= link_to "How to use LaTeX", "#" %></li>
-              <li><%= link_to "About", "#" %></li>  
-              <li><%= link_to "Help", "#" %></li>  
-              <li><%= link_to "Contact", "#" %></li>  
+              <li><%= link_to "LaTeX 1", {controller: "static_pages", action: "click_help"}, remote: true  %></li>
+              <li><%= link_to "LaTeX 2", {controller: "static_pages", action: "click_help"}, remote: true %></li>
+              <li><%= link_to "Rules", {controller: "static_pages", action: "click_help"}, remote: true %></li>  
+              <li><%= link_to "The Mission", {controller: "static_pages", action: "click_help"}, remote: true %></li>  
+              <li><%= link_to "About us", {controller: "static_pages", action: "click_help"}, remote: true %></li>  
 						</ul>    
 						</li>
 						
