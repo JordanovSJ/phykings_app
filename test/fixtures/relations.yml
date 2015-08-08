@@ -1,0 +1,7 @@
+one:
+ solver_id: 1
+ solved_problem_id: 1
+ 
+two:
+ solver_id: 1
+ solved_problem_id: 2
