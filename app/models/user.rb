@@ -2,9 +2,12 @@ class User < ActiveRecord::Base
 	has_many :uploaded_problems, class_name: 'Problem', 
 															:foreign_key => 'creator_id'
 	
-	#~ has_many :relations
-	#~ has_many :solved_problems, class_name: 'User',
-						#~ :through => :relations
+	has_many :relations,:foreign_key => 'solver_id',
+						:dependent => :destroy
+						
+	has_many :solved_problems, :through => :relations #class_name: 'User',
+						
+						
  
  
  

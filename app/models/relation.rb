@@ -3,7 +3,7 @@ class Relation < ActiveRecord::Base
 	belongs_to :solved_problem, class_name: "Problem"
 	
 	
-	validates :user_id, presence: true
-	validates :problem_id, presence: true
+	validates :solver_id, presence: true
+	validates :solved_problem_id, presence: true
 	
 end

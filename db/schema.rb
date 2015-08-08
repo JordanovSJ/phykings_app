@@ -26,15 +26,15 @@ ActiveRecord::Schema.define(version: 20150807133208) do
   add_index "problems", ["creator_id"], name: "index_problems_on_creator_id"
 
   create_table "relations", force: :cascade do |t|
-    t.integer  "user_id"
-    t.integer  "problem_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.integer  "solver_id"
+    t.integer  "solved_problem_id"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
   end
 
-  add_index "relations", ["problem_id"], name: "index_relations_on_problem_id"
-  add_index "relations", ["user_id", "problem_id"], name: "index_relations_on_user_id_and_problem_id", unique: true
-  add_index "relations", ["user_id"], name: "index_relations_on_user_id"
+  add_index "relations", ["solved_problem_id"], name: "index_relations_on_solved_problem_id"
+  add_index "relations", ["solver_id", "solved_problem_id"], name: "index_relations_on_solver_id_and_solved_problem_id", unique: true
+  add_index "relations", ["solver_id"], name: "index_relations_on_solver_id"
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
