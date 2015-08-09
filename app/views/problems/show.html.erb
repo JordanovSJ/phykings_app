@@ -8,3 +8,14 @@
 																		<%= s.first_name %> <%= s.last_name %>,
 																		<% end %>
 </p>
+<span class="timestamp">
+    Created <%= time_ago_in_words(@problem.created_at) %> ago.
+    <% if current_user==(@problem.creator) %> 
+<!--
+    or current_user.admin?
+-->	
+
+      <%= link_to "delete", @problem, method: :delete,
+                                       data: { confirm: "You sure?" } %>
+    <% end %>
+</span>

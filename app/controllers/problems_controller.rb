@@ -39,12 +39,19 @@ class ProblemsController < ApplicationController
     end
 	end
 	
+	def destroy	
+		Problem.find(params[:id]).destroy
+    flash[:success] = "Problem deleted"
+    redirect_to root_path #previous location
+	end
+	
 	private
 	
   def problem_params
      params.require(:problem).permit(:content, :title, :answer)
   end
 		
+		#its used to restrict the acces to the delete and edit action
 	def creator_or_admin
 		unless current_user==Problem.find(params[:id]).creator #|| current_user.admin?
 			flash[:danger] = "You are not allowed to edit/delete this problem"
@@ -52,6 +59,7 @@ class ProblemsController < ApplicationController
 		end			
 	end
 	
+		#it is used to restrict the access to the show action
 	def creator_solver_or_admin
 		unless Problem.find(params[:id]).solvers.include?(current_user) || current_user==Problem.find(params[:id]).creator #|| current_user.admin?
 			flash[:danger] = "You are not allowed to see this problem"
