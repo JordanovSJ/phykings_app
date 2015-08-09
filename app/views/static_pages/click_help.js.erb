@@ -1,1 +1,8 @@
-$("#sidebar").html("<%= escape_javascript(render 'layouts/logged_in/sidebar_help') %>")
+$("#sidebar").html("<%= escape_javascript(render 'layouts/logged_in/sidebar_help') %>");
+
+// This part clicks the correct item from the sidebar after the sidebar is loaded.
+// The correct item is passed in params from the corresponding link in the header.
+// The value of params[:sidebar_item] must be the same as the id of an
+// element <li></li> in the loaded sidebar partial.
+$link = $("#"+"<%= params[:sidebar_item] %>");
+$link[0].click()

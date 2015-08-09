@@ -19,6 +19,12 @@ body {
   font-family:Arial,sans-serif;
 }
 
+/* Fix the div field-with-error change of appearance
+ * after an unsuccessful form submit */
+.field_with_errors { 
+	display: inline; 
+}
+
 /* fix bs3 horizontal scrollbar bug */
 .row { margin: 0; padding: 0 }
 

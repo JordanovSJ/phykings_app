@@ -16,7 +16,10 @@
 				
 				<div id="wrapper">
 					<% flash.each do |message_type, message| %>
-						<div class="alert alert-<%= message_type %>"><%= message %></div>
+						<div class="flash alert alert-<%= message_type %>">
+							<%= message %>
+							<a href="#" data-dismiss="alert" class="close">×</a>
+						</div>
 					<% end %>
 				
 				
