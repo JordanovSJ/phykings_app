@@ -8,3 +8,11 @@ go6o:
   age: 18
   country: Bulgaria
 
+pe6o:
+  id: 2
+  email: pe6o1@lampi.com
+  first_name: pe6o
+  last_name: Popov
+  age: 18
+  country: Bulgaria
+  

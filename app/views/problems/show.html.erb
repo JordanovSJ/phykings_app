@@ -1,0 +1,10 @@
+<h1><%= @problem.title %></h1>
+<% if !@problem.creator.nil? %>
+<p> by <%= @problem.creator.first_name %> <%= @problem.creator.last_name %></p>
+<% end %>
+<p><%= @problem.content %></p>
+<p> Answer: <%= @problem.answer  %></p>
+<p> the problem's solvers are: <% @problem.solvers.each do |s| %>
+																		<%= s.first_name %> <%= s.last_name %>,
+																		<% end %>
+</p>

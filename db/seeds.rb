@@ -30,18 +30,19 @@ sa6o = User.new(
 						
 						age: 20,
 							country: "Bulgaria",
-             email: "sa6oalex@abv.bg",
+             email: "unufri@abv.bg",
              password:              "sa6oalex",
              password_confirmation: "sa6oalex",
 )
 
-pe60.skip_confirmation!
-pe60.save 
+sa6o.skip_confirmation!
+sa6o.save
          
 
 problem1=Problem.create!(
 							title: "sopol1",
 							content: "elza",
+							answer: 1,
 							creator_id: 1,
 )
 
@@ -49,12 +50,29 @@ problem1=Problem.create!(
 problem2=Problem.create!(
 							title: "sopol2",
 							content: "elza",
+							answer: 1,
 							creator_id: 1,
 )
 
 problem3=Problem.create!(
 							title: "sopol3",
 							content: "elza",
+							answer: 1,
 							creator_id: 2,						
 )
 
+relation1=Relation.create!(
+							solver_id: 1,
+							solved_problem_id: 1,
+)
+
+relation2=Relation.create!(
+							solver_id: 1,
+							solved_problem_id: 3,
+)
+
+
+relation3=Relation.create!(
+							solver_id: 2,
+							solved_problem_id: 1,
+)

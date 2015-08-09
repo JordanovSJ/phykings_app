@@ -30,7 +30,7 @@ class ProblemTest < ActiveSupport::TestCase
 	end
 
   test "order should be most recent first" do
-    assert_equal problems(:most_recent), Problem.first
+    assert_equal problems(:three), Problem.first
   end
 
 end
