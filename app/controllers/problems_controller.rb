@@ -5,7 +5,7 @@ class ProblemsController < ApplicationController
 	#only the creator of the problem or an admin are allowed to edit/delete the problem
 	before_action :creator_or_admin, only: [:edit, :destroy, :update]
 	#only people who have solved the problem, its creator or an admin is can see the problem
-	before_action :creator_solver_or_admin, only: [:show]
+	before_action :creator_viewer_or_admin, only: [:show]
 	
 	def show
 		@problem=Problem.find(params[:id])
@@ -63,8 +63,9 @@ class ProblemsController < ApplicationController
 	end
 	
 		#it is used to restrict the access to the show action
-	def creator_solver_or_admin
-		unless Problem.find(params[:id]).solvers.include?(current_user) || current_user==Problem.find(params[:id]).creator #|| current_user.admin?
+	def creator_viewer_or_admin
+		unless Problem.find(params[:id]).viewers.include?(current_user) || 
+					current_user==Problem.find(params[:id]).creator #|| current_user.admin?
 			flash[:danger] = "You are not allowed to see this problem"
       redirect_to root_path
 		end

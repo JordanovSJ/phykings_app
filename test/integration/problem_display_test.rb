@@ -16,8 +16,8 @@ class ProblemDisplayTest	< ActionDispatch::IntegrationTest
 		assert_match @problem.content, response.body
 		assert_match @problem.answer.to_s, response.body
 		assert_match @problem.creator.first_name, response.body
-		if @problem.solvers.count > 0
-			assert_match @problem.solvers.first.first_name, response.body
+		if @problem.viewers.count > 0
+			assert_match @problem.viewers.first.first_name, response.body
 		end
 	end
 	

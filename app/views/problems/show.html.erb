@@ -4,7 +4,7 @@
 <% end %>
 <p><%= @problem.content %></p>
 <p> Answer: <%= @problem.answer  %></p>
-<p> the problem's solvers are: <% @problem.solvers.each do |s| %>
+<p> the problem's viewers are: <% @problem.viewers.each do |s| %>
 																		<%= s.first_name %> <%= s.last_name %>,
 																		<% end %>
 </p>
