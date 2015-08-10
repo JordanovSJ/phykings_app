@@ -8,6 +8,8 @@ Rails.application.routes.draw do
   get "static_pages/click_p_and_s"
   get "static_pages/click_help"
   
+  resources :users, only: [:show]
+  
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
@@ -21,6 +23,5 @@ Rails.application.routes.draw do
   #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase
 
   root 'static_pages#home'
-	get 'static_pages/front_page_text' 
   #get 'static_pages/home'
 end

@@ -1,0 +1,30 @@
+<h1 class="page-header">
+	Personal Info
+	<% if current_user.provider.nil? %>
+		<p class="lead">(<%= link_to "Edit", edit_user_registration_path %>)</p>
+	<% end %>
+</h1>
+
+<div class="col-sm-4 col-sm-offset-4 text-center lead">
+	<% if current_user.image.present? %>
+		<%= image_tag(current_user.image, class: "img-circle profile-info-img") %> <br/>
+	<% else %>
+		<%= image_tag("http://api.randomuser.me/portraits/thumb/men/12.jpg", class: "img-circle profile-info-img") %> <br/>
+	<% end %>
+	<p><%= current_user.first_name + " " + current_user.last_name %></p>
+
+	<% if current_user.age < 100 %>
+		<p>Age: <%= current_user.age %></p>
+	<% end %>
+
+	<% if current_user.admin %>
+		<p>Admin</p>
+	<% elsif current_user.moderator %>
+		<p>Moderator</p>
+	<% end %>
+
+	<p>Free level: <%= current_user.free_level.to_s %></p>
+	<p>Premium level: <%= current_user.premium_level.to_s %></p>
+	<p>Gold: <%= current_user.gold.to_s %></p>
+</div>
+
