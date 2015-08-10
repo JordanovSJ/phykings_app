@@ -33,6 +33,7 @@ class ApplicationController < ActionController::Base
 		
 		# Confirms a logged-in user.
     def logged_in_user
+    
       unless user_signed_in?
         #store_location
         flash[:danger] = "Please log in."

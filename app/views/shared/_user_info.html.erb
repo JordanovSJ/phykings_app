@@ -14,8 +14,9 @@ Used in header_in
 	<li class="li-inline"> free lvl: blablab</li>
 	<li class="li-inline"> premium lvl: blablab</li>
 		<li class="li-inline" ><img  src="file:///home/jordan/Downloads/images.png"  height="25" width="25"></li>
+		<% if user_signed_in? %>
 		<font size='3'>	<li class="li-inline"> <%= link_to "log_out", "#" %></li></font>
-
+		<% end %>
 	</ul>
 </p>
 

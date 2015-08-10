@@ -3,7 +3,7 @@ class ProblemsController < ApplicationController
 	#makes sure only a logged_in user can access problem actions
 	before_action :logged_in_user
 	#only the creator of the problem or an admin are allowed to edit/delete the problem
-	before_action :creator_or_admin, only: [:edit, :destroy]
+	before_action :creator_or_admin, only: [:edit, :destroy, :update]
 	#only people who have solved the problem, its creator or an admin is can see the problem
 	before_action :creator_solver_or_admin, only: [:show]
 	
@@ -16,14 +16,17 @@ class ProblemsController < ApplicationController
 	end
 	
 	def create
-    @problem =current_user.uploaded_problems.build(problem_params)
+		if !current_user.nil?
+			@problem =current_user.uploaded_problems.build(problem_params)
+    end
     if @problem.save
       flash[:success] = "Problem created!"
       redirect_to problem_path(@problem)
       #redirect_to previous locataion
     else
       render 'new'
-    end	end
+    end	
+   end
 	
 	def edit
 		@problem=Problem.find(params[:id])

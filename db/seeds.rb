@@ -14,8 +14,8 @@ pe60 = User.new(
 						age: 20,
 							country: "Bulgaria",
              email: "pe6o@abv.bg",
-             password:              "sa6oalex",
-             password_confirmation: "sa6oalex",
+             password:              "password",
+             password_confirmation: "password",
 )
 
 pe60.skip_confirmation!
@@ -59,6 +59,13 @@ problem3=Problem.create!(
 							content: "elza",
 							answer: 1,
 							creator_id: 2,						
+)
+
+problem4=Problem.create!(
+							title: "sopol4",
+							content: "elza",
+							answer: 1,
+							creator_id: 2,
 )
 
 relation1=Relation.create!(

@@ -7,6 +7,8 @@ go6o:
   last_name: Popov
   age: 18
   country: Bulgaria
+  encrypted_password: <%= Devise::Encryptor.digest(User, "password") %>
+  confirmed_at: <%= Time.zone.now %>
 
 pe6o:
   id: 2
@@ -15,4 +17,5 @@ pe6o:
   last_name: Popov
   age: 18
   country: Bulgaria
-  
+  encrypted_password: <%= Devise::Encryptor.digest(User, "password") %>
+  confirmed_at:  <%= Time.zone.now %>
