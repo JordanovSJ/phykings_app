@@ -68,18 +68,18 @@ problem4=Problem.create!(
 							creator_id: 2,
 )
 
-relation1=Relation.create!(
-							solver_id: 1,
-							solved_problem_id: 1,
-)
-
-relation2=Relation.create!(
-							solver_id: 1,
-							solved_problem_id: 3,
-)
-
-
-relation3=Relation.create!(
-							solver_id: 2,
-							solved_problem_id: 1,
-)
+#~ relation1=Relation.create!(
+							#~ solver_id: 1,
+							#~ solved_problem_id: 1,
+#~ )
+#~ 
+#~ relation2=Relation.create!(
+							#~ solver_id: 1,
+							#~ solved_problem_id: 3,
+#~ )
+#~ 
+#~ 
+#~ relation3=Relation.create!(
+							#~ solver_id: 2,
+							#~ solved_problem_id: 1,
+#~ )

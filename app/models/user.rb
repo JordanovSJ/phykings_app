@@ -2,15 +2,13 @@ class User < ActiveRecord::Base
 	has_many :uploaded_problems, class_name: 'Problem', 
 															:foreign_key => 'creator_id'
 	
-	has_many :relations,:foreign_key => 'solver_id',
-						:dependent => :destroy
+	#this has_many association is responsible for attempted, 
+	#solved and problems provided with solutions
+	has_many :user_problem_relations,:foreign_key => 'viewer_id',
+						:dependent => :destroy						
+	has_many :seen_problems, :through => :user_problem_relations 
 						
-	has_many :solved_problems, :through => :relations #class_name: 'User',
-						
-						
- 
- 
- 
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable, :confirmable,

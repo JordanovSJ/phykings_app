@@ -1,10 +1,10 @@
 class Problem < ActiveRecord::Base
 	belongs_to :creator, class_name: 'User'
 	
-	has_many :relations, :foreign_key => 'solved_problem_id',
-						:dependent => :destroy
-						
-	has_many :solvers, :through => :relations #class_name: 'User',
+	#see user.rb for comments
+	has_many :user_problem_relations, :foreign_key => 'seen_problem_id',
+						:dependent => :destroy						
+	has_many :viewers, :through => :user_problem_relations 
 						
 						
 						
