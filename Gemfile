@@ -42,6 +42,8 @@ gem 'omniauth-google-oauth2'
 # Needed to define ENV variables.
 gem 'figaro', "~> 0.7.0"
 
+gem 'capybara'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'

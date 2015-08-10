@@ -9,3 +9,12 @@
 #
 #~ two: {}
 #  column: value
+
+ivan:
+  email: ivan@lampi.com
+  first_name: Haralampi
+  last_name: Popov
+  age: 18
+  country: Bulgaria
+  encrypted_password: <%= Devise::Encryptor.digest(User, "foobar00") %>
+  confirmed_at: <%= Time.zone.now %>

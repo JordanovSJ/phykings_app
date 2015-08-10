@@ -4,7 +4,11 @@
       
 <!-- Sidebar -->
 		<div class="col-sm-3 col-md-2 sidebar-offcanvas" id="sidebar" role="navigation">
-			<%= render 'layouts/logged_in/sidebar_profile' %>
+			<% if session[:sidebar] %>
+				<%= render "layouts/logged_in/sidebar_#{session[:sidebar]}" %>
+			<% else %>
+				<%= render "layouts/logged_in/sidebar_profile" %>
+			<% end %>
     </div>
     
 <!-- Main area -->
