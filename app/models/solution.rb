@@ -3,4 +3,6 @@ class Solution < ActiveRecord::Base
 
 	
 	validates :content, presence: true, length: { maximum: 3000 }
+	validates :user_problem_relation_id, presence: true
+	
 end
