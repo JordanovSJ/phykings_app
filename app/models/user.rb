@@ -4,8 +4,7 @@ class User < ActiveRecord::Base
 	
 	#this has_many association is responsible for attempted, 
 	#solved and problems provided with solutions
-	has_many :user_problem_relations,:foreign_key => 'viewer_id',
-						:dependent => :destroy						
+	has_many :user_problem_relations,:foreign_key => 'viewer_id' #,:dependent => :destroy						
 	has_many :seen_problems, :through => :user_problem_relations 
 	
 	

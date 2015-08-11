@@ -13,10 +13,6 @@ class UserProblemRelationTest < ActiveSupport::TestCase
 		assert @user_problem_relation.valid?
 	end
 	
-	test "solver_id must be present" do
-		@user_problem_relation.viewer_id=nil
-		assert_not @user_problem_relation.valid?
-	end
 	
 	test "solved_problem_id must be present" do
 		@user_problem_relation.seen_problem_id=nil
