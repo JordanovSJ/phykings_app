@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150810204739) do
+ActiveRecord::Schema.define(version: 20150811084922) do
 
   create_table "problems", force: :cascade do |t|
     t.string   "title"
@@ -24,6 +24,16 @@ ActiveRecord::Schema.define(version: 20150810204739) do
 
   add_index "problems", ["creator_id", "created_at"], name: "index_problems_on_creator_id_and_created_at"
   add_index "problems", ["creator_id"], name: "index_problems_on_creator_id"
+
+  create_table "solutions", force: :cascade do |t|
+    t.text     "content"
+    t.integer  "user_problem_relation_id"
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+  end
+
+  add_index "solutions", ["user_problem_relation_id", "created_at"], name: "index_solutions_on_user_problem_relation_id_and_created_at"
+  add_index "solutions", ["user_problem_relation_id"], name: "index_solutions_on_user_problem_relation_id"
 
   create_table "user_problem_relations", force: :cascade do |t|
     t.integer  "viewer_id"

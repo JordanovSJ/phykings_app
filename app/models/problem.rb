@@ -6,7 +6,8 @@ class Problem < ActiveRecord::Base
 						:dependent => :destroy						
 	has_many :viewers, :through => :user_problem_relations 
 						
-						
+	#trial						
+	#has_many :solutions, :through => :user_problem_relations 
 						
 	validates :answer, presence: true
 	validates :content, presence: true, length: { maximum: 3000 }
