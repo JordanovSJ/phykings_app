@@ -9,9 +9,22 @@ class User < ActiveRecord::Base
 	
 	
 		#trial						
-	#has_many :solutions, :through => :user_problem_relations 
+	has_many :solutions, :through => :user_problem_relations 
 						
+	#methods
+	
+	#return the solution of problem submitted by the user, if there is no such solutions, returns nil
+	def solution_of(problem)
+		if self.seen_problems.include?(problem)
+			return self.user_problem_relations.find_by(seen_problem_id: problem.id).solution
+		end
+	end
+	
 
+
+
+
+#ALexndar.sa6o 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable, :confirmable,

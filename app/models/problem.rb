@@ -7,7 +7,7 @@ class Problem < ActiveRecord::Base
 	has_many :viewers, :through => :user_problem_relations 
 						
 	#trial						
-	#has_many :solutions, :through => :user_problem_relations 
+	has_many :solutions, :through => :user_problem_relations 
 						
 	validates :answer, presence: true
 	validates :content, presence: true, length: { maximum: 3000 }
@@ -15,4 +15,11 @@ class Problem < ActiveRecord::Base
   default_scope -> { order(created_at: :desc) }
 	
 
+#methods
+	#return the solution of problem submitted by the user, if there is no such solutions, returns nil
+	def solution_of(user)
+		if self.viewers.include?(user)
+			return self.user_problem_relations.find_by(viewer_id: user.id).solution
+		end
+	end
 end
