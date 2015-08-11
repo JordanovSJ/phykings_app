@@ -64,6 +64,7 @@ class ProblemsController < ApplicationController
 	
 		#it is used to restrict the access to the show action
 	def creator_viewer_or_admin
+	#need to fix this after add type to user_problem_relations
 		unless Problem.find(params[:id]).viewers.include?(current_user) || 
 					current_user==Problem.find(params[:id]).creator #|| current_user.admin?
 			flash[:danger] = "You are not allowed to see this problem"
