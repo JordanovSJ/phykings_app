@@ -88,4 +88,7 @@ relation3=UserProblemRelation.create!(
 solution1=Solution.create!(
 						content: "solution of problem 3 by user 1",
 						user_problem_relation_id: 2,
+						answer: 42,
+						degree_of_answer: 1,
+						units_of_answer: "lols",
 )

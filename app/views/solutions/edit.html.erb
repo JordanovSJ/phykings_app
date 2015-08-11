@@ -1,0 +1,16 @@
+<%= form_for(@solution) do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+	<div class="field">
+					<%= f.text_area :content %>
+				</div>
+				<%= f.label :answer %>
+				<%= f.number_field :answer, class: 'form-control' %>
+				
+				<%= f.label :degree_of_answer %>
+				<%= f.number_field :answer, class: 'form-control' %>
+				
+				<%= f.label :answer %>
+				<%= f.number_field :units_of_answer, class: 'form-control' %>
+
+      <%= f.submit "Save changes", class: "btn btn-primary" %>
+<% end %>

@@ -1,8 +1,8 @@
 class SolutionsController < ApplicationController
 	before_action :logged_in_user
+	before_action :current_problem , only: [:new]  # add create ??#consider change name
 	before_action :has_no_solution_do, only: [:create, :new]
-	before_action :has_solution_do, only: [:edit, :update, :delete] #delete?
-	
+	before_action :has_solution_do, only: [:edit, :update, :delete] #delete?	
 	#add this when finish valid relation
 	#before_action :permitted_to_submit_solution, only: [:create, :new]
 	
@@ -28,6 +28,7 @@ class SolutionsController < ApplicationController
 	end
 	
 	def edit
+		@solution=Solution.find(params[:id])
 	end
 	
 	def update
@@ -44,11 +45,11 @@ class SolutionsController < ApplicationController
   
   #returns user_problem_relation if one already exists or create a new one
   def current_relation
-		if current_user.seen_problems.include?(Problem.find(params[:problem_id]))
-			relation=current_user.user_problem_relations.find_by(seen_problem_id: params[:problem_id])
+		if current_user.seen_problems.include?(current_problem)
+			relation=current_user.user_problem_relations.find_by(seen_problem_id: current_problem.id)
 			#relation.update_attributes(provided_with_solution: true)
 		else 
-			relation=current_user.user_problem_relations.create!(seen_problem_id: params[:problem_id], 
+			relation=current_user.user_problem_relations.create!(seen_problem_id: current_problem.id, 
 																														provided_with_solution: true)
 		end
 		return relation
@@ -56,26 +57,26 @@ class SolutionsController < ApplicationController
   
   #obviously returns true if the current user has submitted solution for the problem
   def has_solution? #need fix
-		if current_user.user_problem_relations.find_by(seen_problem_id: params[:problem_id]).nil?
+		if current_user.user_problem_relations.find_by(seen_problem_id: current_problem.id).nil?
 			return false
 		else
-			current_user.user_problem_relations.find_by(seen_problem_id: params[:problem_id]).provided_with_solution
+			current_user.user_problem_relations.find_by(seen_problem_id: current_problem.id).provided_with_solution
 		end
   end
   
   #check if the problem has already a solution and if yes redirects to edit instead
   def has_no_solution_do # && !current_user.admin?
-		if has_solution?
+		if has_solution?			
 			flash[:danger] = "You have alreadu submitted solution for this problem!"
-			redirect_to edit_solution_path(Solution.find_by(user_problem_relation_id: current_relation.id)) # needs some fix
+			solution_id=current_user.user_problem_relations.find_by(seen_problem_id: current_problem.id).solution.id #add mehtod current_solution
+			redirect_to  :controller => 'solutions', :action => 'edit', :id => solution_id , :problem_id => params[:problem_id] #!!!!!!!!!!!!!!
 		end
 	end
 	
   #check if the problem has already a solution and if no redirects to new instead
 	def has_solution_do
 		if !has_solution? # && !current_user.admin?
-			flash[:danger] = "You havent submitted solution for this problem!"
-			redirect_to solution_path(Solution.find_by(user_problem_relation_id: current_relation.id))
+			redirect_to  :controller => 'solutions', :action => 'new', :problem_id => params[:problem_id] #not tested
 		end
 	end
 	
@@ -86,6 +87,7 @@ class SolutionsController < ApplicationController
 		else
 			flash[:danger] = "Problem not found"
 			redirect_to root_path
+			
 		end
 	end
 	
