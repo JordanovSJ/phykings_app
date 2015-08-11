@@ -19,3 +19,6 @@
                                        data: { confirm: "You sure?" } %>
     <% end %>
 </span>
+
+<%= link_to "submit/edit solution", {controller: 'solutions', 
+								action: 'new', problem_id: params[:id]} %>

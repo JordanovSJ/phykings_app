@@ -9,5 +9,7 @@ Rails.application.routes.draw do
 	get 'static_pages/front_page_text'
 	
 	resources :problems 
+	resources :solutions 
+  
   
 end

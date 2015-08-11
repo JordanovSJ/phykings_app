@@ -8,7 +8,7 @@
 
 
 pe60 = User.new(
-						first_name: "pe6o",
+						first_name: "user 1",
 						last_name: "nenko",
 		
 						age: 20,
@@ -24,7 +24,7 @@ pe60.save
    
  
 sa6o = User.new(
-						first_name: "sa6o",
+						first_name: "user 2",
 						last_name: "nenko",
 
 						
@@ -68,18 +68,24 @@ problem4=Problem.create!(
 							creator_id: 2,
 )
 
-#~ relation1=Relation.create!(
-							#~ solver_id: 1,
-							#~ solved_problem_id: 1,
-#~ )
-#~ 
-#~ relation2=Relation.create!(
-							#~ solver_id: 1,
-							#~ solved_problem_id: 3,
-#~ )
-#~ 
-#~ 
-#~ relation3=Relation.create!(
-							#~ solver_id: 2,
-							#~ solved_problem_id: 1,
-#~ )
+relation1=UserProblemRelation.create!(
+							viewer_id: 1,
+							seen_problem_id: 1,
+)
+
+relation2=UserProblemRelation.create!(
+							viewer_id: 1,
+							seen_problem_id: 3,
+)
+
+
+relation3=UserProblemRelation.create!(
+							viewer_id: 2,
+							seen_problem_id: 1,
+)
+
+
+solution1=Solution.create!(
+						content: "solution of problem 3 by user 1",
+						user_problem_relation_id: 2,
+)
