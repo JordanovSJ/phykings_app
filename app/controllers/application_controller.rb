@@ -30,5 +30,15 @@ class ApplicationController < ActionController::Base
 			devise_parameter_sanitizer.for(:account_update) << :country
 			devise_parameter_sanitizer.for(:account_update) << :school_name
 		end
+		
+		# Confirms a logged-in user.
+    def logged_in_user
+    
+      unless user_signed_in?
+        #store_location
+        flash[:danger] = "Please log in."
+        redirect_to new_user_session_path
+      end
+    end
   
 end

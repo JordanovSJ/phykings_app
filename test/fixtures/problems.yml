@@ -1,0 +1,25 @@
+
+
+one:
+  id: 1
+  title:	zada4ata na sa6o alex 
+  content: kolko prusta ima nenko
+  answer: 0.0
+  creator_id: 1
+  created_at: <%= 3.years.ago %>
+  
+two:
+  id: 2
+  title:	zada4ata na nenko
+  content: kolko prusta nqam nenko
+  answer: 0.0
+  creator_id: 2
+  created_at: <%= 5.years.ago %>
+
+three:
+  id: 3
+  title:	zada4ata na elza
+  content: kolko zuba ima elza
+  answer: 0.0
+  creator_id: 1
+  created_at: <%= 1.years.ago %>

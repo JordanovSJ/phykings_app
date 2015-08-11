@@ -11,7 +11,36 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150810200545) do
+ActiveRecord::Schema.define(version: 20150810204739) do
+
+  create_table "problems", force: :cascade do |t|
+    t.string   "title"
+    t.text     "content"
+    t.float    "answer"
+    t.integer  "creator_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "problems", ["creator_id", "created_at"], name: "index_problems_on_creator_id_and_created_at"
+  add_index "problems", ["creator_id"], name: "index_problems_on_creator_id"
+
+  create_table "user_problem_relations", force: :cascade do |t|
+    t.integer  "viewer_id"
+    t.integer  "seen_problem_id"
+    t.datetime "created_at",                               null: false
+    t.datetime "updated_at",                               null: false
+    t.boolean  "rated",                    default: false
+    t.boolean  "attempted_during_free",    default: false
+    t.boolean  "attempted_during_premium", default: false
+    t.boolean  "solved_during_free",       default: false
+    t.boolean  "solved_during_premium",    default: false
+    t.boolean  "provided_with_solution",   default: false
+  end
+
+  add_index "user_problem_relations", ["seen_problem_id"], name: "index_user_problem_relations_on_seen_problem_id"
+  add_index "user_problem_relations", ["viewer_id", "seen_problem_id"], name: "index_user_problem_relations_on_viewer_id_and_seen_problem_id", unique: true
+  add_index "user_problem_relations", ["viewer_id"], name: "index_user_problem_relations_on_viewer_id"
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "",    null: false
