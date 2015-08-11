@@ -8,7 +8,12 @@ Rails.application.routes.draw do
   get "static_pages/click_p_and_s"
   get "static_pages/click_help"
   
-  resources :users, only: [:show]
+  resources :users, only: [:show] do
+		collection do
+			get "show_stats"
+		end
+	end
+  
   
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

@@ -1,0 +1,50 @@
+<h1 class="page-header">
+	Stats
+</h1>
+
+<div class="col-sm-12 text-center">
+	<h2><%= current_user.first_name + " " + current_user.last_name %></h2>
+</div>
+<hr/>
+
+<div class="row vdivide lead">
+	<div class="col-sm-4 text-right">
+		<h3>Stat</h3>
+		<p>Number of games:</p>
+		<p>Attempted problems:</p>
+		<p>Solved problems:</p>
+		<p>Effectiveness (ratio):</p>
+	</div>
+	<div class="col-sm-4 text-center">
+		<h3>Free Games</h3>
+		<p>41</p>
+		<p>123</p>
+		<p>100</p>
+		<p><%= (10000.0/123).round(1) %>%</p>
+	</div>
+	<div class="col-sm-4 text-center">
+		<h3>Premium Games</h3>
+		<p>12</p>
+		<p>56</p>
+		<p>23</p>
+		<p><%= (2300.0/56).round(1) %>%</p>
+	</div>
+</div>
+<hr/>
+
+<div class="row vdivide lead">
+	<div class="col-sm-6 text-center">
+		<p>Free Level: <%= current_user.free_level %></p>
+	</div>
+	<div class="col-sm-6 text-center">
+		<p>Premium Level: <%= current_user.premium_level %></p>
+	</div>
+</div>
+
+<hr/>
+
+<div class="row vdivide lead text-center">
+	<div class="col-sm-12">
+		<p>Gold: <%= current_user.gold %></p>
+	</div>
+</div>
