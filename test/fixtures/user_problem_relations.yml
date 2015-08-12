@@ -1,11 +1,11 @@
-#~ one:
+#~ user1_problem1:
  #~ solver_id: 1
  #~ solved_problem_id: 1
  #~ 
-#~ two:
+#~ user1_problem2:
  #~ solver_id: 1
  #~ solved_problem_id: 2
 #~ 
-#~ three:
+#~ user2_problem2:
  #~ solver_id: 2
  #~ solved_problem_id: 2
