@@ -18,6 +18,7 @@ class Problem < ActiveRecord::Base
 																												"Thermodynamics and statistical physics", "Quantum mechanics", "Relativity", "Optics"]}
   validates :difficulty, presence: true, inclusion: {in: 1..10}
   validates :length, presence: true, inclusion: {in: [10, 30, 60]}
+  
   default_scope -> { order(created_at: :desc) }
 	
 

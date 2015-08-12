@@ -42,7 +42,12 @@ sa6o.save
 problem1=Problem.create!(
 							title: "sopol1",
 							content: "elza",
-							answer: 1,
+							answer: 24,
+							degree_of_answer: 2,
+							units_of_answer: "nenkos",
+							category: "Electromagnetism",
+							difficulty: 10,
+							length: 60,
 							creator_id: 1,
 )
 
@@ -50,21 +55,37 @@ problem1=Problem.create!(
 problem2=Problem.create!(
 							title: "sopol2",
 							content: "elza",
-							answer: 1,
+							answer: 24,
+							degree_of_answer: 2,
+							units_of_answer: "nenkos",
+							category: "Electromagnetism",
+							difficulty: 10,
+							length: 60,
+							
 							creator_id: 1,
 )
 
 problem3=Problem.create!(
 							title: "sopol3",
 							content: "elza",
-							answer: 1,
+							answer: 24,
+							degree_of_answer: 2,
+							units_of_answer: "nenkos",
+							category: "Electromagnetism",
+							difficulty: 10,
+							length: 60,
 							creator_id: 2,						
 )
 
 problem4=Problem.create!(
 							title: "sopol4",
 							content: "elza",
-							answer: 1,
+							answer: 24,
+							degree_of_answer: 2,
+							units_of_answer: "nenkos",
+							category: "Electromagnetism",
+							difficulty: 10,
+							length: 60,
 							creator_id: 2,
 )
 

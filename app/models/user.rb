@@ -31,7 +31,7 @@ class User < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable, :confirmable,
          :recoverable, :rememberable, :trackable, :validatable,
-         :omniauthable, :omniauth_providers => [:facebook]
+         :omniauthable, :omniauth_providers => [:facebook, :google_oauth2]
          
   # Obvious validations
   validates :first_name, presence: true, length: {maximum: 20}
@@ -48,7 +48,7 @@ class User < ActiveRecord::Base
   # Also, spent quite a lot of time trying to figure out the correct auth
   # fields from the Facebook callback. Had to add scope in config.omniauth
   # in config/initializers/devise.rb with the names of the appropriate fields.
-  def self.from_omniauth(auth)
+  def self.from_omniauth_facebook(auth)
 		where(provider: auth.provider, uid: auth.uid).first_or_initialize do |user|
 			user.email = auth.info.email # fill the email field
 			user.password = Devise.friendly_token[0,20] # we don't care about the password
@@ -59,7 +59,22 @@ class User < ActiveRecord::Base
 			user.image = auth.info.image # fill the link to the profile image
 			user.skip_confirmation! # a key step to allow direct log in without confirmation email
 			user.save! # save the user in the database
-  end
-end
+		end
+	end
+	
+	# Method to extract user profile information from Google account info.
+	def self.from_omniauth_google(auth)
+		where(provider: auth.provider, uid: auth.uid).first_or_initialize do |user|
+			user.email = auth.info.email # fill the email field
+			user.password = Devise.friendly_token[0,20] # we don't care about the password
+			user.first_name = auth.info.first_name   # fill the first_name
+			user.last_name = auth.info.last_name   # fill the last_name
+			user.country = auth.extra.raw_info.locale # NOTE: this is not exactly the country!
+			user.age = 100 # Finally found an age estimate
+			user.image = auth.info.image # fill the link to the profile image
+			user.skip_confirmation! # a key step to allow direct log in without confirmation email
+			user.save! # save the user in the database
+		end
+	end
   
 end

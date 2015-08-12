@@ -1,0 +1,18 @@
+
+<!-- Profile Sidebar Partial -->     
+<!-- Note: The <div> </div>s are in the _logged_in partial-->
+
+<ul class="nav nav-sidebar">
+	<li><h3>Profile</h3></li>
+	<li><%= link_to "Home", '#', id: "profile-home" %></li>
+</ul>
+
+<ul class="nav nav-sidebar">
+	<li><%= link_to "Personal info", user_path(current_user), class: "active" %></li>	
+	<li><%= link_to "Stats", show_stats_users_path %></li>	
+	<li><%= link_to "Past Premium Problems", "#" %></li>	
+	<li><%= link_to "My Problems", my_problems_users_path %></li>	
+	<li><%= link_to "My Solutions", '#' %></li>	
+</ul>
+	
+

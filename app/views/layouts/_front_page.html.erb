@@ -1,0 +1,150 @@
+<div class="navbar navbar-fixed-top alt" data-spy="affix" data-offset-top="1000">
+  <div class="container">
+    <div class="navbar-header">
+      <%= link_to "PhyKings", root_url, class: "navbar-brand" %>
+      <a class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </a>
+    </div>
+    <div class="navbar-collapse collapse" id="navbar">
+      <ul class="nav navbar-nav">
+        <li><a href="#sec1">Our Mission</a></li>
+        <li><a href="#sec2">Rules</a></li>
+        <li><a href="#sec3">About us</a></li>
+        <li><a href="#sec4">Contact</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><%= link_to "Log in", new_user_session_url %></li>
+        <li><%= link_to "Sign up", new_user_registration_url %></li>
+      </ul>
+    </div>
+   </div>
+</div>
+
+<div class="header alt vert">
+  <div class="container">
+    <%= yield %>
+  </div>
+</div>
+
+<hr>
+
+<div id="sec1" class="blurb">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-7">
+        <h1>Our Mission</h1>
+        <ul class="lead">
+					<li>Very important and inspiring stuff</li>
+					<li>Very important and inspiring stuff</li>
+					<li>Very important and inspiring stuff</li>
+					<li>Very important and inspiring stuff</li>
+					<li>Very important and inspiring stuff</li>
+					<li>Very important and inspiring stuff</li>
+				</ul>
+        <p class="lead">Very important and inspiring stuff</p>
+      </div>
+      <div class="col-md-5">
+        <h1 class="pull-right"><i class="icon-mobile-phone icon-3x"></i> <i class="icon-tablet icon-3x"></i> <i class="icon-laptop icon-3x"></i></h1>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="featurette" id="sec2">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12 text-center">
+        <h1>Rules</h1>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2 col-md-offset-2 text-center">
+        <div class="featurette-item">
+          <i class="icon-rocket"></i>
+          <h4>Rule 1</h4>
+          <p>Lorem ipsum dolor sit amet, libero quis, ligula mollis aenean a quam non nec, nisl iaculis mi pulvinar sapien praesent, a ut in consectetuer amet, phasellus consectetuer molestie molestie mauris arcu consequat.</p>
+        </div>
+      </div>
+      <div class="col-md-2 text-center">
+        <div class="featurette-item">
+          <i class="icon-magnet"></i>
+          <h4>Rule 2</h4>
+          <p>Lorem ipsum dolor sit amet, libero quis, ligula mollis aenean a quam non nec, nisl iaculis mi pulvinar sapien praesent, a ut in consectetuer amet, phasellus consectetuer molestie molestie mauris arcu consequat.</p>
+        </div>
+      </div>
+      <div class="col-md-2 text-center">
+        <div class="featurette-item">
+          <i class="icon-shield"></i>
+          <h4>Rule 3</h4>
+          <p>Lorem ipsum dolor sit amet, libero quis, ligula mollis aenean a quam non nec, nisl iaculis mi pulvinar sapien praesent, a ut in consectetuer amet, phasellus consectetuer molestie molestie mauris arcu consequat.</p>
+        </div>
+      </div>
+      <div class="col-md-2 text-center">
+        <div class="featurette-item">
+          <i class="icon-pencil"></i>
+          <h4>Rule 4</h4>
+          <p>Lorem ipsum dolor sit amet, libero quis, ligula mollis aenean a quam non nec, nisl iaculis mi pulvinar sapien praesent, a ut in consectetuer amet, phasellus consectetuer molestie molestie mauris arcu consequat.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="callout" id="sec3">
+  <div class="vert">
+    <div class="col-md-12 text-center"><h2>About Us</h2></div>
+    <div class="col-md-12 text-center">&nbsp;</div>
+    <div class="col-md-8 col-md-offset-2 text-justify">
+      <div class="row hidden-xs">
+       <div class="col-sm-2"><img class="img-circle grayscale" src="http://api.randomuser.me/portraits/thumb/men/12.jpg"></div>
+       <p class="col-sm-8 lead">Lorem ipsum dolor sit amet, vulputate morbi aliquam diam placerat, ac imperdiet, sed libero fermentum. Auctor nunc suscipit tristique sed urna. Numquam semper id purus occaecat rhoncus placerat, pellentesque adipiscing sed, cras accumsan, justo nam eu, pellentesque erat metus scelerisque vitae. <br/> Ac ornare sed egestas nunc at. Luctus aliquam mauris tempor, feugiat montes justo eget faucibus, vivamus mi interdum sem mollis. Varius erat urna sed egestas felis condimentum. Vel pretium sed in est, nec est cras per et class.</p> 
+       <div class="col-sm-2"><img class="img-circle grayscale" src="http://api.randomuser.me/portraits/thumb/men/18.jpg"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="blurb bright" id="sec4">
+  
+  <div class="row">
+      <div class="col-md-6 col-md-offset-3 text-center">
+        <h3>Contact us</h3>
+        <br>
+      </div>
+  </div>
+  
+  <div class="row">
+    <div class="col-sm-4 col-sm-offset-4">
+         <div class="panel panel-default">
+         <div class="panel-heading text-center"><h2><i class="icon-chevron-left"></i>Zoar Kazablist</h2></div>
+         <div class="panel-body text-center">
+					 <ul class="text-justify">
+						 <li>Address Line</li>
+						 <li>Address Line</li>
+						 <li>Address Line</li>
+						 <li>Email</li>
+						 <li>Facebook</li>
+						 <li>Twitter</li>
+					 </ul>
+         </div>
+         </div>
+  </div>
+</div>
+
+<footer>
+	<div class="container">
+		<div class="row">
+			<p>Copyright PhyKings ©2015</p>
+		</div>
+	</div>
+</footer>
+
+<ul class="nav pull-right scroll-down">
+  <li><a href="#" title="Scroll down"><i class="glyphicon glyphicon-chevron-down icon-3x"></i></a></li>
+</ul>
+<ul class="nav pull-right scroll-top">
+  <li><a href="#" title="Scroll to top"><i class="glyphicon glyphicon-chevron-up icon-3x"></i></a></li>
+</ul>

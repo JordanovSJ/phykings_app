@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>PhykingsApp</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+  
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+     tex2jax: {
+       inlineMath: [ ['$','$'], ['\\(','\\)'] ],
+       processEscapes: true
+     }
+    });
+	</script>
+  <%= mathjax_tag %>
+  
+  <%= render 'layouts/shim' %>
+</head>
+
+<body>
+	
+	<% if user_signed_in? %>
+		
+			<div class="container col-sm-12">
+				
+				<div id="wrapper">
+					<% flash.each do |message_type, message| %>
+						<div class="flash alert alert-<%= message_type %>">
+							<%= message %>
+							<a href="#" data-dismiss="alert" class="close">×</a>
+						</div>
+					<% end %>
+				
+					<%= render 'layouts/logged_in/header' %>
+					<%= render 'layouts/logged_in' %>
+
+				</div>
+			</div>
+			
+		<%= render 'layouts/footer' %>
+	 
+	<% else %>
+		<%= render 'layouts/front_page' %>
+	<% end %>
+
+
+</body>
+
+</html>

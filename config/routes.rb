@@ -3,13 +3,24 @@ Rails.application.routes.draw do
 	# omniauth callback.
   devise_for :users, :controllers => { :omniauth_callbacks => "omniauth_callbacks" }
   
+  mathjax 'mathjax'
   
+  get "static_pages/click_home"
+  get "static_pages/click_competition"
+  get "static_pages/click_p_and_s"
+  get "static_pages/click_help"
+  
+  resources :users, only: [:show] do
+		collection do
+			get "show_stats"
+			get "my_problems"
+		end
+	end
 
   root 'static_pages#home'
-	get 'static_pages/front_page_text'
 	
 	resources :problems 
+
 	resources :solutions 
-  
   
 end

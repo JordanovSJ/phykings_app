@@ -1,0 +1,20 @@
+<div class="container-fluid">
+      
+  <div class="row row-offcanvas row-offcanvas-left">
+      
+<!-- Sidebar -->
+		<div class="col-sm-3 col-md-2 sidebar-offcanvas" id="sidebar" role="navigation">
+			<% if session[:sidebar] %>
+				<%= render "layouts/logged_in/sidebar_#{session[:sidebar]}" %>
+			<% else %>
+				<%= render "layouts/logged_in/sidebar_profile" %>
+			<% end %>
+    </div>
+    
+<!-- Main area -->
+		<div class="col-sm-9 col-md-10 main" id="main-area">
+			<%= render 'layouts/logged_in/main' %> 
+		</div>
+	
+	</div>
+</div><!--/.container-->

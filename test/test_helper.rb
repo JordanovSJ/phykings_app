@@ -5,7 +5,6 @@ require "minitest/reporters"
 require "test_helper"
 require "capybara/rails"
 Minitest::Reporters.use!
-# Make the Capybara DSL available in all integration tests
 
 class ActiveSupport::TestCase
 	include Capybara::DSL

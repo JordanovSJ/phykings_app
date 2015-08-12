@@ -1,0 +1,32 @@
+<h1 class="page-header">
+	My Problems
+</h1>
+
+<table>
+	<thead>
+		<tr>
+			<th>Submitted</th>
+			<th>Title</th>
+			<th>Category</th>
+			<th>Length</th>
+			<th>Difficulty</th>
+			<th>Rating</th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @my_problems.each do |prob| %>
+			<tr>
+				<td>
+					<%= Date.strptime(
+								prob.created_at.to_s,
+								"%Y-%m-%d %H:%M:%S %Z"
+							).strftime("%d/%m/%Y") %>
+				</td>
+				<td><%= prob.title %></td>
+				<td>prob.category</td>
+				<td>prob.length</td>
+				<td>prob.rating</td>
+			</tr>
+		<% end %>
+	</tbody>
+</table>

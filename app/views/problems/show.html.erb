@@ -1,0 +1,33 @@
+<div class="page-header">
+	<h1>
+		<%= @problem.title %>
+	</h1>
+
+	<% if @problem.creator.present? %>
+		<p> 
+			by <%= @problem.creator.first_name + " " + @problem.creator.last_name %>,
+			<%= time_ago_in_words(@problem.created_at) %> ago
+			<% if current_user==(@problem.creator) || current_user.admin? %>
+				<%= link_to "Edit", edit_problem_path(@problem), class: "btn btn-xs btn-warning"  %>
+				<%= link_to "Delete", @problem, method: :delete, 
+						data: { confirm: "You sure?" }, class: "btn btn-xs btn-danger" %>
+			<% end %>
+		</p>
+	<% end %>
+</div>
+
+<div class="jumbotron container-fluid">
+	<div class="col-sm-12">
+			<p class="problem-content"><%= @problem.content %></p>
+			<p class="label label-default"> Answer: <%= @problem.answer  %></p>
+	</div>
+</div>
+
+<div class="panel panel-default">
+  <div class="panel-body">
+    People who have seen this problem: 
+    <% @problem.viewers.each do |s| %>
+			<%= s.first_name %> <%= s.last_name %>,
+		<% end %>
+  </div>
+</div>
