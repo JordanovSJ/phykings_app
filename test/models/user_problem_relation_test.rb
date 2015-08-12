@@ -4,7 +4,7 @@ class UserProblemRelationTest < ActiveSupport::TestCase
 
 	def setup
 		@user=users(:go6o)
-		@problem=problems(:one)
+		@problem=problems(:problem2_by_user1)
 		@user_problem_relation=UserProblemRelation.new(viewer_id: @user.id,
 														seen_problem_id: @problem.id)
 	end

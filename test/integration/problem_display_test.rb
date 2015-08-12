@@ -3,7 +3,7 @@ require 'test_helper'
 class ProblemDisplayTest	< ActionDispatch::IntegrationTest
 	
 	def setup
-		@problem=problems(:one)
+		@problem=problems(:problem1_by_user1)
 		@user=users(:go6o)
 	end
 	
@@ -38,11 +38,11 @@ class ProblemDisplayTest	< ActionDispatch::IntegrationTest
 	
 	test "user that has no relation to a problem cannot see/edit/delete that problem" do
 		sign_in_as(@user)	
-		get problem_path(problems(:two))
+		get problem_path(problems(:problem1_by_user2))
 		follow_redirect!
 		assert_template 'static_pages/home'
 		assert_not flash.empty?
-		get edit_problem_path(problems(:two))
+		get edit_problem_path(problems(:problem1_by_user2))
 		follow_redirect!
 		assert_template 'static_pages/home'
 		assert_not flash.empty?			

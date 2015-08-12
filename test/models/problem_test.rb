@@ -2,7 +2,7 @@ require 'test_helper'
 
 class ProblemTest < ActiveSupport::TestCase
 	def setup
-		@problem=problems(:one)
+		@problem=problems(:problem1_by_user1)
 	end
 	
 	test "problem must be valid" do
@@ -30,7 +30,7 @@ class ProblemTest < ActiveSupport::TestCase
 	end
 
   test "order should be most recent first" do
-    assert_equal problems(:three), Problem.first
+    assert_equal problems(:problem2_by_user1), Problem.first
   end
 
 end
