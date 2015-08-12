@@ -5,13 +5,29 @@ class ProblemsControllersTest	< ActionDispatch::IntegrationTest
 		
 		def setup
 			@user=users(:go6o)
-			@problem=problems(:two)
-			@custom_problem=@user.uploaded_problems.create!(content: "content", 
-																											title: "title" ,answer: 42)
+			@problem=problems(:problem1_by_user2)
+			@custom_problem=@user.uploaded_problems.create!(content: "neko + sa6o", 
+																											title: "love", 
+																											answer: 42, 
+																											degree_of_answer: 10, 
+																											units_of_answer: "nenkos", 
+																											category: "Electromagnetism",
+																											difficulty: 10,
+																											length: 60)
+			
+			@params={ content: "neko + sa6o", 
+							title: "love", 
+							answer: 42, 
+							degree_of_answer: 10, 
+							units_of_answer: "nenkos", 
+							category: "Electromagnetism",
+							difficulty: 10,
+							length: 60}
 		end
+		
 	test "should redirect destroy when not signed in" do
     assert_no_difference 'Problem.count' do
-      delete problem_path(problems(:two).id)
+      delete problem_path(problems(:problem1_by_user2).id)
     end
     assert_redirected_to new_user_session_path
   end
@@ -19,7 +35,7 @@ class ProblemsControllersTest	< ActionDispatch::IntegrationTest
 	 test "should redirect destroy for wrong problem" do
     sign_in_as(@user)
     assert_no_difference 'Problem.count' do
-      delete problem_path(problems(:two).id)
+      delete problem_path(problems(:problem1_by_user2).id)
     end
     assert_redirected_to root_path
   end
@@ -27,7 +43,7 @@ class ProblemsControllersTest	< ActionDispatch::IntegrationTest
 	test "should destroy an allowed problem" do
     sign_in_as(@user)
     assert_difference 'Problem.count', -1 do
-      delete problem_path(problems(:one).id)
+      delete problem_path(problems(:problem1_by_user1).id)
     end
     assert_redirected_to root_path
   end
@@ -35,7 +51,7 @@ class ProblemsControllersTest	< ActionDispatch::IntegrationTest
 		#CREATE action tests	
 	test "should redirect create when not logged in" do
     assert_no_difference 'Problem.count' do
-      post problems_path, problem: { content: "neko + sa6o", title: "love", answer: 42 }
+      post problems_path, problem: @params
     end
     assert_redirected_to new_user_session_path
   end
@@ -43,7 +59,7 @@ class ProblemsControllersTest	< ActionDispatch::IntegrationTest
   test "should create problem when logged in" do
     sign_in_as(@user)
     assert_difference 'Problem.count', 1 do
-      post problems_path, problem: { content: "neko + sa6o", title: "love", answer: 42 }
+      post problems_path, problem: @params
     end
     assert_redirected_to problem_path(Problem.find(Problem.count))
   end
@@ -51,7 +67,7 @@ class ProblemsControllersTest	< ActionDispatch::IntegrationTest
 		#update action tests
 	test "should not be allowed to update problem when not logged in" do
 		title=@problem.title
-		patch problem_path(@problem), problem: { content: "neko + sa6o", title: "loveNew", answer: 42 }
+		patch problem_path(@problem), problem: @params
     assert_redirected_to new_user_session_path
     assert_not flash.empty?
     assert title==@problem.title
@@ -60,7 +76,7 @@ class ProblemsControllersTest	< ActionDispatch::IntegrationTest
 	test "should not be allowed to update problem unless creator or admin" do
 		sign_in_as(@user)
 		title=@problem.title
-		patch problem_path(@problem), problem: { content: "neko + sa6o", title: "loveNew", answer: 42 }
+		patch problem_path(@problem), problem: @params
     assert_redirected_to root_path
     assert_not flash.empty?
     assert title==@problem.title
@@ -72,7 +88,7 @@ class ProblemsControllersTest	< ActionDispatch::IntegrationTest
 		@custom_problem=Problem.find(Problem.count)
     assert_redirected_to problem_path(@custom_problem)
     assert_not flash.empty?
-    assert_not "title"==@custom_problem.title
+    assert_not "love"==@custom_problem.title
     assert @custom_problem.title=="newTitle"
   end
 

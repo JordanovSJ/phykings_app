@@ -2,7 +2,7 @@
 
 problem1_by_user1:
   id: 1
-  title:	zada4ata na sa6o alex 
+  title:	title_of_problem1_by_user1 
   content: kolko prusta ima nenko
   answer: 42
   creator_id: 1
@@ -15,7 +15,7 @@ problem1_by_user1:
   
 problem1_by_user2:
   id: 2
-  title:	zada4ata na nenko
+  title:	title_of_problem1_by_user2
   content: kolko prusta nqam nenko
   answer: 24
   degree_of_answer: 2
@@ -28,7 +28,7 @@ problem1_by_user2:
 
 problem2_by_user1:
   id: 3
-  title:	zada4ata na elza
+  title:	title_of_problem2_by_user1
   content: kolko zuba ima elza
   answer: 2442
   degree_of_answer: 2
