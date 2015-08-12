@@ -11,15 +11,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150812104711) do
+ActiveRecord::Schema.define(version: 20150812130804) do
 
   create_table "problems", force: :cascade do |t|
     t.string   "title"
     t.text     "content"
-    t.float    "answer"
+    t.integer  "answer"
     t.integer  "creator_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+    t.integer  "degree_of_answer"
+    t.string   "units_of_answer"
+    t.string   "category"
+    t.integer  "difficulty"
+    t.integer  "length"
   end
 
   add_index "problems", ["creator_id", "created_at"], name: "index_problems_on_creator_id_and_created_at"

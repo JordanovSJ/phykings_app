@@ -1,25 +1,40 @@
 
 
-one:
+problem1_by_user1:
   id: 1
   title:	zada4ata na sa6o alex 
   content: kolko prusta ima nenko
-  answer: 0.0
+  answer: 42
   creator_id: 1
+  degree_of_answer: 1
+  units_of_answer: nenkos
+  category: Optics
+  difficulty: 10
+  length: 30
   created_at: <%= 3.years.ago %>
   
-two:
+problem1_by_user2:
   id: 2
   title:	zada4ata na nenko
   content: kolko prusta nqam nenko
-  answer: 0.0
+  answer: 24
+  degree_of_answer: 2
+  units_of_answer: nenkos
+  category: Electromagnetism
+  difficulty: 10
+  length: 60
   creator_id: 2
   created_at: <%= 5.years.ago %>
 
-three:
+problem2_by_user1:
   id: 3
   title:	zada4ata na elza
   content: kolko zuba ima elza
-  answer: 0.0
+  answer: 2442
+  degree_of_answer: 2
+  units_of_answer: nenkos
+  category: Classical mechanics
+  difficulty: 10
+  length: 60
   creator_id: 1
   created_at: <%= 1.years.ago %>

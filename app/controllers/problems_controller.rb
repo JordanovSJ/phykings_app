@@ -49,7 +49,7 @@ class ProblemsController < ApplicationController
 	private
 	
   def problem_params
-     params.require(:problem).permit(:content, :title, :answer)
+     params.require(:problem).permit(:content, :title, :answer, :degree_of_answer, :units_of_answer, :category, :difficulty, :length)
   end
 		
 		#its used to restrict the acces to the delete and edit action

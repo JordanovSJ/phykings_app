@@ -3,7 +3,7 @@ class CreateProblems < ActiveRecord::Migration
     create_table :problems do |t|
       t.string :title
       t.text :content
-			t.float :answer
+			t.integer :answer
 			t.references :creator, references: :users, index: true, foreign_key: true
       t.timestamps null: false
     end
