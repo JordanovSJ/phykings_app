@@ -2,7 +2,7 @@
 	My Problems
 </h1>
 
-<table>
+<table class="table table-bordered table-hover">
 	<thead>
 		<tr>
 			<th>Submitted</th>
@@ -11,6 +11,7 @@
 			<th>Length</th>
 			<th>Difficulty</th>
 			<th>Rating</th>
+			<th>Action</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -23,9 +24,13 @@
 							).strftime("%d/%m/%Y") %>
 				</td>
 				<td><%= prob.title %></td>
-				<td>prob.category</td>
-				<td>prob.length</td>
-				<td>prob.rating</td>
+				<td><%= prob.category  %></td>
+				<td><%= prob.length %></td>
+				<td><%= prob.difficulty %></td>
+				<td></td>
+				<td>
+					<%= link_to "Edit", "#", class: "btn btn-sm btn-primary" %>
+				</td>
 			</tr>
 		<% end %>
 	</tbody>
