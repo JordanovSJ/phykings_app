@@ -68,6 +68,7 @@ problem4=Problem.create!(
 							creator_id: 2,
 )
 
+
 relation1=UserProblemRelation.create!(
 							viewer_id: 1,
 							seen_problem_id: 1,

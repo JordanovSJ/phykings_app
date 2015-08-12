@@ -63,8 +63,9 @@ class ProblemsController < ApplicationController
 		#it is used to restrict the access to the show action
 	def can_see_problem
 	#need to fix this after add type to user_problem_relations
-		unless Problem.find(params[:id]).viewers.include?(current_user) || 
+		unless current_user.relation_of(Problem.find(params[:id])).present? || 
 					current_user==Problem.find(params[:id]).creator #|| current_user.admin?
+					
 			flash[:danger] = "You are not allowed to see this problem"
       redirect_to root_path
 		end

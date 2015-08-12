@@ -1,10 +1,12 @@
 class SolutionsController < ApplicationController
 	before_action :logged_in_user
-	before_action :current_problem , only: [:new]  # add create ??#consider change name
-	before_action :has_no_solution_do, only: [:create, :new]
-	before_action :has_solution_do, only: [:edit, :update, :delete] #delete?	
-	#add this when finish valid relation
-	#before_action :permitted_to_submit_solution, only: [:create, :new]
+	before_action :current_problem_nil , only: [:new, :create]
+	before_action :permitted_to_submit_solution, only: [:create, :new]
+	before_action :has_solution, only: [:create, :new]
+	before_action :permitted_to_see_solution, only: [:show]
+	before_action :permitted_to_change_delete_solution, only: [:edit, :update, :destroy]
+
+
 	
 	def show
 		@solution=Solution.find(params[:id])
@@ -32,9 +34,21 @@ class SolutionsController < ApplicationController
 	end
 	
 	def update
+		  @solution = Solution.find(params[:id])
+    if @solution.update_attributes(solution_params)
+      flash[:success] = "Solution updated"
+      redirect_to @solution
+    else
+      render 'edit'
+    end
 	end
 	
 	def destroy
+		solution=Solution.find(params[:id])
+		solution.user_problem_relation.update_attributes(provided_with_solution: false)
+		solution.destroy
+    flash[:success] = "Solution deleted"
+    redirect_to root_path #previous location
 	end
 	
 	private
@@ -46,65 +60,85 @@ class SolutionsController < ApplicationController
   #returns user_problem_relation if one already exists or create a new one
   def current_relation
 		if current_user.seen_problems.include?(current_problem)
-			relation=current_user.user_problem_relations.find_by(seen_problem_id: current_problem.id)
-			#relation.update_attributes(provided_with_solution: true)
+			relation=current_user.relation_of(current_problem) 
 		else 
-			relation=current_user.user_problem_relations.create!(seen_problem_id: current_problem.id, 
-																														provided_with_solution: true)
+			relation=current_user.user_problem_relations.create!(seen_problem_id: current_problem.id)
 		end
 		return relation
   end
   
   #obviously returns true if the current user has submitted solution for the problem
-  def has_solution? #need fix
-		if current_user.user_problem_relations.find_by(seen_problem_id: current_problem.id).nil?
-			return false
-		else
-			current_user.user_problem_relations.find_by(seen_problem_id: current_problem.id).provided_with_solution
-		end
-  end
-  
-  #check if the problem has already a solution and if yes redirects to edit instead
-  def has_no_solution_do # && !current_user.admin?
-		if has_solution?			
+  def has_solution
+		if !current_user.relation_of(current_problem).nil? && current_user.relation_of(current_problem).provided_with_solution           
 			flash[:danger] = "You have alreadu submitted solution for this problem!"
-			solution_id=current_user.user_problem_relations.find_by(seen_problem_id: current_problem.id).solution.id #add mehtod current_solution
+			solution_id=current_user.solution_of(current_problem).id														
 			redirect_to  :controller => 'solutions', :action => 'edit', :id => solution_id , :problem_id => params[:problem_id] #!!!!!!!!!!!!!!
 		end
-	end
-	
-  #check if the problem has already a solution and if no redirects to new instead
-	def has_solution_do
-		if !has_solution? # && !current_user.admin?
-			redirect_to  :controller => 'solutions', :action => 'new', :problem_id => params[:problem_id] #not tested
-		end
-	end
+  end
+
 	
 	#obvious
 	def current_problem #TODO replace with this method wherevere u see Problem.find(params[:problem_id]
-		if !params[:problem_id].nil?
 			@current_problem=Problem.find(params[:problem_id])
-		else
+	end
+	
+	#obvious
+	def current_problem_nil
+		if 	params[:problem_id].nil?
 			flash[:danger] = "Problem not found"
-			redirect_to root_path
-			
+			redirect_to root_path		
 		end
 	end
 	
-	#TODO in distant future
-	#check if the user is allowed to submit solution
-	#only a user that has participated in premium competition or has submitted a solution immidiately after a free competition is allowed to do stuff here
-	#need to add some attribute relation to determine if user has just finished competition
-	def valid_relation
+	
+
+	#does a relation allows a user to create a solution
+	def valid_relation_new_create
 		
+		if current_user.relation_of(current_problem).present?
+			relation=current_relation
+			return (relation.attempted_during_free || relation.attempted_during_premium) #&& !relation.provided_with_solution?
+		end
+		
+		return false
 	end
 	
-	#Finish in future
+	#check if the user is allowed to submit solution
+	#before action method for new and create only
 	def permitted_to_submit_solution
-		unless current_problem.solutions.count==0 || current_user==current_problem.creator # || current_user.admin? || valid_relation
+		unless current_problem.solutions.count==0 || current_user==current_problem.creator || valid_relation_new_create # || current_user.admin? 
 			flash[:danger] = "You are not allowed to submitted a solution of this problem becauese of some reason?!?!"
 			redirect_to root_path
 		end
+	end
+	
+	
+	#does a relation allows a user to see a solution
+	def valid_relation_show
+		if current_user.relation_of(Solution.find(params[:id]).problem).present?
+			relation=current_user.relation_of(Solution.find(params[:id]).problem)
+			return relation.attempted_during_premium || relation.can_see_solution || relation.provided_with_solution
+		end
+		
+		return false
+	end
+	
+	#check if the user is allowed to see solution
+	#before action method for show only	
+	def permitted_to_see_solution
+		unless current_user==Solution.find(params[:id]).problem.creator || valid_relation_show #|| current_user.admin?
+			flash[:danger] = "You are not allowed to see this solution!!!"
+			redirect_to root_path
+		end
+	end
+	
+	
+
+	def permitted_to_change_delete_solution
+		unless current_user==Solution.find(params[:id]).user #|| current_user.admin?
+			flash[:danger] = "You are not allowed to change/delete this solution!!!"
+			redirect_to root_path
+		end		
 	end
 end
 

@@ -5,10 +5,7 @@ class User < ActiveRecord::Base
 	#this has_many association is responsible for attempted, 
 	#solved and problems provided with solutions
 	has_many :user_problem_relations,:foreign_key => 'viewer_id' #,:dependent => :destroy						
-	has_many :seen_problems, :through => :user_problem_relations 
-	
-	
-		#trial						
+	has_many :seen_problems, :through => :user_problem_relations 					
 	has_many :solutions, :through => :user_problem_relations 
 						
 	#methods
@@ -20,7 +17,12 @@ class User < ActiveRecord::Base
 		end
 	end
 	
-
+	#returns the relation between user and problem 
+	def relation_of(problem)
+		if self.seen_problems.include?(problem)
+			return self.user_problem_relations.find_by(seen_problem_id: problem.id)
+		end
+	end
 
 
 

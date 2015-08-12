@@ -9,8 +9,8 @@
 				<%= f.label :degree_of_answer %>
 				<%= f.number_field :answer, class: 'form-control' %>
 				
-				<%= f.label :answer %>
-				<%= f.number_field :units_of_answer, class: 'form-control' %>
+				<%= f.label :units_of_answer %>
+				<%= f.text_area :units_of_answer, class: 'form-control' %>
 
       <%= f.submit "Save changes", class: "btn btn-primary" %>
 <% end %>

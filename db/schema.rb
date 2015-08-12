@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150811172406) do
+ActiveRecord::Schema.define(version: 20150812104711) do
 
   create_table "problems", force: :cascade do |t|
     t.string   "title"
@@ -49,6 +49,7 @@ ActiveRecord::Schema.define(version: 20150811172406) do
     t.boolean  "solved_during_free",       default: false
     t.boolean  "solved_during_premium",    default: false
     t.boolean  "provided_with_solution",   default: false
+    t.boolean  "can_see_solution",         default: false
   end
 
   add_index "user_problem_relations", ["seen_problem_id"], name: "index_user_problem_relations_on_seen_problem_id"

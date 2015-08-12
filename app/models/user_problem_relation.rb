@@ -9,6 +9,8 @@ class UserProblemRelation < ActiveRecord::Base
 	
 	private
 	
-
+	def at_least_one_true
+		
+	end
 	
 end
