@@ -19,4 +19,47 @@ class ActiveSupport::TestCase
 		'user[email]' => user.email, 'user[password]' => "password" 
   end
  
+ 
+	def get_custom_problem(user)
+		user.uploaded_problems.create!(content: "custom_problem_content", 
+																											title: "custom_problem_title", 
+																											answer: 42, 
+																											degree_of_answer: 10, 
+																											units_of_answer: "nenkos", 
+																											category: "Electromagnetism",
+																											difficulty: 10,
+																											length: 60)
+	end
+	
+	def get_custom_relation(user,problem)
+		user.user_problem_relations.create!(seen_problem_id: problem.id)
+	end
+	
+	def get_custom_solution(relation)
+		relation.update_attributes(provided_with_solution: true)
+		
+		Solution.create!(user_problem_relation_id: relation.id, 
+										content: "custom_solution_content",
+										answer: 42, 
+										degree_of_answer: 10)
+										
+		#return solution								
+	end
+	
+	def get_params_for_problem
+		params={ content: "params_problem_content", 
+							title: "params_problem_title", 
+							answer: 42, 
+							degree_of_answer: 10, 
+							units_of_answer: "nenkos", 
+							category: "Electromagnetism",
+							difficulty: 10,
+							length: 60}
+	end
+	
+	def get_params_for_solution
+		params={ content: "params_solution_content", 
+								answer: 42, 
+								degree_of_answer: 10}
+	end
 end

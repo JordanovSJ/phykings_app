@@ -1,8 +1,9 @@
 class SolutionsController < ApplicationController
 	before_action :logged_in_user
 	before_action :current_problem_nil , only: [:new, :create]
-	before_action :permitted_to_submit_solution, only: [:create, :new]
 	before_action :has_solution, only: [:create, :new]
+	before_action :permitted_to_submit_solution, only: [:create, :new]
+	
 	before_action :permitted_to_see_solution, only: [:show]
 	before_action :permitted_to_change_delete_solution, only: [:edit, :update, :destroy]
 
@@ -54,7 +55,7 @@ class SolutionsController < ApplicationController
 	private
 	
 	def solution_params
-     params.require(:solution).permit(:content, :degree_of_answer, :units_of_answer, :answer)
+     params.require(:solution).permit(:content, :degree_of_answer, :answer)
   end
   
   #returns user_problem_relation if one already exists or create a new one
@@ -92,21 +93,21 @@ class SolutionsController < ApplicationController
 	
 	
 
-	#does a relation allows a user to create a solution
-	def valid_relation_new_create
-		
-		if current_user.relation_of(current_problem).present?
-			relation=current_relation
-			return (relation.attempted_during_free || relation.attempted_during_premium) #&& !relation.provided_with_solution?
-		end
-		
-		return false
-	end
+	#~ #does a relation allows a user to create a solution
+	#~ def valid_relation_new_create
+		#~ 
+		#~ if current_user.relation_of(current_problem).present?
+			#~ relation=current_relation
+			#~ return (relation.attempted_during_free || relation.attempted_during_premium) #&& !relation.provided_with_solution?
+		#~ end
+		#~ 
+		#~ return false
+	#~ end
 	
 	#check if the user is allowed to submit solution
 	#before action method for new and create only
 	def permitted_to_submit_solution
-		unless current_problem.solutions.count==0 || current_user==current_problem.creator || valid_relation_new_create # || current_user.admin? 
+		unless current_problem.solutions.count==0 || current_user==current_problem.creator || current_user.relation_of(current_problem).present?#valid_relation_new_create # || current_user.admin? 
 			flash[:danger] = "You are not allowed to submitted a solution of this problem becauese of some reason?!?!"
 			redirect_to root_path
 		end

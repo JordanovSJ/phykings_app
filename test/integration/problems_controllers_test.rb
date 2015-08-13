@@ -15,14 +15,8 @@ class ProblemsControllersTest	< ActionDispatch::IntegrationTest
 																											difficulty: 10,
 																											length: 60)
 			
-			@params={ content: "neko + sa6o", 
-							title: "love", 
-							answer: 42, 
-							degree_of_answer: 10, 
-							units_of_answer: "nenkos", 
-							category: "Electromagnetism",
-							difficulty: 10,
-							length: 60}
+			@params=get_params_for_problem
+			
 		end
 		
 	test "should redirect destroy when not signed in" do

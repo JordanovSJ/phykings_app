@@ -19,4 +19,9 @@ class UserProblemRelationTest < ActiveSupport::TestCase
 		assert_not @user_problem_relation.valid?
 	end
 	
+	test "viewer_id may not be present" do
+		@user_problem_relation.viewer_id=nil
+		assert @user_problem_relation.valid?
+	end
+	
 end
