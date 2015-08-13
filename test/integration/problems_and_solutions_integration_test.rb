@@ -13,6 +13,70 @@ class ProblemsAndSolutionsIntegrationsTest < ActionDispatch::IntegrationTest
 		@solution_params=get_params_for_solution
 	end
 	
+	test "signed_out user cannot access problems" do
+		get new_problem_path
+		follow_redirect!
+		assert_template 'devise/sessions/new'
+		assert_not flash.empty?
+		get problem_path(@problem)
+		follow_redirect!
+		assert_template 'devise/sessions/new'
+		assert_not flash.empty?
+		get edit_problem_path(@problem)
+		follow_redirect!
+		assert_template 'devise/sessions/new'
+		assert_not flash.empty?		
+	end
+	
+	test "user that has no relation to a problem cann see but cannot edit/delete that problem when the problem has no solution" do
+		sign_in_as(@user1)	
+		@relation.destroy
+		get problem_path(problems(:problem1_by_user2))
+		assert_template 'problems/show'
+		get edit_problem_path(problems(:problem1_by_user2))
+		follow_redirect!
+		assert_template 'static_pages/home'
+		assert_not flash.empty?			
+	end
+	
+	test "user that has no relation to a problem cannot see that problem if that problem has solution" do
+		sign_in_as(@user3)	
+		get problem_path(@problem)
+		follow_redirect!
+		assert_template 'static_pages/home'
+		assert_not flash.empty?	
+	end
+	
+	
+		test "signed_out user cannot access solutions actions" do
+		get new_solution_path
+		follow_redirect!
+		assert_template 'devise/sessions/new'
+		assert_match "Please log in" , response.body
+		assert_not flash.empty? 
+		get solution_path(@solution)
+		follow_redirect!
+		assert_template 'devise/sessions/new'
+		assert_not flash.empty?
+		get edit_solution_path(@solution)
+		follow_redirect!
+		assert_template 'devise/sessions/new'
+		assert_not flash.empty?		
+	end
+	
+	test "user that has no relation to a solution cannot see/edit/delete that problem" do
+		sign_in_as(@user3)	
+		get solution_path(@solution)
+		follow_redirect!
+		assert_not flash.empty?		
+		assert_template 'static_pages/home'
+		assert_match "You are not allowed to see this solution!!!" , response.body
+		get edit_solution_path(@solution)
+		follow_redirect!
+		assert_template 'static_pages/home'
+		assert_not flash.empty?			
+	end
+	
 	test "once you have submitted a valid solution you can delete it and then still be able to upload a new one" do
 		@solution.destroy
 		sign_in_as(@user3)

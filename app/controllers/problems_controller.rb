@@ -64,7 +64,7 @@ class ProblemsController < ApplicationController
 	def can_see_problem
 	#need to fix this after add type to user_problem_relations
 		unless current_user.relation_of(Problem.find(params[:id])).present? || 
-					current_user==Problem.find(params[:id]).creator #|| current_user.admin?
+					current_user==Problem.find(params[:id]).creator || Problem.find(params[:id]).solutions.count==0#|| current_user.admin?
 					
 			flash[:danger] = "You are not allowed to see this problem"
       redirect_to root_path
