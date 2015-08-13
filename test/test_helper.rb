@@ -41,8 +41,7 @@ class ActiveSupport::TestCase
 		Solution.create!(user_problem_relation_id: relation.id, 
 										content: "custom_solution_content",
 										answer: 42, 
-										degree_of_answer: 10, 
-										units_of_answer: "nenkos")
+										degree_of_answer: 10)
 										
 		#return solution								
 	end
@@ -61,7 +60,6 @@ class ActiveSupport::TestCase
 	def get_params_for_solution
 		params={ content: "params_solution_content", 
 								answer: 42, 
-								degree_of_answer: 10, 
-								units_of_answer: "nenkos"}
+								degree_of_answer: 10}
 	end
 end

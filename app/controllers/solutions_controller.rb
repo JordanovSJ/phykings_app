@@ -55,7 +55,7 @@ class SolutionsController < ApplicationController
 	private
 	
 	def solution_params
-     params.require(:solution).permit(:content, :degree_of_answer, :units_of_answer, :answer)
+     params.require(:solution).permit(:content, :degree_of_answer, :answer)
   end
   
   #returns user_problem_relation if one already exists or create a new one

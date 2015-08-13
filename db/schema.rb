@@ -37,7 +37,6 @@ ActiveRecord::Schema.define(version: 20150812130804) do
     t.datetime "updated_at",               null: false
     t.integer  "answer"
     t.integer  "degree_of_answer"
-    t.string   "units_of_answer"
   end
 
   add_index "solutions", ["user_problem_relation_id", "created_at"], name: "index_solutions_on_user_problem_relation_id_and_created_at"

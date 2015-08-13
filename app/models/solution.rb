@@ -7,7 +7,7 @@ class Solution < ActiveRecord::Base
 	validates :user_problem_relation_id, presence: true
 	validates :answer, presence: true
 	validates :degree_of_answer, presence: true
-	validates :units_of_answer, presence: true
+	#validates :units_of_answer, presence: true
 	#methods
 	
 	#additional names for convieniencee

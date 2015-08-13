@@ -3,7 +3,7 @@ require 'test_helper'
 class SolutionTest < ActiveSupport::TestCase
 	def setup 
 		@solution=Solution.new(content: "content", user_problem_relation_id: 1,
-														answer: 42, degree_of_answer: 42, units_of_answer: "MV")
+														answer: 42, degree_of_answer: 42)
 	end
 	
 	test "solution should be valid" do
