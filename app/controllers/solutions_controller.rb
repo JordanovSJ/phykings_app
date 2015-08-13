@@ -1,8 +1,9 @@
 class SolutionsController < ApplicationController
 	before_action :logged_in_user
 	before_action :current_problem_nil , only: [:new, :create]
-	before_action :permitted_to_submit_solution, only: [:create, :new]
 	before_action :has_solution, only: [:create, :new]
+	before_action :permitted_to_submit_solution, only: [:create, :new]
+	
 	before_action :permitted_to_see_solution, only: [:show]
 	before_action :permitted_to_change_delete_solution, only: [:edit, :update, :destroy]
 

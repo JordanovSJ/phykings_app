@@ -90,27 +90,27 @@ problem4=Problem.create!(
 )
 
 
-relation1=UserProblemRelation.create!(
-							viewer_id: 1,
-							seen_problem_id: 1,
-)
-
-relation2=UserProblemRelation.create!(
-							viewer_id: 1,
-							seen_problem_id: 3,
-)
-
-
-relation3=UserProblemRelation.create!(
-							viewer_id: 2,
-							seen_problem_id: 1,
-)
-
-
-solution1=Solution.create!(
-						content: "solution of problem 3 by user 1",
-						user_problem_relation_id: 2,
-						answer: 42,
-						degree_of_answer: 1,
-						units_of_answer: "lols",
-)
+#~ relation1=UserProblemRelation.create!(
+							#~ viewer_id: 1,
+							#~ seen_problem_id: 1,
+#~ )
+#~ 
+#~ relation2=UserProblemRelation.create!(
+							#~ viewer_id: 1,
+							#~ seen_problem_id: 3,
+#~ )
+#~ 
+#~ 
+#~ relation3=UserProblemRelation.create!(
+							#~ viewer_id: 2,
+							#~ seen_problem_id: 1,
+#~ )
+#~ 
+#~ 
+#~ solution1=Solution.create!(
+						#~ content: "solution of problem 3 by user 1",
+						#~ user_problem_relation_id: 2,
+						#~ answer: 42,
+						#~ degree_of_answer: 1,
+						#~ units_of_answer: "lols",
+#~ )

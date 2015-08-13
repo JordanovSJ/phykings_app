@@ -8,15 +8,6 @@
 #~ two: {}
 #  column: value
 
-ivan:
-  id: 3
-  email: ivan@lampi.com
-  first_name: Haralampi
-  last_name: Popov
-  age: 18
-  country: Bulgaria
-  encrypted_password: <%= Devise::Encryptor.digest(User, "foobar00") %>
-  confirmed_at: <%= Time.zone.now %>
 
 go6o:
   id: 1
@@ -32,6 +23,26 @@ pe6o:
   id: 2
   email: pe6o1@lampi.com
   first_name: pe6o
+  last_name: Popov
+  age: 18
+  country: Bulgaria
+  encrypted_password: <%= Devise::Encryptor.digest(User, "password") %>
+  confirmed_at:  <%= Time.zone.now %>
+
+ivan:
+  id: 3
+  email: ivan@lampi.com
+  first_name: Haralampi
+  last_name: Popov
+  age: 18
+  country: Bulgaria
+  encrypted_password: <%= Devise::Encryptor.digest(User, "foobar00") %>
+  confirmed_at: <%= Time.zone.now %>
+
+stamat:
+  id: 4
+  email: stamat@lampi.com
+  first_name: stamat
   last_name: Popov
   age: 18
   country: Bulgaria
