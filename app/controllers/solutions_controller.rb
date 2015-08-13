@@ -9,6 +9,10 @@ class SolutionsController < ApplicationController
 
 
 	
+	def index
+	
+	end
+	
 	def show
 		@solution=Solution.find(params[:id])
 	end

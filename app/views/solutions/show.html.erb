@@ -1,5 +1,35 @@
-Solution of <%= @solution.problem.title %> by <%= @solution.user.first_name %>
-<p> <%= @solution.content %></p>
-<p>Answer: <%=  @solution.answer %>.10^<%= @solution.degree_of_answer %> </p> 
- <%= link_to "delete", @solution, method: :delete,
-                                       data: { confirm: "You sure?" } %>
+<div class="page-header">
+	<h1>
+		Solution of "<%= @solution.problem.title %>"
+	</h1>
+
+	<% if @solution.user.present? %>
+		<p> 
+			by <%= @solution.user.first_name + " " + @solution.user.last_name %>,
+			<%= time_ago_in_words(@solution.created_at) %> ago
+			<% if current_user==(@solution.user) || current_user.admin? %>
+				<%= link_to "Edit", edit_solution_path(@solution), class: "btn btn-xs btn-warning"  %>
+				<%= link_to "Delete", @solution, method: :delete, 
+						data: { confirm: "You sure?" }, class: "btn btn-xs btn-danger" %>
+			<% end %>
+		</p>
+	<% end %>
+</div>
+
+
+<%= link_to "See Problem", problem_path(@solution.problem), class: "btn btn-sm btn-primary" %>
+<%= link_to "Other Solutions", show_solutions_problems_path(@solution.problem), class: "btn btn-sm btn-primary" %>
+
+<div class="jumbotron container-fluid">
+			<p class="solution-content"><%= @solution.content %></p>
+			<p class="label label-default col-sm-5">Answer: <%= "$ #{@solution.answer} \\times 10^{#{@solution.degree_of_answer}} #{@solution.problem.units_of_answer}$ " %></p>
+			<div class="col-sm-2 col-sm-offset-3">
+				<p class="label label-primary">Length: <%= @solution.problem.length %> min</p>
+			</div>
+			<div class="col-sm-2">
+				<p class="label label-primary">Difficulty: <%= @solution.problem.difficulty %></p>
+			</div>
+			<div class="col-sm-6 col-sm-offset-6 text-right">
+				<p class="label label-info"><%= @solution.problem.category %></p>
+			</div>
+</div>

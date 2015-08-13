@@ -5,8 +5,8 @@
 <ul class="nav nav-sidebar">
 	<li><h3>Problems & Solutions</h3></li>
 	<li><%= link_to "Upload problem", new_problem_path, id: "p_and_s-upload" %></li>	
-	<li><%= link_to "My problems", '#', id: "p_and_s-my_problems" %></li>
-	<li><%= link_to "My solutions", '#', id: "p_and_s-my_solutions" %></li>
-	<li><%= link_to "Past problems", '#', id: "p_and_s-past_problems" %></li>
+	<li><%= link_to "My problems", my_problems_users_path, id: "p_and_s-my_problems" %></li>
+	<li><%= link_to "My solutions", my_solutions_users_path, id: "p_and_s-my_solutions" %></li>
+	<li><%= link_to "Seen problems", seen_problems_users_path, id: "p_and_s-past_problems" %></li>
 	<li><%= link_to "Problems without solutions", '#', id: "p_and_s-problems_without_solutions" %></li>
 </ul>

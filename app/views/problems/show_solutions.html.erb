@@ -1,0 +1,41 @@
+<h1 class="page-header">
+	Solutions of "<%= Problem.find(params[:id]).title %>"
+</h1>
+
+<% unless @solutions.empty? %>
+
+	<table class="table table-bordered table-hover">
+		<thead>
+			<tr>
+				<th>Submitted</th>
+				<th>Solution of</th>
+				<th>Solver</th>
+				<th>Category</th>
+				<th>Length (min)</th>
+				<th>Difficulty</th>
+				<th>Rating</th>
+			</tr>
+		</thead>
+		<tbody>
+			<% @solutions.each do |sol| %>
+				<tr>
+					<td>
+						<%= Date.strptime(
+									sol.created_at.to_s,
+									"%Y-%m-%d %H:%M:%S %Z"
+								).strftime("%d/%m/%Y") %>
+					</td>
+					<td><%= link_to sol.problem.title, solution_path(sol) %></td>
+					<td><%= sol.user.first_name + " " + sol.user.last_name %></td>
+					<td><%= sol.problem.category  %></td>
+					<td><%= sol.problem.length %></td>
+					<td><%= sol.problem.difficulty %></td>
+					<td></td>
+				</tr>
+			<% end %>
+		</tbody>
+	</table>
+	
+<% else %>
+	<p>No solutions yet!</p>
+<% end %>

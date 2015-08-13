@@ -1,6 +1,7 @@
 <div class="page-header">
 	<h1>Submit a solution</h1>
-	<p><strong>To problem:</strong> <%= Problem.find(params[:problem_id]).title %></p>
+	<p><strong>Problem:</strong> 
+	<%= link_to Problem.find(params[:problem_id]).title, problem_path(id: params[:problem_id]) %></p>
 </div>
 
 <%= form_for(@solution) do |f| %>
@@ -24,6 +25,9 @@
 					<%= label_tag :units_of_answer, "Units" %>
 					<p class="form-control">$<%= Problem.find(params[:problem_id]).units_of_answer %>$</p>
 				</div>
+				<p>The format of the answer is $\textbf{value}\times 10^{\textbf{power}} 
+					 <%= Problem.find(params[:problem_id]).units_of_answer %>$.</p>
+					 <p>Please make sure that the entered "Value" and "Power" are integers.</p>
 			</div>
 		</div>
 	</div>

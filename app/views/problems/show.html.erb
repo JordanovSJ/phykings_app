@@ -16,9 +16,21 @@
 	<% end %>
 </div>
 
+	<% unless current_user.relation_of(@problem).nil? %>
+		<% if current_user.relation_of(@problem).provided_with_solution? %>
+			<%= link_to "Your solution", solution_path(current_user.relation_of(@problem).solution), class: "btn btn-sm btn-success"  %>
+		<% else %>
+			<%= link_to "Submit solution", new_solution_path({problem_id: @problem.id}), class: "btn btn-sm btn-success"  %>
+		<% end %>
+	<% else %>
+		<%= link_to "Submit solution", new_solution_path({problem_id: @problem.id}), class: "btn btn-sm btn-success"  %>
+	<% end %>
+	
+	<%= link_to "See Solutions", show_solutions_problems_path(@problem), class: "btn btn-sm btn-primary"  %>
+
 <div class="jumbotron container-fluid">
 			<p class="problem-content"><%= @problem.content %></p>
-			<p class="label label-default col-sm-5">Answer: <%= "$ #{@problem.answer} \\times 10^#{@problem.degree_of_answer.to_s} #{@problem.units_of_answer}$ " %></p>
+			<p class="label label-default col-sm-5">Answer: <%= "$ #{@problem.answer} \\times 10^{#{@problem.degree_of_answer}} #{@problem.units_of_answer}$ " %></p>
 			<div class="col-sm-2 col-sm-offset-3">
 				<p class="label label-primary">Length: <%= @problem.length %> min</p>
 			</div>

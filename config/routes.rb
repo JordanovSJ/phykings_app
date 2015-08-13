@@ -14,13 +14,20 @@ Rails.application.routes.draw do
 		collection do
 			get "show_stats"
 			get "my_problems"
+			get "my_solutions"
+			get "seen_problems"
 		end
 	end
 
   root 'static_pages#home'
 	
-	resources :problems 
+	resources :problems do
+		collection do
+			get ":id/solutions", to: "problems#show_solutions", as: "show_solutions"
+		end
+	end
 
-	resources :solutions 
+	resources :solutions
+		
   
 end

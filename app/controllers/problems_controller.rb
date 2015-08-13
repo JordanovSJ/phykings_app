@@ -47,6 +47,10 @@ class ProblemsController < ApplicationController
     redirect_to root_path #previous location
 	end
 	
+	def show_solutions
+		@solutions = Problem.find(params[:id]).solutions
+	end
+	
 	private
 	
   def problem_params
