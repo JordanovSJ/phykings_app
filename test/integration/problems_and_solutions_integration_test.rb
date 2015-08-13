@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class SolutionsIntegrationsTest < ActionDispatch::IntegrationTest
+class ProblemsAndSolutionsIntegrationsTest < ActionDispatch::IntegrationTest
 
 	def setup	
 		@user1=users(:go6o) # creator of the problem
@@ -33,4 +33,6 @@ class SolutionsIntegrationsTest < ActionDispatch::IntegrationTest
     end  
    assert_redirected_to solution_path(@user3.solution_of(@problem).id)	
   end
+  
+  
 end
