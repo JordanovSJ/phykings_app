@@ -9,7 +9,6 @@ class SolutionsControllersTest < ActionDispatch::IntegrationTest
 		@problem=problems(:problem1_by_user1)
 		@relation=get_custom_relation(@user2,@problem)
 		@solution=get_custom_solution(@relation)
-		#@relation.update_attributes(provided_with_solution: true)
 		@problem_params=get_params_for_problem
 		@solution_params=get_params_for_solution
 	end
@@ -72,11 +71,11 @@ class SolutionsControllersTest < ActionDispatch::IntegrationTest
 		@solution.destroy
 		assert_difference 'Solution.count', 1 do
       post solutions_path, {solution: @solution_params, problem_id: @problem.id }						
-    end
-    
-   assert_redirected_to solution_path(@user3.solution_of(@problem).id)
-		
+    end  
+   assert_redirected_to solution_path(@user3.solution_of(@problem).id)	
   end
+  
+
   
   test "creator of a problem should be able to submit solution if havent done yet" do
     sign_in_as(@user1)	
@@ -87,4 +86,21 @@ class SolutionsControllersTest < ActionDispatch::IntegrationTest
    assert_redirected_to solution_path(@user1.solution_of(@problem).id)
   end
   
+  
+  
+  #edit/update
+  test "authour of a solution can update solution" do
+		sign_in_as(@user2)
+		old_content=@solution.content
+		patch solution_path(@solution), solution: {content: "Updated_content_of_custom_solution" }	
+		assert_not old_content==@user2.solution_of(@problem).content			
+  end
+  
+  
+  test "someone who is not the author of a solution cannot update solution" do
+		sign_in_as(@user1)
+		old_content=@solution.content
+		patch solution_path(@solution), solution: {content: "Updated_content_of_custom_solution" }	
+		assert old_content==@user2.solution_of(@problem).content			
+  end
 end

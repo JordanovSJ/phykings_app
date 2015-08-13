@@ -93,21 +93,21 @@ class SolutionsController < ApplicationController
 	
 	
 
-	#does a relation allows a user to create a solution
-	def valid_relation_new_create
-		
-		if current_user.relation_of(current_problem).present?
-			relation=current_relation
-			return (relation.attempted_during_free || relation.attempted_during_premium) #&& !relation.provided_with_solution?
-		end
-		
-		return false
-	end
+	#~ #does a relation allows a user to create a solution
+	#~ def valid_relation_new_create
+		#~ 
+		#~ if current_user.relation_of(current_problem).present?
+			#~ relation=current_relation
+			#~ return (relation.attempted_during_free || relation.attempted_during_premium) #&& !relation.provided_with_solution?
+		#~ end
+		#~ 
+		#~ return false
+	#~ end
 	
 	#check if the user is allowed to submit solution
 	#before action method for new and create only
 	def permitted_to_submit_solution
-		unless current_problem.solutions.count==0 || current_user==current_problem.creator || valid_relation_new_create # || current_user.admin? 
+		unless current_problem.solutions.count==0 || current_user==current_problem.creator || current_user.relation_of(current_problem).present?#valid_relation_new_create # || current_user.admin? 
 			flash[:danger] = "You are not allowed to submitted a solution of this problem becauese of some reason?!?!"
 			redirect_to root_path
 		end
