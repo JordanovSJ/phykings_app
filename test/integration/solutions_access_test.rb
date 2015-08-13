@@ -11,33 +11,6 @@ class SolutionsAccessTest< ActionDispatch::IntegrationTest
 	end
 	
 	
-	test "signed_out user cannot access solutions actions" do
-		get new_solution_path
-		follow_redirect!
-		assert_template 'devise/sessions/new'
-		assert_match "Please log in" , response.body
-		assert_not flash.empty? 
-		get solution_path(@solution)
-		follow_redirect!
-		assert_template 'devise/sessions/new'
-		assert_not flash.empty?
-		get edit_solution_path(@solution)
-		follow_redirect!
-		assert_template 'devise/sessions/new'
-		assert_not flash.empty?		
-	end
-	
-	test "user that has no relation to a solution cannot see/edit/delete that problem" do
-		sign_in_as(@user3)	
-		get solution_path(@solution)
-		follow_redirect!
-		assert_not flash.empty?		
-		assert_template 'static_pages/home'
-		assert_match "You are not allowed to see this solution!!!" , response.body
-		get edit_solution_path(@solution)
-		follow_redirect!
-		assert_template 'static_pages/home'
-		assert_not flash.empty?			
-	end
+
 	
 end

@@ -21,32 +21,7 @@ class ProblemDisplayTest	< ActionDispatch::IntegrationTest
 		end
 	end
 	
-	test "signed_out user cannot access problems" do
-		get new_problem_path
-		follow_redirect!
-		assert_template 'devise/sessions/new'
-		assert_not flash.empty?
-		get problem_path(@problem)
-		follow_redirect!
-		assert_template 'devise/sessions/new'
-		assert_not flash.empty?
-		get edit_problem_path(@problem)
-		follow_redirect!
-		assert_template 'devise/sessions/new'
-		assert_not flash.empty?		
-	end
-	
-	test "user that has no relation to a problem cannot see/edit/delete that problem" do
-		sign_in_as(@user)	
-		get problem_path(problems(:problem1_by_user2))
-		follow_redirect!
-		assert_template 'static_pages/home'
-		assert_not flash.empty?
-		get edit_problem_path(problems(:problem1_by_user2))
-		follow_redirect!
-		assert_template 'static_pages/home'
-		assert_not flash.empty?			
-	end
+
 	
 
 end
