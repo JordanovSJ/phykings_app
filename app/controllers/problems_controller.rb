@@ -13,6 +13,7 @@ class ProblemsController < ApplicationController
 	
 	def new
 		@problem=Problem.new #why??
+		# Categories to be displayed in the views selection boxes
 	end
 	
 	def create

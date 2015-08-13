@@ -21,7 +21,7 @@ gem 'omniauth-google-oauth2'
 # Needed to define ENV variables.
 gem 'figaro', "~> 0.7.0"
 
-gem 'mathjax-rails'
+gem 'mathjax-rails', "2.5.1"
 
 group :development, :test do
 

@@ -98,6 +98,7 @@ relation1=UserProblemRelation.create!(
 relation2=UserProblemRelation.create!(
 							viewer_id: 1,
 							seen_problem_id: 3,
+							provided_with_solution: true,
 )
 
 

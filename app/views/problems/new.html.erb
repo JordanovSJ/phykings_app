@@ -6,18 +6,66 @@
   <%= render 'shared/error_messages', object: f.object %>
   
   <div class="row">
-		<div class="field form-group col-sm-10">
+		<div class="field form-group col-sm-8">
 			<%= f.label :title %>
 			<%= f.text_field :title, class: "form-control" %>
 		</div>
 		
-		<div class="field form-group col-sm-2">
-			<%= f.label :answer %>
-			<%= f.number_field :answer, class: "form-control" %>
+		<div class="field form-group col-sm-4">
+			<%= f.label :category %>
+			<%= f.select :category, CATEGORY.each { |v| [ v, v ] }, {include_blank: true}, {class: "form-control"} %>
 		</div>
 	</div>
 	
-	<div class="row">
+	<div class="row equal">
+	<div class="col-sm-8">
+		<div class="panel panel-default">
+			<div class="panel-heading">Answer:</div>
+			<div class="panel-body">
+				<div class="field form-group col-sm-4">
+					<%= f.label :answer, "Value" %>
+					<%= f.number_field :answer, class: "form-control" %>
+				</div>
+				
+				<div class="field form-group col-sm-4">
+					<%= f.label :degree_of_answer, "Power" %>
+					<%= f.number_field :degree_of_answer, class: "form-control" %>
+				</div>
+				
+				<div class="field form-group col-sm-4">
+					<%= f.label :units_of_answer, "Units" %>
+					<%= f.text_field :units_of_answer, class: "form-control" %>
+				</div>
+				
+				<p>The format of the answer is $\textbf{value}\times 10^{\textbf{power}} \textbf{units}$.</p>
+				<p>The <strong>Units</strong> field expects LaTeX input.</p>
+				<p>For example, if one enters the values 3, 5, \text{m s}^{-2},</p>
+				<p>The answer will have the form: $3 \times 10^5 \text{ }\text{m s}^{-2}$.</p>
+			</div>
+		</div>
+	</div>
+	
+	<div class="col-sm-4">
+		<div class="panel panel-default">
+			<div class="panel-heading">Parameters</div>
+			<div class="panel-body">
+				<div class="field form-group col-sm-6">
+					<%= f.label "length", "Length (min)" %>
+					<%= f.select "length", LENGTH.each { |v| [ v, v ] }, {include_blank: true}, {class: "form-control"} %>
+				</div>
+				
+				<div class="field form-group col-sm-6">
+					<%= f.label :difficulty, "Difficulty" %>
+					<%= f.select :difficulty, (1..MAX_DIFFICULTY).each { |v| [ v, v ] }, {include_blank: true}, {class: "form-control"} %>
+				</div>
+				
+				<p>The <strong>Length</strong> of a problem is an estimate of the time needed to solve the problem if you see it for the first time.</p>
+				<p>The <strong>Difficulty</strong> is a estimate of how hard you think the problem is. The higher the difficulty, the harder the problem.</p>
+			</div>
+		</div>
+	</div>
+	</div>
+
 		<div class="field form-group col-sm-12">
 			<%= f.label :text  %>
 			<%= f.text_area :content, placeholder: "Problem text...", class: "form-control problem-text" %>
@@ -25,6 +73,5 @@
 		<div class="col-sm-2">
 			<%= f.submit "Submit", class: "btn btn-primary btn-success" %>
 		</div>
-  </div>
 	
 <% end %>

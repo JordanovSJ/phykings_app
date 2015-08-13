@@ -1,18 +1,41 @@
+<div class="page-header">
+	<h1>Submit a solution</h1>
+	<p><strong>To problem:</strong> <%= Problem.find(params[:problem_id]).title %></p>
+</div>
+
 <%= form_for(@solution) do |f| %>
   <%= render 'shared/error_messages', object: f.object %>
-    <div class="field">
-    <%= f.text_area :content, placeholder: "write problem here..." %>
-  </div>
-  <%= f.label :answer %>
-	<%= f.number_field :answer, class: 'form-control' %>
 	
-	<%= f.label :degree_of_answer %>
-	<%= f.number_field :degree_of_answer, class: 'form-control' %>
+	<div class="col-sm-8 col-sm-offset-2">
+		<div class="panel panel-default">
+			<div class="panel-heading">Answer:</div>
+			<div class="panel-body">
+				<div class="field form-group col-sm-4">
+					<%= f.label :answer, "Value" %>
+					<%= f.number_field :answer, class: "form-control" %>
+				</div>
+				
+				<div class="field form-group col-sm-4">
+					<%= f.label :degree_of_answer, "Power" %>
+					<%= f.number_field :degree_of_answer, class: "form-control" %>
+				</div>
+				
+				<div class="field form-group col-sm-4">
+					<%= label_tag :units_of_answer, "Units" %>
+					<p class="form-control">$<%= Problem.find(params[:problem_id]).units_of_answer %>$</p>
+				</div>
+			</div>
+		</div>
+	</div>
 	
-	<%= f.label :units_of_answer %>
-	<%= f.text_area :units_of_answer, class: 'form-control' %>
+	<div class="field form-group col-sm-12">
+		<%= f.label :text  %>
+		<%= f.text_area :content, placeholder: "Solution text...", class: "form-control problem-text" %>
+	</div>
 	
 	<%= hidden_field_tag :problem_id, params[:problem_id] %>
 	
-  <%= f.submit "Solution", class: "btn btn-primary" %>
+  <div class="col-sm-2">
+		<%= f.submit "Submit Solution", class: "btn btn-primary btn-success" %>
+	</div>
 <% end %>

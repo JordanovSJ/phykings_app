@@ -8,10 +8,9 @@
 			<th>Submitted</th>
 			<th>Title</th>
 			<th>Category</th>
-			<th>Length</th>
+			<th>Length (min)</th>
 			<th>Difficulty</th>
 			<th>Rating</th>
-			<th>Action</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -23,14 +22,11 @@
 								"%Y-%m-%d %H:%M:%S %Z"
 							).strftime("%d/%m/%Y") %>
 				</td>
-				<td><%= prob.title %></td>
+				<td><%= link_to prob.title, problem_path(prob) %></td>
 				<td><%= prob.category  %></td>
 				<td><%= prob.length %></td>
 				<td><%= prob.difficulty %></td>
 				<td></td>
-				<td>
-					<%= link_to "Edit", "#", class: "btn btn-sm btn-primary" %>
-				</td>
 			</tr>
 		<% end %>
 	</tbody>

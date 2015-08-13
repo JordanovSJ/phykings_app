@@ -14,10 +14,9 @@ class Problem < ActiveRecord::Base
   validates :title, presence: true, length: { maximum: 100 }
   validates :degree_of_answer, presence: true
   validates :units_of_answer, presence: true
-  validates :category, presence: true, inclusion: {in: ["Classical mechanics", "Electromagnetism", 
-																												"Thermodynamics and statistical physics", "Quantum mechanics", "Relativity", "Optics"]}
-  validates :difficulty, presence: true, inclusion: {in: 1..10}
-  validates :length, presence: true, inclusion: {in: [10, 30, 60]}
+  validates :category, presence: true, inclusion: {in: CATEGORY}
+  validates :difficulty, presence: true, inclusion: {in: 1..MAX_DIFFICULTY}
+  validates :length, presence: true, inclusion: {in: LENGTH}
   
   default_scope -> { order(created_at: :desc) }
 	

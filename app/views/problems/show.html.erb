@@ -17,10 +17,17 @@
 </div>
 
 <div class="jumbotron container-fluid">
-	<div class="col-sm-12">
 			<p class="problem-content"><%= @problem.content %></p>
-			<p class="label label-default"> Answer: <%= @problem.answer  %></p>
-	</div>
+			<p class="label label-default col-sm-5">Answer: <%= "$ #{@problem.answer} \\times 10^#{@problem.degree_of_answer.to_s} #{@problem.units_of_answer}$ " %></p>
+			<div class="col-sm-2 col-sm-offset-3">
+				<p class="label label-primary">Length: <%= @problem.length %> min</p>
+			</div>
+			<div class="col-sm-2">
+				<p class="label label-primary">Difficulty: <%= @problem.difficulty %></p>
+			</div>
+			<div class="col-sm-6 col-sm-offset-6 text-right">
+				<p class="label label-info"><%= @problem.category %></p>
+			</div>
 </div>
 
 <div class="panel panel-default">

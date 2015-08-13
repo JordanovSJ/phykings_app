@@ -57,12 +57,18 @@ footer {
     h1 {
         font-size: 2em;
     }
-    p {
+    p, span.label{
         font-size: 1.2em;
         .btn {
             padding: 0.5em;
         }
     }
+}
+
+.equal, .equal > div[class*='col-'] {  
+    display: -webkit-flex;
+    display: flex;
+    flex:1 1 auto;
 }
 
 /*
