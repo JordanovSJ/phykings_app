@@ -51,6 +51,15 @@ class ProblemsController < ApplicationController
 		@solutions = Problem.find(params[:id]).solutions
 	end
 	
+	def no_solutions
+		@no_solutions = []
+		Problem.all.each do |pr|
+			if pr.solutions.empty?
+				@no_solutions.push(pr)
+			end
+		end
+	end
+	
 	private
 	
   def problem_params

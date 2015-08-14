@@ -1,0 +1,41 @@
+<h1 class="page-header">
+	Problems with no Solutions
+</h1>
+
+<% unless @no_solutions.empty? %>
+
+	<table class="table table-bordered table-hover">
+		<thead>
+			<tr>
+				<th>Submitted</th>
+				<th>Title</th>
+				<th>Creator</th>
+				<th>Category</th>
+				<th>Length (min)</th>
+				<th>Difficulty</th>
+				<th>Rating</th>
+			</tr>
+		</thead>
+		<tbody>
+			<% @no_solutions.each do |prob| %>
+				<tr>
+					<td>
+						<%= Date.strptime(
+									prob.created_at.to_s,
+									"%Y-%m-%d %H:%M:%S %Z"
+								).strftime("%d/%m/%Y") %>
+					</td>
+					<td><%= link_to prob.title, problem_path(prob) %></td>
+					<td><%= link_to prob.creator.first_name + " " + prob.creator.last_name, user_path(prob.creator) %></td>
+					<td><%= prob.category  %></td>
+					<td><%= prob.length %></td>
+					<td><%= prob.difficulty %></td>
+					<td></td>
+				</tr>
+			<% end %>
+		</tbody>
+	</table>
+
+<% else %>
+	<p>There are no problems at this moment.</p>
+<% end %>

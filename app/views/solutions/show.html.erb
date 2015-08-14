@@ -5,7 +5,7 @@
 
 	<% if @solution.user.present? %>
 		<p> 
-			by <%= @solution.user.first_name + " " + @solution.user.last_name %>,
+			by <%= link_to @solution.user.first_name + " " + @solution.user.last_name, user_path(@solution.user) %>,
 			<%= time_ago_in_words(@solution.created_at) %> ago
 			<% if current_user==(@solution.user) || current_user.admin? %>
 				<%= link_to "Edit", edit_solution_path(@solution), class: "btn btn-xs btn-warning"  %>

@@ -24,6 +24,7 @@ Rails.application.routes.draw do
 	resources :problems do
 		collection do
 			get ":id/solutions", to: "problems#show_solutions", as: "show_solutions"
+			get "no_solutions"
 		end
 	end
 

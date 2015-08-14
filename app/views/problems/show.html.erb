@@ -5,7 +5,7 @@
 
 	<% if @problem.creator.present? %>
 		<p> 
-			by <%= @problem.creator.first_name + " " + @problem.creator.last_name %>,
+			by <%= link_to @problem.creator.first_name + " " + @problem.creator.last_name, user_path(@problem.creator) %>,
 			<%= time_ago_in_words(@problem.created_at) %> ago
 			<% if current_user==(@problem.creator) || current_user.admin? %>
 				<%= link_to "Edit", edit_problem_path(@problem), class: "btn btn-xs btn-warning"  %>
@@ -30,7 +30,13 @@
 
 <div class="jumbotron container-fluid">
 			<p class="problem-content"><%= @problem.content %></p>
-			<p class="label label-default col-sm-5">Answer: <%= "$ #{@problem.answer} \\times 10^{#{@problem.degree_of_answer}} #{@problem.units_of_answer}$ " %></p>
+			<p class="label label-default col-sm-5">
+				<% if current_user.id == @problem.creator_id %>
+					Answer: <%= "$ #{@problem.answer} \\times 10^{#{@problem.degree_of_answer}} #{@problem.units_of_answer}$ " %>
+				<% else %>
+					Answer: <%= link_to "Unlock", "#", class: "btn btn-xs btn-info" %>
+				<% end %>
+			</p>
 			<div class="col-sm-2 col-sm-offset-3">
 				<p class="label label-primary">Length: <%= @problem.length %> min</p>
 			</div>
@@ -45,8 +51,10 @@
 <div class="panel panel-default">
   <div class="panel-body">
     People who have seen this problem: 
-    <% @problem.viewers.each do |s| %>
-			<%= s.first_name %> <%= s.last_name %>,
+
+    <%= link_to @problem.creator.first_name + " " + @problem.creator.last_name, user_path(@problem.creator), class: "label label-default" %>
+    <% @problem.viewers.each do |u| %>
+			<%= link_to u.first_name + " " + u.last_name, user_path(u), class: "label label-default"  %>
 		<% end %>
   </div>
 </div>
