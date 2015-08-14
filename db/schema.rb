@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150812130804) do
+ActiveRecord::Schema.define(version: 20150814093730) do
 
   create_table "problems", force: :cascade do |t|
     t.string   "title"
@@ -33,10 +33,11 @@ ActiveRecord::Schema.define(version: 20150812130804) do
   create_table "solutions", force: :cascade do |t|
     t.text     "content"
     t.integer  "user_problem_relation_id"
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
+    t.datetime "created_at",                               null: false
+    t.datetime "updated_at",                               null: false
     t.integer  "answer"
     t.integer  "degree_of_answer"
+    t.boolean  "reported",                 default: false
   end
 
   add_index "solutions", ["user_problem_relation_id", "created_at"], name: "index_solutions_on_user_problem_relation_id_and_created_at"

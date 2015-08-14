@@ -28,6 +28,13 @@ class ProblemsAndSolutionsIntegrationsTest < ActionDispatch::IntegrationTest
 		assert_not flash.empty?		
 	end
 	
+	test "get redirected to root if you try to acces a solution without such an id" do
+		sign_in_as(@user1)
+		get solution_path(10)
+		assert_redirected_to root_path
+		assert_not flash.empty?
+	end
+	
 	test "user that has no relation to a problem cann see but cannot edit/delete that problem when the problem has no solution" do
 		sign_in_as(@user1)	
 		@relation.destroy
@@ -97,6 +104,17 @@ class ProblemsAndSolutionsIntegrationsTest < ActionDispatch::IntegrationTest
     end  
    assert_redirected_to solution_path(@user3.solution_of(@problem).id)	
   end
+  
+  test "an atuthor of a problem who tries to create a solution with a different answer is redirected to edit proble" do
+		sign_in_as(@user1)
+		@solution_params[:answer]=0
+		assert_no_difference 'Solution.count' do
+      post solutions_path, {solution: @solution_params, problem_id: @problem.id }						
+    end  
+   assert_redirected_to edit_problem_path(@solution)
+   assert_not flash.empty?
+  end
+  
   
   
 end

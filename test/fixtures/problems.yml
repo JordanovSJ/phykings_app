@@ -6,7 +6,7 @@ problem1_by_user1:
   content: kolko prusta ima nenko
   answer: 42
   creator_id: 1
-  degree_of_answer: 1
+  degree_of_answer: 10
   units_of_answer: nenkos
   category: Optics
   difficulty: 10
@@ -17,8 +17,8 @@ problem1_by_user2:
   id: 2
   title:	title_of_problem1_by_user2
   content: kolko prusta nqam nenko
-  answer: 24
-  degree_of_answer: 2
+  answer: 42
+  degree_of_answer: 10
   units_of_answer: nenkos
   category: Electromagnetism
   difficulty: 10
@@ -30,8 +30,8 @@ problem2_by_user1:
   id: 3
   title:	title_of_problem2_by_user1
   content: kolko zuba ima elza
-  answer: 2442
-  degree_of_answer: 2
+  answer: 42
+  degree_of_answer: 10
   units_of_answer: nenkos
   category: Classical mechanics
   difficulty: 10
