@@ -8,7 +8,7 @@
 		<thead>
 			<tr>
 				<th>Submitted</th>
-				<th>Solution of</th>
+				<th>Title</th>
 				<th>Category</th>
 				<th>Length (min)</th>
 				<th>Difficulty</th>
@@ -24,7 +24,7 @@
 									"%Y-%m-%d %H:%M:%S %Z"
 								).strftime("%d/%m/%Y") %>
 					</td>
-					<td><%= link_to sol.problem.title, solution_path(sol) %></td>
+					<td><%= link_to "Solution of " + sol.problem.title, solution_path(sol) %></td>
 					<td><%= sol.problem.category  %></td>
 					<td><%= sol.problem.length %></td>
 					<td><%= sol.problem.difficulty %></td>

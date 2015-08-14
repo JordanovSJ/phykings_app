@@ -1,4 +1,5 @@
 class ProblemsController < ApplicationController
+	include ApplicationHelper
 	
 	#makes sure only a logged_in user can access problem actions
 	before_action :logged_in_user
@@ -8,7 +9,8 @@ class ProblemsController < ApplicationController
 	before_action :can_see_problem, only: [:show]
 	
 	def show
-		@problem=Problem.find(params[:id])
+		@problem = current_problem
+		@relation = current_relation
 	end
 	
 	def new
@@ -48,7 +50,8 @@ class ProblemsController < ApplicationController
 	end
 	
 	def show_solutions
-		@solutions = Problem.find(params[:id]).solutions
+		@normal_solutions = current_problem.solutions.where(reported: false)
+		@reported_solutions = current_problem.solutions.where(reported: true)
 	end
 	
 	def no_solutions

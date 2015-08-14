@@ -2,39 +2,82 @@
 	Solutions of "<%= Problem.find(params[:id]).title %>"
 </h1>
 
-<% unless @solutions.empty? %>
+<% unless @normal_solutions.empty? && @reported_solutions.empty? %>
 
-	<table class="table table-bordered table-hover">
-		<thead>
-			<tr>
-				<th>Submitted</th>
-				<th>Solution of</th>
-				<th>Solver</th>
-				<th>Category</th>
-				<th>Length (min)</th>
-				<th>Difficulty</th>
-				<th>Rating</th>
-			</tr>
-		</thead>
-		<tbody>
-			<% @solutions.each do |sol| %>
+	<div class="col-sm-12">
+		<div class="col-sm-2"><p class="label label-success">Normal solutions:</p></div>
+		<p class="col-sm-10"> These solutions have reached answers that agree with the original answer of the problem.</p>
+		<table class="table table-bordered table-hover">
+			<thead>
 				<tr>
-					<td>
-						<%= Date.strptime(
-									sol.created_at.to_s,
-									"%Y-%m-%d %H:%M:%S %Z"
-								).strftime("%d/%m/%Y") %>
-					</td>
-					<td><%= link_to sol.problem.title, solution_path(sol) %></td>
-					<td><%= sol.user.first_name + " " + sol.user.last_name %></td>
-					<td><%= sol.problem.category  %></td>
-					<td><%= sol.problem.length %></td>
-					<td><%= sol.problem.difficulty %></td>
-					<td></td>
+					<th>Submitted</th>
+					<th>Title</th>
+					<th>Solver</th>
+					<th>Category</th>
+					<th>Length (min)</th>
+					<th>Difficulty</th>
+					<th>Rating</th>
 				</tr>
-			<% end %>
-		</tbody>
-	</table>
+			</thead>
+			<tbody>
+				<% @normal_solutions.each do |sol| %>
+					<tr>
+						<td>
+							<%= Date.strptime(
+										sol.created_at.to_s,
+										"%Y-%m-%d %H:%M:%S %Z"
+									).strftime("%d/%m/%Y") %>
+						</td>
+						<td><%= link_to "Solution of " + sol.problem.title, solution_path(sol) %></td>
+						<td><%= link_to sol.user.first_name + " " + sol.user.last_name, user_path(sol.user) %></td>
+						<td><%= sol.problem.category  %></td>
+						<td><%= sol.problem.length %></td>
+						<td><%= sol.problem.difficulty %></td>
+						<td></td>
+					</tr>
+				<% end %>
+			</tbody>
+		</table>
+	</div>
+	
+	<% unless @reported_solutions.empty? %>
+		<div class="col-sm-12">
+			<hr/>
+			<div class="col-sm-2"><p class="label label-danger">Report solutions</p></div>
+			<p class="col-sm-10"> These solutions have reached answers that differ from the original answer of the problem. Their authors have submitted them as attempts to demonstrate that the original answer is wrong.</p>
+		<table class="table table-bordered table-hover">
+			<thead>
+				<tr>
+					<th>Submitted</th>
+					<th>Title</th>
+					<th>Solver</th>
+					<th>Category</th>
+					<th>Length (min)</th>
+					<th>Difficulty</th>
+					<th>Rating</th>
+				</tr>
+			</thead>
+			<tbody>
+				<% @reported_solutions.each do |sol| %>
+					<tr>
+						<td>
+							<%= Date.strptime(
+										sol.created_at.to_s,
+										"%Y-%m-%d %H:%M:%S %Z"
+									).strftime("%d/%m/%Y") %>
+						</td>
+						<td><%= link_to "Solution of " + sol.problem.title, solution_path(sol) %></td>
+						<td><%= link_to sol.user.first_name + " " + sol.user.last_name, user_path(sol.user) %></td>
+						<td><%= sol.problem.category  %></td>
+						<td><%= sol.problem.length %></td>
+						<td><%= sol.problem.difficulty %></td>
+						<td></td>
+					</tr>
+				<% end %>
+			</tbody>
+		</table>
+	</div>
+	<% end %>
 	
 <% else %>
 	<p>No solutions yet!</p>

@@ -1,4 +1,6 @@
 class SolutionsController < ApplicationController
+	include ApplicationHelper
+	
 	before_action :logged_in_user
 	before_action :permitted_to_submit_report , only: [:create]
 	before_action :current_problem_nil , only: [:new, :create]
@@ -32,10 +34,10 @@ class SolutionsController < ApplicationController
       redirect_to solution_path(@solution)
       #if the answer of the solution is different than that of the problem the create action change the value reported to TRUE
       if Solution.check_answer(solution_params,current_problem)
-				flash[:success] = "Solution created!"
+				flash[:success] = "Solution submitted successfully."
 			else
 				@solution.update_attributes(reported: true)
-				flash[:success] = "You reported successfullu the problem!"
+				flash[:success] = "Report solution submitted successfully."
 			end
     else
       render 'new'
@@ -46,20 +48,26 @@ class SolutionsController < ApplicationController
 		@solution=Solution.find(params[:id])
 	end
 	
+	# Updates the solution and checks if its reported status should change.
 	def update
 		  @solution = Solution.find(params[:id])
     if @solution.update_attributes(solution_params)
-			redirect_to @solution
 			if @solution.reported
-				flash[:success] = "Report updated!"
+				if Solution.check_answer(solution_params, @solution.problem)
+					@solution.update_attributes(reported: false)
+					flash[:success] = "Solution updated. Its status is now changed from Report to Normal."
+				else
+					flash[:success] = "Report solution updated!"
+				end
 			else
 				if Solution.check_answer(solution_params,@solution.problem)
 					flash[:success] = "Solution updated!"
 				else
 					@solution.update_attributes(reported: true)
-					flash[:success] = "You reported successfully the problem!"
+					flash[:success] = "Solution updated. Its status is now changed form Normal to Report."
 				end
 			end
+			redirect_to @solution
     else
       render 'edit'
     end
@@ -82,35 +90,27 @@ class SolutionsController < ApplicationController
   #checks if params[:id] exist
   def check_for_id
 		if Solution.where(id: params[:id]).count==0
-			flash[:danger]="this solution does not exist"
+			flash[:danger]="This solution does not exist"
 			redirect_to root_path
 		end
   end
   
-  #returns user_problem_relation if one already exists or create a new one
-  def current_relation
-		if current_user.seen_problems.include?(current_problem)
-			relation=current_user.relation_of(current_problem) 
-		else 
-			relation=current_user.user_problem_relations.create!(seen_problem_id: current_problem.id)
-		end
-		return relation
-  end
+  # MOved the current_relation method to the ApplicationHelper since
+  # it is needed in the problems controller as well.
   
   #obviously returns true if the current user has submitted solution for the problem
   def has_solution
 		if !current_user.relation_of(current_problem).nil? && current_user.relation_of(current_problem).provided_with_solution           
-			flash[:danger] = "You have alreadu submitted solution for this problem!"
+			flash[:danger] = "You have already submitted solution for this problem!"
 			solution_id=current_user.solution_of(current_problem).id														
 			redirect_to  :controller => 'solutions', :action => 'edit', :id => solution_id , :problem_id => params[:problem_id] #!!!!!!!!!!!!!!
 		end
   end
 
 	
-	#obvious
-	def current_problem #TODO replace with this method wherevere u see Problem.find(params[:problem_id]
-			@current_problem=Problem.find(params[:problem_id])
-	end
+	# Moved the current_problem method to the ApplicationHelper since
+	# it is needed in the problems controller as well.
+	#TODO replace with this method wherevere u see Problem.find(params[:problem_id]
 	
 	#obvious
 	def current_problem_nil
@@ -172,7 +172,7 @@ class SolutionsController < ApplicationController
 	
 
 	def permitted_to_change_delete_solution
-		unless current_user==Solution.find(params[:id]).user #|| current_user.admin?
+		unless current_user==Solution.find(params[:id]).user || current_user.admin?
 			flash[:danger] = "You are not allowed to change/delete this solution!!!"
 			redirect_to root_path
 		end		

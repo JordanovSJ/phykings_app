@@ -13,12 +13,17 @@
 						data: { confirm: "You sure?" }, class: "btn btn-xs btn-danger" %>
 			<% end %>
 		</p>
+		<% if @solution.reported? %>
+			<p class="label label-danger">Report solution</p>
+		<% else %>
+			<p class="label label-success">Normal solution</p>
+		<% end %>
 	<% end %>
 </div>
 
 
 <%= link_to "See Problem", problem_path(@solution.problem), class: "btn btn-sm btn-primary" %>
-<%= link_to "Other Solutions", show_solutions_problems_path(@solution.problem), class: "btn btn-sm btn-primary" %>
+<%= link_to "All Solutions", show_solutions_problems_path(@solution.problem), class: "btn btn-sm btn-primary" %>
 
 <div class="jumbotron container-fluid">
 			<p class="solution-content"><%= @solution.content %></p>

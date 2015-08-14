@@ -17,7 +17,7 @@
 </div>
 
 	<% unless current_user.relation_of(@problem).nil? %>
-		<% if current_user.relation_of(@problem).provided_with_solution? %>
+		<% if @relation.provided_with_solution? %>
 			<%= link_to "Your solution", solution_path(current_user.relation_of(@problem).solution), class: "btn btn-sm btn-success"  %>
 		<% else %>
 			<%= link_to "Submit solution", new_solution_path({problem_id: @problem.id}), class: "btn btn-sm btn-success"  %>
@@ -51,8 +51,6 @@
 <div class="panel panel-default">
   <div class="panel-body">
     People who have seen this problem: 
-
-    <%= link_to @problem.creator.first_name + " " + @problem.creator.last_name, user_path(@problem.creator), class: "label label-default" %>
     <% @problem.viewers.each do |u| %>
 			<%= link_to u.first_name + " " + u.last_name, user_path(u), class: "label label-default"  %>
 		<% end %>
