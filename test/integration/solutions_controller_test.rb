@@ -87,6 +87,19 @@ class SolutionsControllersTest < ActionDispatch::IntegrationTest
   end
   
   
+  test "create reported solution" do
+		get_custom_relation(@user3,@problem)
+		sign_in_as(@user3)
+		assert_difference 'Solution.count', 1 do
+      post solutions_path, {solution: { content: "params_solution_content", 
+								answer: 20, 
+								degree_of_answer: 10},
+								problem_id: @problem.id }						
+    end
+    assert @user3.solution_of(@problem).reported		
+  end
+  
+  
   
   #edit/update
   test "authour of a solution can update solution" do

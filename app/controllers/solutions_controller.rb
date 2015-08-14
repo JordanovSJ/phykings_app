@@ -1,9 +1,11 @@
 class SolutionsController < ApplicationController
 	before_action :logged_in_user
+	before_action :permitted_to_submit_report , only: [:create]
 	before_action :current_problem_nil , only: [:new, :create]
 	before_action :has_solution, only: [:create, :new]
 	before_action :permitted_to_submit_solution, only: [:create, :new]
-	
+	before_action :permitted_to_update_report , only: [:update]
+	before_action :check_for_id, only: [:show , :edit, :update, :delete]
 	before_action :permitted_to_see_solution, only: [:show]
 	before_action :permitted_to_change_delete_solution, only: [:edit, :update, :destroy]
 
@@ -25,7 +27,7 @@ class SolutionsController < ApplicationController
 			@relation.update_attributes(provided_with_solution: true)
       redirect_to solution_path(@solution)
       #if the answer of the solution is different than that of the problem the create action change the value reported to TRUE
-      if @solution.check_answer
+      if Solution.check_answer(solution_params,current_problem)
 				flash[:success] = "Solution created!"
 			else
 				@solution.update_attributes(reported: true)
@@ -43,8 +45,17 @@ class SolutionsController < ApplicationController
 	def update
 		  @solution = Solution.find(params[:id])
     if @solution.update_attributes(solution_params)
-      flash[:success] = "Solution updated"
-      redirect_to @solution
+			redirect_to @solution
+			if @solution.reported
+				flash[:success] = "Report updated!"
+			else
+				if Solution.check_answer(solution_params,@solution.problem)
+					flash[:success] = "Solution updated!"
+				else
+					@solution.update_attributes(reported: true)
+					flash[:success] = "You reported successfully the problem!"
+				end
+			end
     else
       render 'edit'
     end
@@ -62,6 +73,14 @@ class SolutionsController < ApplicationController
 	
 	def solution_params
      params.require(:solution).permit(:content, :degree_of_answer, :answer)
+  end
+  
+  #checks if params[:id] exist
+  def check_for_id
+		if Solution.where(id: params[:id]).count==0
+			flash[:danger]="this solution does not exist"
+			redirect_to root_path
+		end
   end
   
   #returns user_problem_relation if one already exists or create a new one
@@ -99,23 +118,30 @@ class SolutionsController < ApplicationController
 	
 	
 
-	#~ #does a relation allows a user to create a solution
-	#~ def valid_relation_new_create
-		#~ 
-		#~ if current_user.relation_of(current_problem).present?
-			#~ relation=current_relation
-			#~ return (relation.attempted_during_free || relation.attempted_during_premium) #&& !relation.provided_with_solution?
-		#~ end
-		#~ 
-		#~ return false
-	#~ end
-	
+
 	#check if the user is allowed to submit solution
 	#before action method for new and create only
 	def permitted_to_submit_solution
 		unless current_problem.solutions.count==0 || current_user==current_problem.creator || current_user.relation_of(current_problem).present?#valid_relation_new_create # || current_user.admin? 
 			flash[:danger] = "You are not allowed to submitted a solution of this problem becauese of some reason?!?!"
 			redirect_to root_path
+		end
+	end
+	
+	#creator of a problem cannot submit report to that problem
+	def permitted_to_submit_report
+		if current_user==current_problem.creator && !Solution.check_answer(solution_params,current_problem)
+			flash[:danger] ="You cannot report your own problems! Edit or delete the problem instead!!!"
+			redirect_to edit_problem_path(current_problem)
+		end
+	end
+	
+	#creator of a problem cannot change solution to report
+	def permitted_to_update_report
+		problem=Solution.find(params[:id]).problem
+		if current_user==problem.creator && !Solution.check_answer(solution_params,problem)
+			flash[:danger] ="You cannot report your own problems! Edit or delete the problem instead!!!"
+			redirect_to edit_problem_path(problem)
 		end
 	end
 	
