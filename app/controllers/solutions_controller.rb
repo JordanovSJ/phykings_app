@@ -23,8 +23,14 @@ class SolutionsController < ApplicationController
 		@solution.user_problem_relation_id=@relation.id
     if @solution.save
 			@relation.update_attributes(provided_with_solution: true)
-      flash[:success] = "Solution created!"
       redirect_to solution_path(@solution)
+      #if the answer of the solution is different than that of the problem the create action change the value reported to TRUE
+      if @solution.check_answer
+				flash[:success] = "Solution created!"
+			else
+				@solution.update_attributes(reported: true)
+				flash[:success] = "You reported successfullu the problem!"
+			end
     else
       render 'new'
 		end
