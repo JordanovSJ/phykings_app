@@ -25,9 +25,22 @@
 					<%= label_tag :units_of_answer, "Units" %>
 					<p class="form-control">$<%= Problem.find(params[:problem_id]).units_of_answer %>$</p>
 				</div>
-				<p>The format of the answer is $\textbf{value}\times 10^{\textbf{power}} 
-					 <%= Problem.find(params[:problem_id]).units_of_answer %>$.</p>
-					 <p>Please make sure that the entered "Value" and "Power" are integers.</p>
+				
+				<div class="col-sm-12">
+					<p>The format of the answer is $\textbf{value}\times 10^{\textbf{power}} 
+						 <%= Problem.find(params[:problem_id]).units_of_answer %>$.</p>
+					<p>Make sure that the entered "Value" and "Power" are integers.</p>
+				</div>
+
+			</div>
+			<div class="panel-footer container-fluid">
+			
+					<%= f.check_box :reported, class: "col-sm-1" %>
+					<div class="col-sm-11">
+						<p class="label label-danger">Report solution</p>
+					</div>
+					<p class="col-sm-11 col-sm-offset-1"> If your answer does not agree with the original answer of the problem and you think that your answer should be the correct one, you can submit your solution by checking this box. Your solution will be marked as a "Report solution" and will help in future revisions of the problem. </p>
+				
 			</div>
 		</div>
 	</div>
@@ -43,5 +56,3 @@
 		<%= f.submit "Submit Report Solution", class: "btn btn-success" %>		
 	</div>
 <% end %>
-
-<%= render "report_solution_modal" %>

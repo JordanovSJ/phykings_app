@@ -26,22 +26,42 @@ class SolutionsController < ApplicationController
 	end
 	
 	def create
-		@solution =current_user.solutions.build(solution_params)
-		@relation=current_relation
-		@solution.user_problem_relation_id=@relation.id
-    if @solution.save
-			@relation.update_attributes(provided_with_solution: true)
-      redirect_to solution_path(@solution)
-      #if the answer of the solution is different than that of the problem the create action change the value reported to TRUE
-      if Solution.check_answer(solution_params,current_problem)
+		@solution = current_user.solutions.build(solution_params)
+		@relation = current_relation
+		@solution.user_problem_relation_id = @relation.id
+		
+		if @solution.valid?
+			if Solution.check_answer(solution_params, current_problem)
+				@solution.save
+				@relation.update_attributes(provided_with_solution: true)
 				flash[:success] = "Solution submitted successfully."
-			else
-				@solution.update_attributes(reported: true)
+				redirect_to solution_path(@solution)
+			elsif @solution.reported?
+				@solution.save
+				@relation.update_attributes(provided_with_solution: true)
 				flash[:success] = "Report solution submitted successfully."
+				redirect_to solution_path(@solution)
+			else
+				flash[:danger] = "Answer is incorrect. You can still submit your solution by marking it as a \"Report solution\". "
+				render 'new'
 			end
-    else
-      render 'new'
+		else
+			render 'new'
 		end
+		
+    #~ if @solution.save
+			#~ @relation.update_attributes(provided_with_solution: true)
+      #~ redirect_to solution_path(@solution)
+      #~ #if the answer of the solution is different than that of the problem the create action change the value reported to TRUE
+      #~ if Solution.check_answer(solution_params,current_problem)
+				#~ flash[:success] = "Solution submitted successfully."
+			#~ else
+				#~ @solution.update_attributes(reported: true)
+				#~ flash[:success] = "Report solution submitted successfully."
+			#~ end
+    #~ else
+      #~ render 'new'
+		#~ end
 	end
 	
 	def edit
@@ -84,7 +104,7 @@ class SolutionsController < ApplicationController
 	private
 	
 	def solution_params
-     params.require(:solution).permit(:content, :degree_of_answer, :answer)
+     params.require(:solution).permit(:content, :degree_of_answer, :answer, :reported)
   end
   
   #checks if params[:id] exist
