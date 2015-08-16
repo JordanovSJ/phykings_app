@@ -26,12 +26,9 @@
 			<div class="container col-sm-12">
 				
 				<div id="wrapper">
-					<% flash.each do |message_type, message| %>
-						<div class="flash alert alert-<%= message_type %>">
-							<%= message %>
-							<a href="#" data-dismiss="alert" class="close">×</a>
-						</div>
-					<% end %>
+					<div id="flash-field">
+						<%= render 'layouts/error_messages' %>
+					</div>
 				
 					<%= render 'layouts/logged_in/header' %>
 					<%= render 'layouts/logged_in' %>

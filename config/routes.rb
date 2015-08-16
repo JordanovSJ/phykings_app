@@ -16,6 +16,7 @@ Rails.application.routes.draw do
 			get "my_problems"
 			get "my_solutions"
 			get "seen_problems"
+			get "notifications", to: "users#show_notifications", as: "notifications"
 		end
 	end
 
@@ -28,7 +29,11 @@ Rails.application.routes.draw do
 		end
 	end
 
-	resources :solutions
+	resources :solutions do
+		collection do
+			get "create_report_solution"
+		end
+	end
 		
   
 end

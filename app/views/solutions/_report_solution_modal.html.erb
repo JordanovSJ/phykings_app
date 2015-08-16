@@ -1,0 +1,18 @@
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title" id="myModalLabel">Submit a Report Solution</h4>
+			</div>
+			<div class="modal-body">
+				<p>Your answer differs from the original answer of the problem. This means that either you have got a wrong answer or the problem author has provided an incorrect answer. If you believe that the case is the latter and your answer is the correcr one, then please feel free to submit your solution. It will be marked as a "report solution" and will act as a basis for subsequent reviews of the problem. Thank you!</p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				<%= link_to 'Submit Report Solution', create_report_solution_solutions_path('solution': {'content': @solution.content, 'answer': @solution.answer, 'degree_of_answer': @solution.degree_of_answer}, problem_id: current_problem.id), class: 'btn btn-danger' %>
+			</div>
+		</div>
+	</div>
+</div>

@@ -23,7 +23,7 @@
 
 
 <%= link_to "See Problem", problem_path(@solution.problem), class: "btn btn-sm btn-primary" %>
-<%= link_to "All Solutions", show_solutions_problems_path(@solution.problem), class: "btn btn-sm btn-primary" %>
+<%= link_to raw("All Solutions <span class=\"badge\">#{@solution.problem.solutions.count}</span>"), show_solutions_problems_path(@solution.problem), class: "btn btn-sm btn-primary" %>
 
 <div class="jumbotron container-fluid">
 			<p class="solution-content"><%= @solution.content %></p>

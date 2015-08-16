@@ -1,0 +1,34 @@
+<h1 class="page-header">
+	Notifications
+</h1>
+
+<% unless @notifications.empty? %>
+
+	<table class="table table-bordered table-hover">
+		<thead>
+			<tr>
+				<th class="col-sm-2">Date</th>
+				<th>Message</th>
+			</tr>
+		</thead>
+		<tbody>
+			<% @notifications.each do |n| %>
+				<tr <%= n.seen? ? "" : raw("class=\"success\" ") %> >
+					<td>
+						<%= DateTime.strptime(
+									n.created_at.to_s,
+									'%Y-%m-%d %H:%M:%S %Z'
+								).strftime('%d/%m/%Y %H:%M') %>
+					</td>
+					<td><%= n.message %></td>
+				</tr>
+				<% if !n.seen?
+						n.update_attributes(seen: true)
+					end %>
+			<% end %>
+		</tbody>
+	</table>
+
+<% else %>
+	<p>There are no notifications yet.</p>
+<% end %>

@@ -2,17 +2,20 @@
 <!-- Profile Sidebar Partial -->     
 <!-- Note: The <div> </div>s are in the _logged_in partial-->
 
+<% @unseen_notification_count = current_user.notifications.where(seen: false).count %>
+
 <ul class="nav nav-sidebar">
 	<li><h3>Profile</h3></li>
-	<li><%= link_to "Home", '#', id: "profile-home" %></li>
+	<li><%= link_to "Home", root_path, id: "profile-home" %></li>
 </ul>
 
 <ul class="nav nav-sidebar">
 	<li><%= link_to "Personal info", user_path(current_user), class: "active" %></li>	
-	<li><%= link_to "Stats", show_stats_users_path %></li>	
-	<li><%= link_to "Seen Problems", seen_problems_users_path %></li>	
+	<li><%= link_to "Stats", show_stats_users_path %></li>
+	<li><%= link_to raw("Notifications <span class=\"badge\">#{@unseen_notification_count>0 ? @unseen_notification_count : ""}</span>"), notifications_users_path %></li>
 	<li><%= link_to "My Problems", my_problems_users_path %></li>	
 	<li><%= link_to "My Solutions", my_solutions_users_path %></li>	
+	<li><%= link_to "Seen Problems", seen_problems_users_path %></li>	
 </ul>
 	
 

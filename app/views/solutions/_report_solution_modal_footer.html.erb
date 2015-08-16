@@ -1,0 +1,2 @@
+<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+<%= link_to 'Submit Report Solution', create_report_solution_solutions_path(solution: {content: @solution.content, answer: @solution.answer, degree_of_answer: @solution.degree_of_answer}, problem_id: current_problem.id), class: 'btn btn-danger' %>

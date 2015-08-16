@@ -24,5 +24,9 @@ class UsersController < ApplicationController
 	def seen_problems
 		@seen_problems = current_user.seen_problems
 	end
+	
+	def show_notifications
+		@notifications = current_user.notifications
+	end
 
 end

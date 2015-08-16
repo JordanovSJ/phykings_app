@@ -7,6 +7,7 @@ class User < ActiveRecord::Base
 	has_many :user_problem_relations,:foreign_key => 'viewer_id' #,:dependent => :destroy						
 	has_many :seen_problems, :through => :user_problem_relations 					
 	has_many :solutions, :through => :user_problem_relations 
+	has_many :notifications
 						
 	#methods
 	

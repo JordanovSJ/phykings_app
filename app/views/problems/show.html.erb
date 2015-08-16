@@ -26,7 +26,7 @@
 		<%= link_to "Submit solution", new_solution_path({problem_id: @problem.id}), class: "btn btn-sm btn-success"  %>
 	<% end %>
 	
-	<%= link_to "See Solutions", show_solutions_problems_path(@problem), class: "btn btn-sm btn-primary"  %>
+	<%= link_to raw("See Solutions <span class=\"badge\">#{@problem.solutions.count}</span>"), show_solutions_problems_path(@problem), class: "btn btn-sm btn-primary"  %>
 
 <div class="jumbotron container-fluid">
 			<p class="problem-content"><%= @problem.content %></p>
