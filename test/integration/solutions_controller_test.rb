@@ -93,7 +93,8 @@ class SolutionsControllersTest < ActionDispatch::IntegrationTest
 		assert_difference 'Solution.count', 1 do
       post solutions_path, {solution: { content: "params_solution_content", 
 								answer: 20, 
-								degree_of_answer: 10},
+								degree_of_answer: 10,
+								reported: true },
 								problem_id: @problem.id }						
     end
     assert @user3.solution_of(@problem).reported		

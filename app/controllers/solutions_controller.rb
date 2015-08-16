@@ -183,7 +183,7 @@ class SolutionsController < ApplicationController
 	#check if the user is allowed to see solution
 	#before action method for show only	
 	def permitted_to_see_solution
-		unless current_user==Solution.find(params[:id]).problem.creator || valid_relation_show #|| current_user.admin?
+		unless current_user==Solution.find(params[:id]).problem.creator || valid_relation_show || current_user.admin?
 			flash[:danger] = "You are not allowed to see this solution!!!"
 			redirect_to root_path
 		end
