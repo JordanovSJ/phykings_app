@@ -40,5 +40,12 @@ class ApplicationController < ActionController::Base
         redirect_to new_user_session_path
       end
     end
+    
+    def logged_in_as_admin_or_moderator
+			unless current_user.admin? || current_user.moderator?
+				flash[:danger] = "Please log in as admin or moderator."
+				redirect_to root_path
+			end
+    end
   
 end

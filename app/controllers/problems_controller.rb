@@ -106,7 +106,7 @@ class ProblemsController < ApplicationController
 		
 		#its used to restrict the acces to the delete and edit action
 	def can_edit_delete_update_problem
-		unless current_user==Problem.find(params[:id]).creator #|| current_user.admin?
+		unless current_user==Problem.find(params[:id]).creator || current_user.admin?
 			flash[:danger] = "You are not allowed to edit/delete this problem"
       redirect_to root_path
 		end			

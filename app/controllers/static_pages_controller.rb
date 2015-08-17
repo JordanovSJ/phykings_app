@@ -54,5 +54,17 @@ class StaticPagesController < ApplicationController
 		end
 	end
 	
+	def click_admin
+		# Remember the new sidebar
+		session[:sidebar] = "admin"
+		# Remember the new sidebar item
+		session[:sidebar_item] = params[:sidebar_item]
+		
+		respond_to do |format|
+			format.html { redirect_to root_url }
+			format.js
+		end
+	end
+	
 end
 

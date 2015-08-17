@@ -1,5 +1,8 @@
 class UsersController < ApplicationController
 
+	before_action :logged_in_user
+	before_action :logged_in_as_admin_or_moderator, only: [:admin_users, :admin_problems, :admin_solutions]
+
 	def show
 		if User.where(id: params[:id]).present?
 			@user = User.find(params[:id])
@@ -28,5 +31,18 @@ class UsersController < ApplicationController
 	def show_notifications
 		@notifications = current_user.notifications
 	end
+	
+	def admin_users
+		@admin_users = User.all
+	end
+	
+	def admin_problems
+		@admin_problems = Problem.all
+	end
+	
+	def admin_solutions
+		@admin_solutions = Solution.all
+	end
+
 
 end

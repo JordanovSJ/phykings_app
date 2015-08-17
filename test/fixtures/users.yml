@@ -49,6 +49,7 @@ stamat:
   country: Bulgaria
   encrypted_password: <%= Devise::Encryptor.digest(User, "password") %>
   confirmed_at:  <%= Time.zone.now %>
+
   
 gen4o:
   id: 5
@@ -60,3 +61,6 @@ gen4o:
   encrypted_password: <%= Devise::Encryptor.digest(User, "password") %>
   confirmed_at: <%= Time.zone.now %>
   moderator: true
+
+
+
