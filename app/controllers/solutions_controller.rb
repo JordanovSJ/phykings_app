@@ -48,20 +48,7 @@ class SolutionsController < ApplicationController
 		else
 			render 'new'
 		end
-		
-    #~ if @solution.save
-			#~ @relation.update_attributes(provided_with_solution: true)
-      #~ redirect_to solution_path(@solution)
-      #~ #if the answer of the solution is different than that of the problem the create action change the value reported to TRUE
-      #~ if Solution.check_answer(solution_params,current_problem)
-				#~ flash[:success] = "Solution submitted successfully."
-			#~ else
-				#~ @solution.update_attributes(reported: true)
-				#~ flash[:success] = "Report solution submitted successfully."
-			#~ end
-    #~ else
-      #~ render 'new'
-		#~ end
+
 	end
 	
 	def edit
@@ -174,7 +161,8 @@ class SolutionsController < ApplicationController
 	def valid_relation_show
 		if current_user.relation_of(Solution.find(params[:id]).problem).present?
 			relation=current_user.relation_of(Solution.find(params[:id]).problem)
-			return relation.attempted_during_premium || relation.can_see_solution || relation.provided_with_solution
+			return relation.attempted_during_premium || relation.can_see_solution 
+			#~ || relation.provided_with_solution
 		end
 		
 		return false

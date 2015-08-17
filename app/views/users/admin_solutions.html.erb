@@ -1,0 +1,49 @@
+<h1 class="page-header">
+	Solutions
+</h1>
+
+<% unless @admin_solutions.empty? %>
+
+	<table class="table table-bordered table-hover text-center">
+		<thead>
+			<tr>
+				<th>Submitted</th>
+				<th>Title</th>
+				<th>Creator</th>
+				<th>Category</th>
+				<th>Length (min)</th>
+				<th>Difficulty</th>
+				<th>Status</th>
+				<th>Rating</th>
+			</tr>
+		</thead>
+		<tbody>
+			<% @admin_solutions.each do |sol| %>
+				<tr>
+					<td>
+						<%= Date.strptime(
+									sol.created_at.to_s,
+									"%Y-%m-%d %H:%M:%S %Z"
+								).strftime("%d/%m/%Y") %>
+					</td>
+					<td><%= link_to "Solution of " + sol.problem.title, solution_path(sol) %></td>
+					<td><%= link_to sol.user.first_name + " " + sol.user.last_name, user_path(sol.user) %></td>
+					<td><%= sol.problem.category  %></td>
+					<td><%= sol.problem.length %></td>
+					<td><%= sol.problem.difficulty %></td>
+					<td>
+						<% if sol.reported? %>
+							<p class="label label-danger">Report solution</p>
+						<% else %>
+							<p class="label label-success">Normal solution</p>
+						<% end %>
+					</td>
+					<td></td>
+				</tr>
+			<% end %>
+		</tbody>
+	</table>
+
+<% else %>
+	<p>No solutions yet!</p>
+<% end %>

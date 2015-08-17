@@ -14,7 +14,8 @@ user_admin = User.new( first_name: "user_admin",
 											 country: "United States",
 											 email: "admin@abv.bg",
 											 password: "foobar00",
-											 password_confirmation: "foobar00" )
+											 password_confirmation: "foobar00",
+											 admin: true )
 user_admin.skip_confirmation!
 user_admin.save
 
@@ -26,7 +27,8 @@ user_mod = User.new( first_name: "user_mod",
 											 country: "United States",
 											 email: "mod@abv.bg",
 											 password: "foobar00",
-											 password_confirmation: "foobar00" )
+											 password_confirmation: "foobar00",
+											 moderator: true )
 user_mod.skip_confirmation!
 user_mod.save
 

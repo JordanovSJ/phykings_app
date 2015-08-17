@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   get "static_pages/click_competition"
   get "static_pages/click_p_and_s"
   get "static_pages/click_help"
+  get "static_pages/click_admin"
   
   resources :users, only: [:show] do
 		collection do
@@ -17,6 +18,9 @@ Rails.application.routes.draw do
 			get "my_solutions"
 			get "seen_problems"
 			get "notifications", to: "users#show_notifications", as: "notifications"
+			get "admin_users"
+			get "admin_problems"
+			get "admin_solutions"
 		end
 	end
 
@@ -29,11 +33,6 @@ Rails.application.routes.draw do
 		end
 	end
 
-	resources :solutions do
-		collection do
-			get "create_report_solution"
-		end
-	end
-		
+	resources :solutions		
   
 end

@@ -1,0 +1,49 @@
+<h1 class="page-header">
+	Users
+</h1>
+
+<% unless @admin_users.empty? %>
+
+	<table class="table table-bordered table-hover text-center">
+		<thead>
+			<tr>
+				<th>Registered</th>
+				<th>Name</th>
+				<th>Email</th>
+				<th>Times signed in</th>
+				<th>Free level</th>
+				<th>Premium level</th>
+				<th>Gold</th>
+				<th>N Problems</th>
+				<th>N Solutions</th>
+			</tr>
+		</thead>
+		<tbody>
+			<% @admin_users.each do |u| %>
+				<tr>
+					<td>
+						<%= Date.strptime(
+									u.created_at.to_s,
+									"%Y-%m-%d %H:%M:%S %Z"
+								).strftime("%d/%m/%Y") %>
+					</td>
+					<td><%= link_to u.first_name + " " + u.last_name, user_path(u) %></td>
+					<td><%= u.email  %></td>
+					<td><%= u.sign_in_count %></td>
+					<td><p class="label label-default"><%= u.free_level %></p></td>
+					<td><p class="label label-success"><%= u.premium_level %></p></td>
+					<td><p class="label label-warning"><%= u.gold %></p></td>
+					<td><%= u.uploaded_problems.count %></td>
+					<td><%= u.solutions.count %></td>
+				</tr>
+			<% end %>
+		</tbody>
+	</table>
+
+<% else %>
+
+	<div class="col-sm-2 col-sm-offset-5">
+		<p>There are no users. This is strange!</p>
+	</div>
+
+<% end %>

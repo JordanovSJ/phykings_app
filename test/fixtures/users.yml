@@ -38,6 +38,7 @@ ivan:
   country: Bulgaria
   encrypted_password: <%= Devise::Encryptor.digest(User, "foobar00") %>
   confirmed_at: <%= Time.zone.now %>
+  admin: true
 
 stamat:
   id: 4
@@ -48,3 +49,4 @@ stamat:
   country: Bulgaria
   encrypted_password: <%= Devise::Encryptor.digest(User, "password") %>
   confirmed_at:  <%= Time.zone.now %>
+

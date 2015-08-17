@@ -49,6 +49,10 @@
 						</ul>    
 						</li>
 						
+						<% if current_user.admin? || current_user.moderator? %>
+							<%= render 'layouts/logged_in/admin_menu' %>
+						<% end %>
+						
           </ul>
           
 <!--
