@@ -19,6 +19,10 @@ class Solution < ActiveRecord::Base
 		return (value_answer_solution <= upper_bound && value_answer_solution >= lower_bound)
 	end
 	
+	def answer_params
+		{answer: self.answer, degree_of_answer: self.degree_of_answer}
+	end
+	
 	#additional names for convieniencee
 	def user 
 		self.viewer

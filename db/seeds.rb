@@ -6,6 +6,38 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
+pe60 = User.new(
+						first_name: "user 1",
+						last_name: "nenko",
+		
+						age: 20,
+							country: "Bulgaria",
+             email: "pe6o@abv.bg",
+             password:              "password",
+             password_confirmation: "password",
+)
+
+pe60.skip_confirmation!
+pe60.save
+   
+   
+ 
+sa6o = User.new(
+						first_name: "user 2",
+						last_name: "nenko",
+
+						
+						age: 20,
+							country: "Bulgaria",
+             email: "unufri@abv.bg",
+             password:              "sa6oalex",
+             password_confirmation: "sa6oalex",
+)
+
+sa6o.skip_confirmation!
+sa6o.save
+
+
 # One admin user
 
 user_admin = User.new( first_name: "user_admin",
@@ -84,36 +116,7 @@ end
 
 ##############################################
 
-pe60 = User.new(
-						first_name: "user 1",
-						last_name: "nenko",
-		
-						age: 20,
-							country: "Bulgaria",
-             email: "pe6o@abv.bg",
-             password:              "password",
-             password_confirmation: "password",
-)
 
-pe60.skip_confirmation!
-pe60.save
-   
-   
- 
-sa6o = User.new(
-						first_name: "user 2",
-						last_name: "nenko",
-
-						
-						age: 20,
-							country: "Bulgaria",
-             email: "unufri@abv.bg",
-             password:              "sa6oalex",
-             password_confirmation: "sa6oalex",
-)
-
-sa6o.skip_confirmation!
-sa6o.save
          
 
 problem1=Problem.create!(

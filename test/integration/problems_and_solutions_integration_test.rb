@@ -4,15 +4,15 @@ class ProblemsAndSolutionsIntegrationsTest < ActionDispatch::IntegrationTest
 
 	def setup	
 		@user1=users(:go6o) # creator of the problem
+		@problem=problems(:problem1_by_user1)
 		@user2=users(:pe6o) #solver of the problem
 		@user3=users(:stamat) #has not relation to the problem
-		@problem=problems(:problem1_by_user1)
 		@relation=get_custom_relation(@user2,@problem)
 		@solution=get_custom_solution(@relation)
 		@problem_params=get_params_for_problem
 		@solution_params=get_params_for_solution
 	end
-	
+#problems	
 	test "signed_out user cannot access problems" do
 		get new_problem_path
 		follow_redirect!
@@ -54,7 +54,7 @@ class ProblemsAndSolutionsIntegrationsTest < ActionDispatch::IntegrationTest
 		assert_not flash.empty?	
 	end
 	
-	
+	#solutions
 		test "signed_out user cannot access solutions actions" do
 		get new_solution_path
 		follow_redirect!
@@ -82,6 +82,17 @@ class ProblemsAndSolutionsIntegrationsTest < ActionDispatch::IntegrationTest
 		follow_redirect!
 		assert_template 'static_pages/home'
 		assert_not flash.empty?			
+	end
+	
+	test "a user cannot see the solution of an another user unless can_see_solution-true for that problem or user problem.creator" do
+		@relationCreator=get_custom_relation(@user1,@problem)
+		@solutionCreator=get_custom_solution(@relationCreator) 
+    sign_in_as(@user2)
+    get solution_path(@solution)
+    assert_template 'solutions/show'
+    get solution_path(@user1.solution_of(@problem))
+    assert_redirected_to root_path, flash[:danger]
+    assert_not flash.empty?		
 	end
 	
 	test "once you have submitted a valid solution you can delete it and then still be able to upload a new one" do
@@ -114,7 +125,33 @@ class ProblemsAndSolutionsIntegrationsTest < ActionDispatch::IntegrationTest
    assert_redirected_to edit_problem_path(@solution)
    assert_not flash.empty?
   end
+
+#reports  
+  test "when u update the answer of a solution and this answer is not consistent with the answer of the problem the solution becomes report" do
+		sign_in_as(@user2)
+		assert_not @solution.reported
+		patch solution_path(@solution), solution: {answer: 0 }	
+		assert_redirected_to solution_path(@solution)
+		assert_not flash.empty?
+		@solution=@user2.solution_of(@problem)
+		assert @solution.reported
+  end
   
   
+  test "when author of problem tries to update a solution of that problem with inconsistent answer he should be redirected to edit problem" do
+  	sign_in_as(@user1)
+		@relationCreator=get_custom_relation(@user1,@problem)
+		@solutionCreator=get_custom_solution(@relationCreator) 
+		patch solution_path(@solutionCreator), solution: {answer: 0 }	
+		assert_redirected_to edit_problem_path(@problem)
+		assert_not flash.empty?
+  end
+  
+  test "when creator of a problem updates its answer the status of the solutions should chage" do
+		sign_in_as(@user1)
+		assert_not @solution.reported
+		patch problem_path(@problem), problem: {answer: 0 }	
+		assert @user2.solution_of(@problem).reported
+  end
   
 end
