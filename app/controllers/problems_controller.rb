@@ -70,29 +70,36 @@ class ProblemsController < ApplicationController
 		relation = current_relation
 		problem = current_problem
 		
-		relation.update_attributes( rating: vote_params[:vote][:rating],
-																				length: vote_params[:vote][:length],
-																				difficulty: vote_params[:vote][:difficulty],
-																				voted: true )
-		problem.increment( :votes, 1 ).save!
-		
-		# Every VOTES_REFRESH votes the problem parameters will refresh
-		if problem.votes % VOTES_REFRESH == 0
-			rel_array = problem.user_problem_relations.where(voted: true)
-			sum_rating, sum_length, sum_difficulty = 0.0, 0, 0
-			count = rel_array.count
+		unless relation.voted?
+			relation.update_attributes( rating: vote_params[:rating],
+																	length: vote_params[:length],
+																	difficulty: vote_params[:difficulty],
+																	voted: true )
+			problem.increment( :votes, 1 ).save!
 			
-			rel_array.each do |rel|
-				sum_rating += rel.rating
-				sum_length += rel.length
-				sum_difficulty += rel.difficulty
+			# Every VOTES_REFRESH votes the problem parameters will refresh
+			if problem.votes % VOTES_REFRESH == 0
+				rel_array = problem.user_problem_relations.where(voted: true)
+				sum_rating, sum_length, sum_difficulty = 0.0, 0, 0
+				count = rel_array.count
+				
+				rel_array.each do |rel|
+					sum_rating += rel.rating
+					sum_length += rel.length
+					sum_difficulty += rel.difficulty
+				end
+				
+				new_rating = sum_rating / count # Float
+				new_length = sum_length / count # Integer
+				new_difficulty = sum_difficulty / count # Integer
+				
+				problem.update_attributes(rating: new_rating, length: new_length, difficulty: new_difficulty)	
 			end
-			
-			new_rating = sum_rating / count # Float
-			new_length = sum_length / count # Integer
-			new_difficulty = sum_difficulty / count # Integer
-			
-			problem.update_attributes(rating: new_rating, length: new_length, difficulty: new_difficulty)	
+			flash[:success] = "Thank you for rating this problem."
+			redirect_to problem_path(problem)
+		else
+			flash[:danger] = "You have already rated this problem."
+			redirect_to problem_path(problem)
 		end
 	end
 	

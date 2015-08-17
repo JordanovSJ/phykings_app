@@ -1,0 +1,45 @@
+<%= form_for :vote, url: vote_problems_path(problem_id: params[:id]), html: {class: ""} do |f| %>
+<div class="panel panel-default">
+	<div class="panel-body">
+		
+		<div class="row">
+			<div class="col-sm-5 text-right">
+				<%= f.label :rating, "Rate Quality:" %>
+			</div>
+			<div class="col-sm-7">
+				<%= f.number_field :rating, class: "rating", "data-max":"10", "data-empty-value":5 %>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-sm-5 text-right">
+				<%= f.label :difficulty, "Rate Length:" %>
+			</div>
+			<div class="col-sm-7">
+				<%= f.radio_button :length, '10', checked: true %>
+				<%= f.label :length_10, "10 min" %>
+				<%= f.radio_button :length, '30' %>
+				<%= f.label :length_30, "30 min" %>
+				<%= f.radio_button :length, '60' %>
+				<%= f.label :length_60, "60 min" %>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-sm-5 text-right">
+				<%= f.label :difficulty, "Rate Difficulty:" %>
+			</div>
+			<div class="col-sm-7">
+				<%= f.number_field :difficulty, class: "rating", "data-max":"10", "data-empty-value":5 %>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-sm-offset-4">
+				<%= f.submit "Rate", class: "btn btn-primary col-sm-6" %>
+			</div>
+		</div>
+		
+	</div>
+</div>
+<% end %>
