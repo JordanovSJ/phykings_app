@@ -4,7 +4,7 @@
 
 <% unless @seen_problems.empty? %>
 
-	<table class="table table-bordered table-hover">
+	<table class="table table-bordered table-hover text-center">
 		<thead>
 			<tr>
 				<th>Submitted</th>
@@ -13,6 +13,7 @@
 				<th>Category</th>
 				<th>Length (min)</th>
 				<th>Difficulty</th>
+				<th>Submitted solution</th>
 				<th>Rating</th>
 			</tr>
 		</thead>
@@ -30,6 +31,13 @@
 					<td><%= prob.category  %></td>
 					<td><%= prob.length %></td>
 					<td><%= prob.difficulty %></td>
+					<td>
+						<% if current_user.relation_of(prob).solution.present?  %>
+							<p class="label label-success"> Yes </p>
+						<% else %>
+							<p class="label label-danger"> No </p>
+						<% end %>
+					</td>
 					<td></td>
 				</tr>
 			<% end %>
