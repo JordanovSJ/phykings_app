@@ -40,6 +40,8 @@ ivan:
   confirmed_at: <%= Time.zone.now %>
   admin: true
 
+
+
 stamat:
   id: 4
   email: stamat@lampi.com
@@ -62,5 +64,15 @@ gen4o:
   confirmed_at: <%= Time.zone.now %>
   moderator: true
 
+elza:
+  id: 6
+  email: elza@lampi.com
+  first_name: Haralampi
+  last_name: Popov
+  age: 18
+  country: Bulgaria
+  encrypted_password: <%= Devise::Encryptor.digest(User, "password") %>
+  confirmed_at: <%= Time.zone.now %>
+  admin: true
 
 

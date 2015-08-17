@@ -132,7 +132,7 @@ class SolutionsController < ApplicationController
 	#check if the user is allowed to submit solution
 	#before action method for new and create only
 	def permitted_to_submit_solution
-		unless current_problem.solutions.count==0 || current_user.id==current_problem.creator.id || current_user.relation_of(current_problem).present? || current_user.admin? 
+		unless current_problem.solutions.count==0 || current_user.id==current_problem.creator.id || current_user.relation_of(current_problem).present? || current_user.admin? || current_user.moderator?
 			flash[:danger] = "You are not allowed to submitted a solution of this problem becauese of some reason?!?!"
 			redirect_to root_path
 		end
@@ -169,7 +169,7 @@ class SolutionsController < ApplicationController
 	#check if the user is allowed to see solution
 	#before action method for show only	
 	def permitted_to_see_solution
-		unless current_user.id==Solution.find(params[:id]).problem.creator.id || valid_relation_show || current_user.admin?
+		unless current_user.id==Solution.find(params[:id]).problem.creator.id || valid_relation_show || current_user.admin? || current_user.moderator?
 			flash[:danger] = "You are not allowed to see this solution!!!"
 			redirect_to root_path
 		end
