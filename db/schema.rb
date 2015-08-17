@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150815110747) do
+ActiveRecord::Schema.define(version: 20150817135302) do
 
   create_table "notifications", force: :cascade do |t|
     t.string   "message"
@@ -36,6 +36,8 @@ ActiveRecord::Schema.define(version: 20150815110747) do
     t.string   "category"
     t.integer  "difficulty"
     t.integer  "length"
+    t.float    "rating"
+    t.integer  "votes"
   end
 
   add_index "problems", ["creator_id", "created_at"], name: "index_problems_on_creator_id_and_created_at"
@@ -66,6 +68,10 @@ ActiveRecord::Schema.define(version: 20150815110747) do
     t.boolean  "solved_during_premium",    default: false
     t.boolean  "provided_with_solution",   default: false
     t.boolean  "can_see_solution",         default: false
+    t.integer  "rating"
+    t.integer  "length"
+    t.integer  "difficulty"
+    t.boolean  "voted",                    default: false
   end
 
   add_index "user_problem_relations", ["seen_problem_id"], name: "index_user_problem_relations_on_seen_problem_id"

@@ -49,11 +49,13 @@ class ProblemsController < ApplicationController
     redirect_to root_path #previous location
 	end
 	
+	# Used to show the solutions of the current problem
 	def show_solutions
 		@normal_solutions = current_problem.solutions.where(reported: false)
 		@reported_solutions = current_problem.solutions.where(reported: true)
 	end
 	
+	# Used for the "Problems without solution" view
 	def no_solutions
 		@no_solutions = []
 		Problem.all.each do |pr|
@@ -63,10 +65,45 @@ class ProblemsController < ApplicationController
 		end
 	end
 	
+	# Sends a vote to the current relation
+	def vote
+		relation = current_relation
+		problem = current_problem
+		
+		relation.update_attributes( rating: vote_params[:vote][:rating],
+																				length: vote_params[:vote][:length],
+																				difficulty: vote_params[:vote][:difficulty],
+																				voted: true )
+		problem.increment( :votes, 1 ).save!
+		
+		# Every VOTES_REFRESH votes the problem parameters will refresh
+		if problem.votes % VOTES_REFRESH == 0
+			rel_array = problem.user_problem_relations.where(voted: true)
+			sum_rating, sum_length, sum_difficulty = 0.0, 0, 0
+			count = rel_array.count
+			
+			rel_array.each do |rel|
+				sum_rating += rel.rating
+				sum_length += rel.length
+				sum_difficulty += rel.difficulty
+			end
+			
+			new_rating = sum_rating / count # Float
+			new_length = sum_length / count # Integer
+			new_difficulty = sum_difficulty / count # Integer
+			
+			problem.update_attributes(rating: new_rating, length: new_length, difficulty: new_difficulty)	
+		end
+	end
+	
 	private
 	
   def problem_params
      params.require(:problem).permit(:content, :title, :answer, :degree_of_answer, :units_of_answer, :category, :difficulty, :length)
+  end
+  
+  def vote_params
+		params.require(:vote).permit(:rating, :length, :difficulty)
   end
 		
 		#its used to restrict the acces to the delete and edit action
