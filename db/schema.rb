@@ -11,7 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150817122540) do
+ActiveRecord::Schema.define(version: 20150817150518) do
+
+  create_table "banks", force: :cascade do |t|
+    t.integer  "total_gold"
+    t.integer  "present_gold"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
 
   create_table "notifications", force: :cascade do |t|
     t.string   "message"
