@@ -1,29 +1,66 @@
 <div class="page-header">
-	<h1>
-		Solution of "<%= @solution.problem.title %>"
-	</h1>
+	<div class="row">
+		<div class="col-sm-9">
+		<h1>
+			Solution of "<%= @solution.problem.title %>"
+		</h1>
 
-	<% if @solution.user.present? %>
-		<p> 
-			by <%= link_to @solution.user.first_name + " " + @solution.user.last_name, user_path(@solution.user) %>,
-			<%= time_ago_in_words(@solution.created_at) %> ago
-			<% if current_user==(@solution.user) || current_user.admin? %>
-				<%= link_to "Edit", edit_solution_path(@solution), class: "btn btn-xs btn-warning"  %>
-				<%= link_to "Delete", @solution, method: :delete, 
-						data: { confirm: "You sure?" }, class: "btn btn-xs btn-danger" %>
+		<% if @solution.user.present? %>
+			<p> 
+				by <%= link_to @solution.user.first_name + " " + @solution.user.last_name, user_path(@solution.user) %>,
+				<%= time_ago_in_words(@solution.created_at) %> ago
+				<% if current_user==(@solution.user) || current_user.admin? %>
+					<%= link_to "Edit", edit_solution_path(@solution), class: "btn btn-xs btn-warning"  %>
+					<%= link_to "Delete", @solution, method: :delete, 
+							data: { confirm: "You sure?" }, class: "btn btn-xs btn-danger" %>
+				<% end %>
+			</p>
+			<% if @solution.reported? %>
+				<p class="label label-danger">Report solution</p>
+			<% else %>
+				<p class="label label-success">Normal solution</p>
 			<% end %>
-		</p>
-		<% if @solution.reported? %>
-			<p class="label label-danger">Report solution</p>
-		<% else %>
-			<p class="label label-success">Normal solution</p>
 		<% end %>
-	<% end %>
+		</div>
+		
+		<div class="col-sm-3">
+			
+			<div class="panel panel-default text-center">
+				<div class="panel-body">
+					
+					<p>Was this solution helpful?</p>
+					
+					<div class="col-sm-6">
+						<%= link_to raw("<span class=\"glyphicon glyphicon-chevron-up\"></span>"), vote_solutions_path(vote: true), method: "post", class: "btn btn-success col-sm-12" %>
+					</div>
+					
+					<div class="col-sm-6">
+						<%= link_to raw("<span class=\"glyphicon glyphicon-chevron-down\"></span>"), vote_solutions_path(vote: false), method: "post", class: "btn btn-danger col-sm-12" %>
+					</div>
+				</div>
+			</div>
+		
+		</div>
+	</div>
 </div>
 
-
-<%= link_to "See Problem", problem_path(@solution.problem), class: "btn btn-sm btn-primary" %>
-<%= link_to raw("All Solutions <span class=\"badge\">#{@solution.problem.solutions.count}</span>"), show_solutions_problems_path(@solution.problem), class: "btn btn-sm btn-primary" %>
+<div class="row">
+	<div class="col-sm-6">
+		<%= link_to "See Problem", problem_path(@solution.problem), class: "btn btn-sm btn-primary" %>
+		<%= link_to raw("All Solutions <span class=\"badge\">#{@solution.problem.solutions.count}</span>"), show_solutions_problems_path(@solution.problem), class: "btn btn-sm btn-primary" %>
+	</div>
+	
+	<div class="col-sm-6 text-right">
+		<span class="badge alert-success">
+			+<%= @solution.upvotes %>
+		</span>
+		
+		<span class="badge alert-danger">
+			-<%= @solution.downvotes %>
+		</span>
+	</div>
+	
+</div>
 
 <div class="jumbotron container-fluid">
 			<p class="solution-content"><%= @solution.content %></p>

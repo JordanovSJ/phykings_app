@@ -34,6 +34,10 @@ Rails.application.routes.draw do
 		end
 	end
 
-	resources :solutions		
+	resources :solutions do
+		collection do
+			post ":id/vote", to: "solutions#vote", as: "vote"
+		end
+	end		
   
 end

@@ -87,6 +87,34 @@ class SolutionsController < ApplicationController
     redirect_to root_path #previous location
 	end
 	
+	def vote
+		solution = Solution.find(params[:id])
+		relation = solution.user_problem_relation
+		
+		unless relation.voted_solution?
+			
+			if params[:vote] == "true"
+				relation.update_attributes(solution_vote: true)
+				relation.update_attributes(voted_solution: true)
+				solution.increment( :upvotes, 1 ).save!
+				flash[:success] = "Thank you for your upvote."
+				redirect_to solution_path(solution)
+			elsif params[:vote] == "false"
+				relation.update_attributes(solution_vote: false)
+				relation.update_attributes(voted_solution: true)
+				solution.increment( :downvotes, 1 ).save!
+				flash[:success] = "Thank you for your downvote."
+				redirect_to solution_path(solution)
+			else
+				flash[:danger] = "Invalid vote value."
+				redirect_to solution_path(solution)
+			end
+		else
+			flash[:danger] = "You have already voted."
+			redirect_to solution_path(solution)
+		end
+	end
+	
 	private
 	
 	def solution_params
