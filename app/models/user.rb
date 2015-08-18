@@ -26,7 +26,41 @@ class User < ActiveRecord::Base
 	end
 
 
-
+	validates :gold, :numericality => { :only_integer => true, :greater_than => -1}
+	
+	#bank methods
+	
+	#unlocks the answer of the problem if there is a relation between the user and the problem
+	#the user pays the bank 5 gold for that
+	def unlock_answer_of(problem)
+		cost=5
+		if self.gold >= cost && self.relation_of(problem).present? && !self.relation_of(problem).can_see_answer
+			ActiveRecord::Base.transaction do
+				present_gold=Bank.access.present_gold + cost
+				Bank.access.update_attributes!(present_gold: present_gold)
+				user_gold=self.gold - cost
+				self.update_attributes!(gold: user_gold)
+				self.relation_of(problem).update_attributes!(can_see_answer: true)	
+			end
+		end
+	end
+	
+		
+	#unlocks the solutions of the problem if there is a relation between the user and the problem
+	#the user pays the bank 10 gold for that
+	def unlock_solutions_of(problem)
+		cost=10
+		if self.gold >= cost && self.relation_of(problem).present? && !self.relation_of(problem).can_see_solution
+			ActiveRecord::Base.transaction do
+				present_gold=Bank.access.present_gold + cost
+				Bank.access.update_attributes!(present_gold: present_gold)
+				user_gold=self.gold - cost
+				self.update_attributes!(gold: user_gold)
+				self.relation_of(problem).update_attributes!(can_see_solution: true)	
+			end
+		end
+	end
+	
 #ALexndar.sa6o 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
