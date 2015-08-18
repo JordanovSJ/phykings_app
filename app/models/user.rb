@@ -26,10 +26,11 @@ class User < ActiveRecord::Base
 	end
 
 
-	validates :gold, :numericality => { :only_integer => true, :greater_than => -1}
+
 	
 	#bank methods
 	
+	#badly written comments:
 	#unlocks the answer of the problem if there is a relation between the user and the problem
 	#the user pays the bank 5 gold for that
 	def unlock_answer_of(problem)
@@ -45,7 +46,7 @@ class User < ActiveRecord::Base
 		end
 	end
 	
-		
+	#badly written comments again:
 	#unlocks the solutions of the problem if there is a relation between the user and the problem
 	#the user pays the bank 10 gold for that
 	def unlock_solutions_of(problem)
@@ -61,6 +62,8 @@ class User < ActiveRecord::Base
 		end
 	end
 	
+	
+	
 #ALexndar.sa6o 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
@@ -75,7 +78,10 @@ class User < ActiveRecord::Base
 									greater_than_or_equal_to: 1,
 									less_than_or_equal_to: 100 }
 	validates :country, presence: true
-  
+	
+	#not so obvious one, but trust me
+  validates :gold, :numericality => { :only_integer => true, :greater_than => -1}
+  	
   # Code initially taken from Devise Omniauth documentation, but changed.
   # Changed first_or_create to first_or_initialize, so that we can use
   # user.skip_confirmation! before the user is saved and in this way
