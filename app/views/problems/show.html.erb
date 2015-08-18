@@ -45,20 +45,8 @@
 		<%= link_to raw("See Solutions <span class=\"badge\">#{@problem.solutions.count}</span>"), show_solutions_problems_path(@problem), class: "btn btn-sm btn-primary"  %>
 		</div>
 		
-		<div class="col-sm-6 text-right">
-			<p class="label label-default">
-				Quality:
-				<% if current_problem.rating.present? %>
-					<% (1..(current_problem.rating.to_i)).each do |i|  %>
-						<i class='glyphicon glyphicon-star'></i>
-					<% end %>
-					<% ( (current_problem.rating.to_i + 1)..10).each do |i|  %>
-						<i class='glyphicon glyphicon-star-empty'></i>
-					<% end %>
-				<% else %>
-					<strong>No Votes Yet</strong>
-				<% end %>
-			</p>
+		<div class="col-sm-6 text-right" id="problem-rating">
+			<%= render 'problem_rating' %>
 		</div>
 	</div>
 

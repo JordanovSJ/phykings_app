@@ -1,0 +1,13 @@
+<div class="panel panel-default text-center">
+	<div class="panel-body">
+		
+		<p>Thank you.</p>
+		
+		<% if @solution.user_problem_relation.solution_vote? %>
+			<p>You <strong>upvoted</strong> this solution.</p>
+		<% elsif !@solution.user_problem_relation.solution_vote? %>
+			<p>You <strong>downvoted</strong> this solution.</p>
+		<% end %>
+		
+	</div>
+</div>
