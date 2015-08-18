@@ -48,7 +48,6 @@ class SolutionsController < ApplicationController
 		else
 			render 'new'
 		end
-
 	end
 	
 	def edit
@@ -133,7 +132,7 @@ class SolutionsController < ApplicationController
 	#check if the user is allowed to submit solution
 	#before action method for new and create only
 	def permitted_to_submit_solution
-		unless current_problem.solutions.count==0 || current_user==current_problem.creator || current_user.relation_of(current_problem).present?#valid_relation_new_create # || current_user.admin? 
+		unless current_problem.solutions.count==0 || current_user.id==current_problem.creator.id || current_user.relation_of(current_problem).present? || current_user.admin? || current_user.moderator?
 			flash[:danger] = "You are not allowed to submitted a solution of this problem becauese of some reason?!?!"
 			redirect_to root_path
 		end
@@ -141,7 +140,7 @@ class SolutionsController < ApplicationController
 	
 	#creator of a problem cannot submit report to that problem
 	def permitted_to_submit_report
-		if current_user==current_problem.creator && !Solution.check_answer(solution_params,current_problem)
+		if current_user.id==current_problem.creator.id && !Solution.check_answer(solution_params,current_problem)
 			flash[:danger] ="You cannot report your own problems! Edit or delete the problem instead!!!"
 			redirect_to edit_problem_path(current_problem)
 		end
@@ -150,7 +149,7 @@ class SolutionsController < ApplicationController
 	#creator of a problem cannot change solution to report
 	def permitted_to_update_report
 		problem=Solution.find(params[:id]).problem
-		if current_user==problem.creator && !Solution.check_answer(solution_params,problem)
+		if current_user.id==problem.creator.id && !Solution.check_answer(solution_params,problem)
 			flash[:danger] ="You cannot report your own problems! Edit or delete the problem instead!!!"
 			redirect_to edit_problem_path(problem)
 		end
@@ -161,8 +160,7 @@ class SolutionsController < ApplicationController
 	def valid_relation_show
 		if current_user.relation_of(Solution.find(params[:id]).problem).present?
 			relation=current_user.relation_of(Solution.find(params[:id]).problem)
-			return relation.attempted_during_premium || relation.can_see_solution 
-			#~ || relation.provided_with_solution
+			return relation.attempted_during_premium || relation.can_see_solution || relation.solution.id==params[:id].to_i
 		end
 		
 		return false
@@ -171,7 +169,7 @@ class SolutionsController < ApplicationController
 	#check if the user is allowed to see solution
 	#before action method for show only	
 	def permitted_to_see_solution
-		unless current_user==Solution.find(params[:id]).problem.creator || valid_relation_show || current_user.admin?
+		unless current_user.id==Solution.find(params[:id]).problem.creator.id || valid_relation_show || current_user.admin? || current_user.moderator?
 			flash[:danger] = "You are not allowed to see this solution!!!"
 			redirect_to root_path
 		end

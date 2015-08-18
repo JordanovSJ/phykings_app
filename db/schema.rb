@@ -68,6 +68,7 @@ ActiveRecord::Schema.define(version: 20150817135302) do
     t.boolean  "solved_during_premium",    default: false
     t.boolean  "provided_with_solution",   default: false
     t.boolean  "can_see_solution",         default: false
+    t.boolean  "can_see_answer",           default: false
     t.integer  "rating"
     t.integer  "length"
     t.integer  "difficulty"

@@ -3,6 +3,7 @@ class ProblemsController < ApplicationController
 	
 	#makes sure only a logged_in user can access problem actions
 	before_action :logged_in_user
+	before_action :check_for_id, only: [:show , :edit, :update, :delete]
 	#only the creator of the problem or an admin are allowed to edit/delete the problem
 	before_action :can_edit_delete_update_problem, only: [:edit, :destroy, :update]
 	#only people who have solved the problem, its creator or an admin is can see the problem
@@ -16,7 +17,7 @@ class ProblemsController < ApplicationController
 	end
 	
 	def new
-		@problem=Problem.new #why??
+		@problem=Problem.new 
 		# Categories to be displayed in the views selection boxes
 	end
 	
@@ -38,8 +39,17 @@ class ProblemsController < ApplicationController
 	def update
 	  @problem = Problem.find(params[:id])
     if @problem.update_attributes(problem_params)
-      flash[:success] = "Problem updated"
-      redirect_to @problem
+			update_solutions
+			solution=current_user.solution_of(@problem)
+			if solution.present? && solution.reported
+				#~ redirect_to edit_solution_path(solution)
+				#~ flash[:danger]= "Problem updated, but your solution to this problem has unconsistent answer!!! Please edit your solution !"
+				current_user.notifications.create!(message: "Your solution to problem #{@problem.title} has unconsistent answer and its status is now reported!!! Please edit your solution!!!")
+				redirect_to @problem
+			else
+				flash[:success] = "Problem updated"
+				redirect_to @problem
+			end
     else
       render 'edit'
     end
@@ -141,6 +151,31 @@ class ProblemsController < ApplicationController
 			redirect_to problem_path(current_problem)
 		end
   end
+
+	  #checks if params[:id] exist
+  def check_for_id
+		if Problem.where(id: params[:id]).count==0
+			flash[:danger]="This problem does not exist"
+			redirect_to root_path
+		end
+  end
+		
+			#when problem is update checks if the answers of its solutions are still consistent with the answer of the problem and
+			# change them to reports if not
+	def update_solutions
+		solutions=@problem.solutions
+		solutions.each do |s|
+			solution_params=s.answer_params
+			#change normal solution to report
+			if !Solution.check_answer(solution_params,@problem) && !s.reported
+				s.update_attributes(reported: true)
+			end
+			#change report to normal solution
+			if Solution.check_answer(solution_params,@problem) && s.reported
+				s.update_attributes(reported: false)
+			end
+		end
+	end
 		
 		#its used to restrict the acces to the delete and edit action
 	def can_edit_delete_update_problem
@@ -153,9 +188,7 @@ class ProblemsController < ApplicationController
 		#it is used to restrict the access to the show action
 	def can_see_problem
 	#need to fix this after add type to user_problem_relations
-		unless current_user.relation_of(Problem.find(params[:id])).present? || 
-					current_user==Problem.find(params[:id]).creator || Problem.find(params[:id]).solutions.count==0#|| current_user.admin?
-					
+		unless current_user.relation_of(Problem.find(params[:id])).present? || current_user.id==Problem.find(params[:id]).creator.id || Problem.find(params[:id]).solutions.count==0 ||current_user.admin? || current_user.moderator?				
 			flash[:danger] = "You are not allowed to see this problem"
       redirect_to root_path
 		end
