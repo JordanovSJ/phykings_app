@@ -7,6 +7,8 @@ class ProblemsController < ApplicationController
 	before_action :can_edit_delete_update_problem, only: [:edit, :destroy, :update]
 	#only people who have solved the problem, its creator or an admin is can see the problem
 	before_action :can_see_problem, only: [:show]
+	# checks if the submitted vote parameters are valid
+	before_action :valid_vote, only: [:vote]
 	
 	def show
 		@problem = current_problem
@@ -77,8 +79,8 @@ class ProblemsController < ApplicationController
 																	voted: true )
 			problem.increment( :votes, 1 ).save!
 			
-			# Every VOTES_REFRESH votes the problem parameters will refresh
-			if problem.votes % VOTES_REFRESH == 0
+			# Every VOTES_REFRESH votes the problem parameters will be refreshed
+			if problem.votes % VOTES_REFRESH == 1
 				rel_array = problem.user_problem_relations.where(voted: true)
 				sum_rating, sum_length, sum_difficulty = 0.0, 0, 0
 				count = rel_array.count
@@ -95,8 +97,13 @@ class ProblemsController < ApplicationController
 				
 				problem.update_attributes(rating: new_rating, length: new_length, difficulty: new_difficulty)	
 			end
-			flash[:success] = "Thank you for rating this problem."
-			redirect_to problem_path(problem)
+			
+			respond_to do |format|
+				format.js
+				format.html { flash[:success] = "Thank you for rating this problem."
+											redirect_to problem_path(problem) }
+			end
+
 		else
 			flash[:danger] = "You have already rated this problem."
 			redirect_to problem_path(problem)
@@ -109,8 +116,30 @@ class ProblemsController < ApplicationController
      params.require(:problem).permit(:content, :title, :answer, :degree_of_answer, :units_of_answer, :category, :difficulty, :length)
   end
   
+  # Handles the params hash when rating problems.
   def vote_params
 		params.require(:vote).permit(:rating, :length, :difficulty)
+  end
+  
+  # Used as a before action to the method vote. Checks if the submitted
+  # vote_params are present and if their values are allowed. This is
+  # simpler than including separate model validations to the relations model.
+  def valid_vote
+		if ( vote_params[:rating].present? && 
+				 vote_params[:length].present? && 
+				 vote_params[:difficulty].present? )
+			if ( vote_params[:rating].to_i.between?(1, 10)  && 
+					 LENGTH.include?( vote_params[:length].to_i ) && 
+					 vote_params[:difficulty].to_i.between?(1, MAX_DIFFICULTY) )
+				return true
+			else
+				flash[:danger] = "One or more invalid vote parameters."
+				redirect_to problem_path(current_problem)
+			end	
+		else
+			flash[:danger] = "You need to include all three parameters in your vote."
+			redirect_to problem_path(current_problem)
+		end
   end
 		
 		#its used to restrict the acces to the delete and edit action

@@ -18,25 +18,49 @@
 			<% end %>
 		</div>
 		
-		<div class="col-sm-6">
+		<div class="col-sm-6" id="problem-voting">
 			
-			<%= render 'rate_problem' %>
+			<% unless current_relation.voted %>
+				<%= render 'rate_problem' %>
+			<% else %>
+				<%= render 'rate_problem_voted' %>
+			<% end %>
 			
 		</div>
 	</div>
 </div>
 
-	<% unless current_user.relation_of(@problem).nil? %>
-		<% if @relation.provided_with_solution? %>
-			<%= link_to "Your solution", solution_path(current_user.relation_of(@problem).solution), class: "btn btn-sm btn-success"  %>
+	<div class="row">
+		<div class="col-sm-6">
+		<% unless current_user.relation_of(@problem).nil? %>
+			<% if @relation.provided_with_solution? %>
+				<%= link_to "Your solution", solution_path(current_user.relation_of(@problem).solution), class: "btn btn-sm btn-success"  %>
+			<% else %>
+				<%= link_to "Submit solution", new_solution_path({problem_id: @problem.id}), class: "btn btn-sm btn-success"  %>
+			<% end %>
 		<% else %>
 			<%= link_to "Submit solution", new_solution_path({problem_id: @problem.id}), class: "btn btn-sm btn-success"  %>
 		<% end %>
-	<% else %>
-		<%= link_to "Submit solution", new_solution_path({problem_id: @problem.id}), class: "btn btn-sm btn-success"  %>
-	<% end %>
-	
-	<%= link_to raw("See Solutions <span class=\"badge\">#{@problem.solutions.count}</span>"), show_solutions_problems_path(@problem), class: "btn btn-sm btn-primary"  %>
+		
+		<%= link_to raw("See Solutions <span class=\"badge\">#{@problem.solutions.count}</span>"), show_solutions_problems_path(@problem), class: "btn btn-sm btn-primary"  %>
+		</div>
+		
+		<div class="col-sm-6 text-right">
+			<p class="label label-default">
+				Quality:
+				<% if current_problem.rating.present? %>
+					<% (1..(current_problem.rating.to_i)).each do |i|  %>
+						<i class='glyphicon glyphicon-star'></i>
+					<% end %>
+					<% ( (current_problem.rating.to_i + 1)..10).each do |i|  %>
+						<i class='glyphicon glyphicon-star-empty'></i>
+					<% end %>
+				<% else %>
+					<strong>No Votes Yet</strong>
+				<% end %>
+			</p>
+		</div>
+	</div>
 
 <div class="jumbotron container-fluid">
 			<p class="problem-content"><%= @problem.content %></p>
@@ -47,10 +71,10 @@
 					Answer: <%= link_to "Unlock", "#", class: "btn btn-xs btn-info" %>
 				<% end %>
 			</p>
-			<div class="col-sm-2 col-sm-offset-3">
+			<div class="col-sm-2 col-sm-offset-3 text-right">
 				<p class="label label-primary">Length: <%= @problem.length %> min</p>
 			</div>
-			<div class="col-sm-2">
+			<div class="col-sm-2 text-right">
 				<p class="label label-primary">Difficulty: <%= @problem.difficulty %></p>
 			</div>
 			<div class="col-sm-6 col-sm-offset-6 text-right">

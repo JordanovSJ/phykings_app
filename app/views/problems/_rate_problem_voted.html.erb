@@ -1,0 +1,48 @@
+<div class="panel panel-default">
+	<div class="panel-body">
+		
+		<div class="row">
+			<div class="col-sm-5 text-right">
+				<%= label :rating, "Rated Quality:" %>
+			</div>
+			<div class="col-sm-7">
+				<% (1..(current_relation.rating)).each do |i|  %>
+					<i class='glyphicon glyphicon-star'></i>
+				<% end %>
+				<% ( (current_relation.rating + 1)..10).each do |i|  %>
+					<i class='glyphicon glyphicon-star-empty'></i>
+				<% end %>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-sm-5 text-right">
+				<%= label :difficulty, "Rated Length:" %>
+			</div>
+			<div class="col-sm-7">
+				<p class="label label-primary"><%= current_relation.length %> min</p>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-sm-5 text-right">
+				<%= label :difficulty, "Rated Difficulty:" %>
+			</div>
+			<div class="col-sm-7">
+				<% (1..(current_relation.difficulty)).each do |i|  %>
+					<i class='glyphicon glyphicon-star'></i>
+				<% end %>
+				<% ( (current_relation.difficulty + 1)..MAX_DIFFICULTY).each do |i|  %>
+					<i class='glyphicon glyphicon-star-empty'></i>
+				<% end %>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-sm-offset-4">
+				<p>Thank you for your vote.</p>
+			</div>
+		</div>
+		
+	</div>
+</div>
