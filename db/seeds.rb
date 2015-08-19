@@ -124,7 +124,7 @@ end
 problem1=Problem.create!(
 							title: "sopol1",
 							content: "elza",
-							answer: 24,
+							answer: 242,
 							degree_of_answer: 2,
 							units_of_answer: "nenkos",
 							category: "Electromagnetism",
@@ -150,7 +150,7 @@ problem2=Problem.create!(
 problem3=Problem.create!(
 							title: "sopol3",
 							content: "elza",
-							answer: 24,
+							answer: 124,
 							degree_of_answer: 2,
 							units_of_answer: "nenkos",
 							category: "Electromagnetism",
@@ -162,7 +162,7 @@ problem3=Problem.create!(
 problem4=Problem.create!(
 							title: "sopol4",
 							content: "elza",
-							answer: 24,
+							answer: 2224,
 							degree_of_answer: 2,
 							units_of_answer: "nenkos",
 							category: "Electromagnetism",
