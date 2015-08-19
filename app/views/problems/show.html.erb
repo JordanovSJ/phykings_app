@@ -1,32 +1,54 @@
 <div class="page-header">
-	<h1>
-		<%= @problem.title %>
-	</h1>
+	<div class="row">
+		<div class="col-sm-6">
+			<h1>
+				<%= @problem.title %>
+			</h1>
 
-	<% if @problem.creator.present? %>
-		<p> 
-			by <%= link_to @problem.creator.first_name + " " + @problem.creator.last_name, user_path(@problem.creator) %>,
-			<%= time_ago_in_words(@problem.created_at) %> ago
-			<% if current_user==(@problem.creator) || current_user.admin? %>
-				<%= link_to "Edit", edit_problem_path(@problem), class: "btn btn-xs btn-warning"  %>
-				<%= link_to "Delete", @problem, method: :delete, 
-						data: { confirm: "You sure?" }, class: "btn btn-xs btn-danger" %>
+			<% if @problem.creator.present? %>
+				<p> 
+					by <%= link_to @problem.creator.first_name + " " + @problem.creator.last_name, user_path(@problem.creator) %>,
+					<%= time_ago_in_words(@problem.created_at) %> ago
+					<% if current_user==(@problem.creator) || current_user.admin? %>
+						<%= link_to "Edit", edit_problem_path(@problem), class: "btn btn-xs btn-warning"  %>
+						<%= link_to "Delete", @problem, method: :delete, 
+								data: { confirm: "You sure?" }, class: "btn btn-xs btn-danger" %>
+					<% end %>
+				</p>
 			<% end %>
-		</p>
-	<% end %>
+		</div>
+		
+		<div class="col-sm-6" id="problem-voting">
+			
+			<% unless current_relation.voted %>
+				<%= render 'rate_problem' %>
+			<% else %>
+				<%= render 'rate_problem_voted' %>
+			<% end %>
+			
+		</div>
+	</div>
 </div>
 
-	<% unless current_user.relation_of(@problem).nil? %>
-		<% if @relation.provided_with_solution? %>
-			<%= link_to "Your solution", solution_path(current_user.relation_of(@problem).solution), class: "btn btn-sm btn-success"  %>
+	<div class="row">
+		<div class="col-sm-6">
+		<% unless current_user.relation_of(@problem).nil? %>
+			<% if @relation.provided_with_solution? %>
+				<%= link_to "Your solution", solution_path(current_user.relation_of(@problem).solution), class: "btn btn-sm btn-success"  %>
+			<% else %>
+				<%= link_to "Submit solution", new_solution_path({problem_id: @problem.id}), class: "btn btn-sm btn-success"  %>
+			<% end %>
 		<% else %>
 			<%= link_to "Submit solution", new_solution_path({problem_id: @problem.id}), class: "btn btn-sm btn-success"  %>
 		<% end %>
-	<% else %>
-		<%= link_to "Submit solution", new_solution_path({problem_id: @problem.id}), class: "btn btn-sm btn-success"  %>
-	<% end %>
-	
-	<%= link_to raw("See Solutions <span class=\"badge\">#{@problem.solutions.count}</span>"), show_solutions_problems_path(@problem), class: "btn btn-sm btn-primary"  %>
+		
+		<%= link_to raw("See Solutions <span class=\"badge\">#{@problem.solutions.count}</span>"), show_solutions_problems_path(@problem), class: "btn btn-sm btn-primary"  %>
+		</div>
+		
+		<div class="col-sm-6 text-right" id="problem-rating">
+			<%= render 'problem_rating' %>
+		</div>
+	</div>
 
 <div class="jumbotron container-fluid">
 			<p class="problem-content"><%= @problem.content %></p>
@@ -37,10 +59,10 @@
 					Answer: <%= link_to "Unlock", "#", class: "btn btn-xs btn-info" %>
 				<% end %>
 			</p>
-			<div class="col-sm-2 col-sm-offset-3">
+			<div class="col-sm-2 col-sm-offset-3 text-right">
 				<p class="label label-primary">Length: <%= @problem.length %> min</p>
 			</div>
-			<div class="col-sm-2">
+			<div class="col-sm-2 text-right">
 				<p class="label label-primary">Difficulty: <%= @problem.difficulty %></p>
 			</div>
 			<div class="col-sm-6 col-sm-offset-6 text-right">

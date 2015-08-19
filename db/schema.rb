@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150817150518) do
+ActiveRecord::Schema.define(version: 20150818135124) do
 
   create_table "banks", force: :cascade do |t|
     t.integer  "total_gold"
@@ -43,6 +43,8 @@ ActiveRecord::Schema.define(version: 20150817150518) do
     t.string   "category"
     t.integer  "difficulty"
     t.integer  "length"
+    t.float    "rating"
+    t.integer  "votes"
   end
 
   add_index "problems", ["creator_id", "created_at"], name: "index_problems_on_creator_id_and_created_at"
@@ -56,6 +58,8 @@ ActiveRecord::Schema.define(version: 20150817150518) do
     t.integer  "answer"
     t.integer  "degree_of_answer"
     t.boolean  "reported",                 default: false
+    t.integer  "upvotes",                  default: 0
+    t.integer  "downvotes",                default: 0
   end
 
   add_index "solutions", ["user_problem_relation_id", "created_at"], name: "index_solutions_on_user_problem_relation_id_and_created_at"
@@ -74,6 +78,12 @@ ActiveRecord::Schema.define(version: 20150817150518) do
     t.boolean  "provided_with_solution",   default: false
     t.boolean  "can_see_solution",         default: false
     t.boolean  "can_see_answer",           default: false
+    t.integer  "rating"
+    t.integer  "length"
+    t.integer  "difficulty"
+    t.boolean  "voted",                    default: false
+    t.boolean  "voted_solution",           default: false
+    t.boolean  "solution_vote"
   end
 
   add_index "user_problem_relations", ["seen_problem_id"], name: "index_user_problem_relations_on_seen_problem_id"

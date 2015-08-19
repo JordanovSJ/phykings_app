@@ -1,4 +1,7 @@
+ 
 class User < ActiveRecord::Base
+	include TransactionsHelper
+
 	has_many :uploaded_problems, class_name: 'Problem', 
 															:foreign_key => 'creator_id'
 	
@@ -34,15 +37,23 @@ class User < ActiveRecord::Base
 	#unlocks the answer of the problem if there is a relation between the user and the problem
 	#the user pays the bank 5 gold for that
 	def unlock_answer_of(problem)
-		cost=250
+		cost=COST_TO_UNLOCK_ANSWER
 		if self.gold >= cost && self.relation_of(problem).present? && !self.relation_of(problem).can_see_answer
-			ActiveRecord::Base.transaction do
-				present_gold=Bank.access.present_gold + cost
-				Bank.access.update_attributes!(present_gold: present_gold)
-				user_gold=self.gold - cost
-				self.update_attributes!(gold: user_gold)
-				self.relation_of(problem).update_attributes!(can_see_answer: true)	
+			if unlock_answer_transaction(cost, problem)
+				if problem.creator.present?
+					sum_to_pay=(0.9*cost).to_i
+					transaction_bank_to_user(sum_to_pay, problem.creator)
+				end
 			end
+		end
+	end
+	
+	#its used in unlock_answer_of
+	def unlock_answer_transaction(cost, problem)
+		ActiveRecord::Base.transaction do
+			transaction_user_to_bank(cost,self)
+			self.relation_of(problem).update_attributes!(can_see_answer: true)	
+			true
 		end
 	end
 	
@@ -50,25 +61,43 @@ class User < ActiveRecord::Base
 	#unlocks the solutions of the problem if there is a relation between the user and the problem
 	#the user pays the bank 10 gold for that
 	def unlock_solutions_of(problem)
-		cost=500
-		if self.gold >= cost && self.relation_of(problem).present? && !self.relation_of(problem).can_see_solution
-			ActiveRecord::Base.transaction do
-				present_gold=Bank.access.present_gold + cost
-				Bank.access.update_attributes!(present_gold: present_gold)
-				user_gold=self.gold - cost
-				self.update_attributes!(gold: user_gold)
-				self.relation_of(problem).update_attributes!(can_see_solution: true)	
+		cost=COST_TO_UNLOCK_SOLUTIONS
+		if self.gold >= cost && self.relation_of(problem).present? && !self.relation_of(problem).can_see_solution	
+			if unlock_solution_transaction(cost, problem)			
 				#send gold to the solvers of the problem
-				#~ number_solvers=problem.solutions.count
-				#~ if number_solvers > 0
-					#~ if number_solvers > 10
-						#~ 
-					#~ end
-				#~ end
-			end			
+				solutions=problem.solutions
+				number_solvers=solutions.count				
+				if number_solvers > 0
+					if number_solvers > 10
+						# the ten solutions with highest voting
+						paid_solutions=solutions.sort_by{ |s| (s.upvotes - s.downvotes)}.reverse[0..9] 
+						sum_to_pay=((0.9*cost)/10).to_i
+						paid_solutions.each do |ps|
+							if ps.user.present?
+								transaction_bank_to_user(sum_to_pay, ps.user)
+							end
+						end
+					else					
+						sum_to_pay=((0.9*cost) / number_solvers).to_i
+						#the bank lose gold												
+						solutions.each do |ps|
+							if ps.user.present?
+								transaction_bank_to_user(sum_to_pay, ps.user)
+							end
+						end				
+					end
+				end
+			end
 		end
 	end
 	
+	def unlock_solution_transaction(cost, problem)
+		ActiveRecord::Base.transaction do
+			transaction_user_to_bank(cost,self)
+			self.relation_of(problem).update_attributes!(can_see_solution: true)	
+			true
+		end
+	end
 	
 	
 #ALexndar.sa6o 
@@ -124,5 +153,34 @@ class User < ActiveRecord::Base
 			user.save! # save the user in the database
 		end
 	end
+  
+  private
+  
+  def send_gold_to_solvers(problem,cost)
+		#send gold to the solvers of the problem
+		number_solvers=problem.solutions.count
+		solutions=problem.solutions
+		if number_solvers > 0
+			if number_solvers > 10
+				#the bank lose gold
+				Bank.access.increment(:present_gold, - (0.9*cost).to_i).save!
+				# the ten solutions with highest voting
+				paid_solutions=solutions.sort_by{ |s| (s.upvotes - s.downvotes)}.reverse[0..9] 
+				sum_to_pay=((0.9*cost)/10).to_i
+				paid_solutions.each do |ps|
+					#the new gold of the solver
+					ps.user.increment(:gold, sum_to_pay).save!
+				end
+			else					
+				sum_to_pay=((0.9*cost) / number_solvers).to_i
+				#the bank lose gold						
+				Bank.access.increment(:present_gold, - sum_to_pay * number_solvers).save!
+				solutions.each do |ps|
+					#the new gold of the solver
+					ps.user.increment(:gold, sum_to_pay).save!
+				end
+			end
+		end
+  end
   
 end

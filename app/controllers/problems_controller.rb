@@ -7,7 +7,9 @@ class ProblemsController < ApplicationController
 	#only the creator of the problem or an admin are allowed to edit/delete the problem
 	before_action :can_edit_delete_update_problem, only: [:edit, :destroy, :update]
 	#only people who have solved the problem, its creator or an admin is can see the problem
-	before_action :can_see_problem, only: [:show]
+	before_action :can_see_problem, only: [:show, :vote]
+	# checks if the submitted vote parameters are valid
+	before_action :valid_vote, only: [:vote]
 	
 	def show
 		@problem = current_problem
@@ -59,11 +61,13 @@ class ProblemsController < ApplicationController
     redirect_to root_path #previous location
 	end
 	
+	# Used to show the solutions of the current problem
 	def show_solutions
 		@normal_solutions = current_problem.solutions.where(reported: false)
 		@reported_solutions = current_problem.solutions.where(reported: true)
 	end
 	
+	# Used for the "Problems without solution" view
 	def no_solutions
 		@no_solutions = []
 		Problem.all.each do |pr|
@@ -73,12 +77,87 @@ class ProblemsController < ApplicationController
 		end
 	end
 	
+	# Sends a vote to the current relation
+	def vote
+		@relation = current_relation
+		@problem = current_problem
+		@success = false
+		
+		unless @relation.voted?
+			@relation.update_attributes( rating: vote_params[:rating],
+																	 length: vote_params[:length],
+																	 difficulty: vote_params[:difficulty],
+																	 voted: true )
+			@problem.increment( :votes, 1 ).save!
+			@success = true
+			
+			# Every VOTES_REFRESH votes the problem parameters will be refreshed
+			if @problem.votes % VOTES_REFRESH == 1
+				rel_array = @problem.user_problem_relations.where(voted: true)
+				sum_rating, sum_length, sum_difficulty = 0.0, 0, 0
+				count = rel_array.count
+				
+				rel_array.each do |rel|
+					sum_rating += rel.rating
+					sum_length += rel.length
+					sum_difficulty += rel.difficulty
+				end
+				
+				# New parameters are the average of the existing votes
+				new_rating = sum_rating / count # Float
+				new_length = sum_length / count # Integer
+				new_difficulty = sum_difficulty / count # Integer
+				
+				@problem.update_attributes(rating: new_rating, length: new_length, difficulty: new_difficulty)	
+			end
+			
+			respond_to do |format|
+				format.js
+				format.html { flash[:success] = "Thank you for rating this problem."
+											redirect_to problem_path(problem) }
+			end
+
+		else
+			respond_to do |format|
+				format.js { flash.now[:danger] = "You have already rated this problem." }
+				format.html { flash[:danger] = "You have already rated this problem."
+											redirect_to problem_path(problem)}
+			end
+		end
+	end
+	
 	private
 	
   def problem_params
      params.require(:problem).permit(:content, :title, :answer, :degree_of_answer, :units_of_answer, :category, :difficulty, :length)
   end
-	
+  
+  # Handles the params hash when rating problems.
+  def vote_params
+		params.require(:vote).permit(:rating, :length, :difficulty)
+  end
+  
+  # Used as a before action to the method vote. Checks if the submitted
+  # vote_params are present and if their values are allowed. This is
+  # simpler than including separate model validations to the relations model.
+  def valid_vote
+		if ( vote_params[:rating].present? && 
+				 vote_params[:length].present? && 
+				 vote_params[:difficulty].present? )
+			if ( vote_params[:rating].to_i.between?(1, 10)  && 
+					 LENGTH.include?( vote_params[:length].to_i ) && 
+					 vote_params[:difficulty].to_i.between?(1, MAX_DIFFICULTY) )
+				return true
+			else
+				flash[:danger] = "One or more invalid vote parameters."
+				redirect_to problem_path(current_problem)
+			end	
+		else
+			flash[:danger] = "You need to include all three parameters in your vote."
+			redirect_to problem_path(current_problem)
+		end
+  end
+
 	  #checks if params[:id] exist
   def check_for_id
 		if Problem.where(id: params[:id]).count==0
@@ -114,8 +193,9 @@ class ProblemsController < ApplicationController
 	
 		#it is used to restrict the access to the show action
 	def can_see_problem
+		curr_problem = current_problem
 	#need to fix this after add type to user_problem_relations
-		unless current_user.relation_of(Problem.find(params[:id])).present? || current_user.id==Problem.find(params[:id]).creator.id || Problem.find(params[:id]).solutions.count==0 ||current_user.admin? || current_user.moderator?				
+		unless current_user.relation_of(curr_problem).present? || current_user.id==curr_problem.creator.id || curr_problem.solutions.count==0 ||current_user.admin? || current_user.moderator?				
 			flash[:danger] = "You are not allowed to see this problem"
       redirect_to root_path
 		end

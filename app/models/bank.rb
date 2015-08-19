@@ -6,26 +6,26 @@ class Bank < ActiveRecord::Base
 	validate :total_present
 
 	#~ #obvious
-	#~ def Bank.withdraw(gold)
-		#~ bank=Bank.access
-		#~ if gold <= bank.present_gold && gold > 0
-			#~ bank.present_gold -= gold
-			#~ bank.save!
-		#~ else 
-			#~ return false
-		#~ end
-	#~ end
-	#~ 
-	#~ #obvious
-	#~ def Bank.deposit(gold)
-		#~ bank=Bank.access
-		#~ if gold > 0
-			#~ bank.present_gold += gold
-			#~ bank.save!
-		#~ else 
-			#~ return false
-		#~ end
-	#~ end
+	def Bank.withdraw(gold)
+		bank=Bank.access
+		if gold <= bank.present_gold && gold > 0
+			bank.present_gold -= gold
+			bank.save!
+		else 
+			return false
+		end
+	end
+	 
+	#obvious
+	def Bank.deposit(gold)
+		bank=Bank.access
+		if gold > 0
+			bank.present_gold += gold
+			bank.save!
+		else 
+			return false
+		end
+	end
 	
 	#returns the instance of the Bank model
 	def Bank.access

@@ -7,8 +7,8 @@ class SolutionsController < ApplicationController
 	before_action :has_solution, only: [:create, :new]
 	before_action :permitted_to_submit_solution, only: [:create, :new]
 	before_action :permitted_to_update_report , only: [:update]
-	before_action :check_for_id, only: [:show , :edit, :update, :delete]
-	before_action :permitted_to_see_solution, only: [:show]
+	before_action :check_for_id, only: [:show , :edit, :update, :delete, :vote]
+	before_action :permitted_to_see_solution, only: [:show, :vote]
 	before_action :permitted_to_change_delete_solution, only: [:edit, :update, :destroy]
 
 
@@ -85,6 +85,49 @@ class SolutionsController < ApplicationController
 		solution.destroy
     flash[:success] = "Solution deleted"
     redirect_to root_path #previous location
+	end
+	
+	#Upvotes or downvotes a solution
+	def vote
+		@solution = Solution.find(params[:id])
+		relation = @solution.user_problem_relation
+		
+		unless relation.voted_solution?
+			
+			if params[:vote] == "true"
+				relation.update_attributes(solution_vote: true, voted_solution: true)
+				@solution.increment( :upvotes, 1 ).save!
+				
+				respond_to do |format|
+					format.js
+					format.html { flash[:success] = "Thank you for your upvote."
+												redirect_to solution_path(@solution) }
+				end
+				
+			elsif params[:vote] == "false"
+				relation.update_attributes(solution_vote: false, voted_solution: true)
+				@solution.increment( :downvotes, 1 ).save!
+				
+				respond_to do |format|
+					format.js
+					format.html { flash[:success] = "Thank you for your downvote."
+												redirect_to solution_path(@solution)}
+				end
+				
+			else
+				respond_to do |format|
+					format.js { flash.now[:danger] = "Invalid vote value." }
+					format.html { flash[:danger] = "Invalid vote value."
+												redirect_to solution_path(@solution)}
+				end
+			end
+		else
+			respond_to do |format|
+					format.js { flash.now[:danger] = "You have already voted."}
+					format.html { flash[:danger] = "You have already voted."
+												redirect_to solution_path(@solution)}
+				end
+		end
 	end
 	
 	private

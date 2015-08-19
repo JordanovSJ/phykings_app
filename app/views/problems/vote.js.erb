@@ -1,0 +1,6 @@
+<% if @relation.voted && @success %>
+	$("#problem-voting").html("<%= j render 'rate_problem_voted' %>");
+	$("#problem-rating").html("<%= j render 'problem_rating' %>");
+<% else %>
+	$("#flash-field").html(" <%= j render partial: 'layouts/error_messages' %> ");
+<% end %>

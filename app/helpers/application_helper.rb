@@ -10,6 +10,7 @@ module ApplicationHelper
 		elsif params.has_key?(:id)
 			@current_problem=Problem.find(params[:id])
 		end
+		return @current_problem
 	end
 	
 	#returns user_problem_relation, if one already exists, or creates a new one

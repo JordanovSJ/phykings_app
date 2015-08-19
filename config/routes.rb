@@ -30,9 +30,14 @@ Rails.application.routes.draw do
 		collection do
 			get ":id/solutions", to: "problems#show_solutions", as: "show_solutions"
 			get "no_solutions"
+			post "vote"
 		end
 	end
 
-	resources :solutions		
+	resources :solutions do
+		collection do
+			post ":id/vote", to: "solutions#vote", as: "vote"
+		end
+	end		
   
 end
