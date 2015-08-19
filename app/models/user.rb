@@ -34,7 +34,7 @@ class User < ActiveRecord::Base
 	#unlocks the answer of the problem if there is a relation between the user and the problem
 	#the user pays the bank 5 gold for that
 	def unlock_answer_of(problem)
-		cost=5
+		cost=250
 		if self.gold >= cost && self.relation_of(problem).present? && !self.relation_of(problem).can_see_answer
 			ActiveRecord::Base.transaction do
 				present_gold=Bank.access.present_gold + cost
@@ -50,7 +50,7 @@ class User < ActiveRecord::Base
 	#unlocks the solutions of the problem if there is a relation between the user and the problem
 	#the user pays the bank 10 gold for that
 	def unlock_solutions_of(problem)
-		cost=10
+		cost=500
 		if self.gold >= cost && self.relation_of(problem).present? && !self.relation_of(problem).can_see_solution
 			ActiveRecord::Base.transaction do
 				present_gold=Bank.access.present_gold + cost
@@ -58,7 +58,14 @@ class User < ActiveRecord::Base
 				user_gold=self.gold - cost
 				self.update_attributes!(gold: user_gold)
 				self.relation_of(problem).update_attributes!(can_see_solution: true)	
-			end
+				#send gold to the solvers of the problem
+				#~ number_solvers=problem.solutions.count
+				#~ if number_solvers > 0
+					#~ if number_solvers > 10
+						#~ 
+					#~ end
+				#~ end
+			end			
 		end
 	end
 	

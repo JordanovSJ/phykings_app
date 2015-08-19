@@ -1,6 +1,7 @@
 require 'test_helper'
 
 class BankTest < ActiveSupport::TestCase
+
 	test "bank.access is valid" do
 		Bank.access.valid?
 	end
