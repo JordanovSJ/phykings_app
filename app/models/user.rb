@@ -38,10 +38,11 @@ class User < ActiveRecord::Base
 	#the user pays the bank 5 gold for that
 	def unlock_answer_of(problem)
 		cost=COST_TO_UNLOCK_ANSWER
+		repay_percent=1-PERCENT
 		if self.gold >= cost && self.relation_of(problem).present? && !self.relation_of(problem).can_see_answer
 			if unlock_answer_transaction(cost, problem)
 				if problem.creator.present?
-					sum_to_pay=(0.9*cost).to_i
+					sum_to_pay=(repay_percent*cost).to_i
 					transaction_bank_to_user(sum_to_pay, problem.creator)
 				end
 			end
@@ -62,23 +63,25 @@ class User < ActiveRecord::Base
 	#the user pays the bank 10 gold for that
 	def unlock_solutions_of(problem)
 		cost=COST_TO_UNLOCK_SOLUTIONS
+		max_number_paid_solvers=10
+		repay_percent=1-PERCENT
 		if self.gold >= cost && self.relation_of(problem).present? && !self.relation_of(problem).can_see_solution	
 			if unlock_solution_transaction(cost, problem)			
 				#send gold to the solvers of the problem
 				solutions=problem.solutions
 				number_solvers=solutions.count				
 				if number_solvers > 0
-					if number_solvers > 10
+					if number_solvers > max_number_paid_solvers
 						# the ten solutions with highest voting
-						paid_solutions=solutions.sort_by{ |s| (s.upvotes - s.downvotes)}.reverse[0..9] 
-						sum_to_pay=((0.9*cost)/10).to_i
+						paid_solutions=solutions.sort_by{ |s| (s.upvotes - s.downvotes)}.reverse[0..(max_number_paid_solvers-1)] 
+						sum_to_pay=((repay_percent*cost)/max_number_paid_solvers).to_i
 						paid_solutions.each do |ps|
 							if ps.user.present?
 								transaction_bank_to_user(sum_to_pay, ps.user)
 							end
 						end
 					else					
-						sum_to_pay=((0.9*cost) / number_solvers).to_i
+						sum_to_pay=((repay_percent*cost) / number_solvers).to_i
 						#the bank lose gold												
 						solutions.each do |ps|
 							if ps.user.present?
