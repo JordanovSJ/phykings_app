@@ -13,6 +13,13 @@
 
 ActiveRecord::Schema.define(version: 20150818135124) do
 
+  create_table "banks", force: :cascade do |t|
+    t.integer  "total_gold"
+    t.integer  "present_gold"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
   create_table "notifications", force: :cascade do |t|
     t.string   "message"
     t.boolean  "seen",       default: false

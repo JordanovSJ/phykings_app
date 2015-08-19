@@ -91,6 +91,8 @@ class ProblemsController < ApplicationController
 			@problem.increment( :votes, 1 ).save!
 			@success = true
 			
+			@problem.creator.notifications.create!(message: "Someone rated your " + view_context.link_to( "problem", problem_path(@problem) ) + ".")
+			
 			# Every VOTES_REFRESH votes the problem parameters will be refreshed
 			if @problem.votes % VOTES_REFRESH == 1
 				rel_array = @problem.user_problem_relations.where(voted: true)

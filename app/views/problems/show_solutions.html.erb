@@ -8,16 +8,16 @@
 		<div class="col-sm-12">
 			<div class="col-sm-2"><p class="label label-success">Normal solutions:</p></div>
 			<p class="col-sm-10"> These solutions have reached answers that agree with the original answer of the problem.</p>
-			<table class="table table-bordered table-hover">
+			<table class="table table-bordered table-hover text-center">
 				<thead>
 					<tr>
-						<th>Submitted</th>
-						<th>Title</th>
-						<th>Solver</th>
-						<th>Category</th>
-						<th>Length (min)</th>
-						<th>Difficulty</th>
-						<th>Rating</th>
+						<th class="text-center">Submitted</th>
+						<th class="text-center">Title</th>
+						<th class="text-center">Solver</th>
+						<th class="text-center">Category</th>
+						<th class="text-center">Length (min)</th>
+						<th class="text-center">Difficulty</th>
+						<th class="text-center">Rating</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -34,7 +34,10 @@
 							<td><%= sol.problem.category  %></td>
 							<td><%= sol.problem.length %></td>
 							<td><%= sol.problem.difficulty %></td>
-							<td></td>
+							<td>
+								<span class="badge alert-success"><%= sol.upvotes %></span>
+								<span class="badge alert-danger"><%= sol.downvotes %></span>
+							</td>
 						</tr>
 					<% end %>
 				</tbody>

@@ -27,6 +27,43 @@ class User < ActiveRecord::Base
 
 
 
+	
+	#bank methods
+	
+	#badly written comments:
+	#unlocks the answer of the problem if there is a relation between the user and the problem
+	#the user pays the bank 5 gold for that
+	def unlock_answer_of(problem)
+		cost=5
+		if self.gold >= cost && self.relation_of(problem).present? && !self.relation_of(problem).can_see_answer
+			ActiveRecord::Base.transaction do
+				present_gold=Bank.access.present_gold + cost
+				Bank.access.update_attributes!(present_gold: present_gold)
+				user_gold=self.gold - cost
+				self.update_attributes!(gold: user_gold)
+				self.relation_of(problem).update_attributes!(can_see_answer: true)	
+			end
+		end
+	end
+	
+	#badly written comments again:
+	#unlocks the solutions of the problem if there is a relation between the user and the problem
+	#the user pays the bank 10 gold for that
+	def unlock_solutions_of(problem)
+		cost=10
+		if self.gold >= cost && self.relation_of(problem).present? && !self.relation_of(problem).can_see_solution
+			ActiveRecord::Base.transaction do
+				present_gold=Bank.access.present_gold + cost
+				Bank.access.update_attributes!(present_gold: present_gold)
+				user_gold=self.gold - cost
+				self.update_attributes!(gold: user_gold)
+				self.relation_of(problem).update_attributes!(can_see_solution: true)	
+			end
+		end
+	end
+	
+	
+	
 #ALexndar.sa6o 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
@@ -41,7 +78,10 @@ class User < ActiveRecord::Base
 									greater_than_or_equal_to: 1,
 									less_than_or_equal_to: 100 }
 	validates :country, presence: true
-  
+	
+	#not so obvious one, but trust me
+  validates :gold, :numericality => { :only_integer => true, :greater_than => -1}
+  	
   # Code initially taken from Devise Omniauth documentation, but changed.
   # Changed first_or_create to first_or_initialize, so that we can use
   # user.skip_confirmation! before the user is saved and in this way

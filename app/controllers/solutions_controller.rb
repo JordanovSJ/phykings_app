@@ -34,11 +34,13 @@ class SolutionsController < ApplicationController
 			if Solution.check_answer(solution_params, current_problem)
 				@solution.save
 				@relation.update_attributes(provided_with_solution: true)
+				current_problem.creator.notifications.create!(message: "Someone submitted a normal solution to your " + view_context.link_to("problem", problem_path(current_problem)) + ".")
 				flash[:success] = "Solution submitted successfully."
 				redirect_to solution_path(@solution)
 			elsif @solution.reported?
 				@solution.save
 				@relation.update_attributes(provided_with_solution: true)
+				current_problem.creator.notifications.create!(message: "Someone submitted a report solution to your " + view_context.link_to("problem", problem_path(current_problem)) + ".")
 				flash[:success] = "Report solution submitted successfully."
 				redirect_to solution_path(@solution)
 			else
@@ -97,6 +99,7 @@ class SolutionsController < ApplicationController
 			if params[:vote] == "true"
 				relation.update_attributes(solution_vote: true, voted_solution: true)
 				@solution.increment( :upvotes, 1 ).save!
+				@solution.user.notifications.create!(message: "Someone just upvoted your " + view_context.link_to( "solution", solution_path(@solution) ).html_safe + ".")
 				
 				respond_to do |format|
 					format.js
@@ -107,6 +110,7 @@ class SolutionsController < ApplicationController
 			elsif params[:vote] == "false"
 				relation.update_attributes(solution_vote: false, voted_solution: true)
 				@solution.increment( :downvotes, 1 ).save!
+				@solution.user.notifications.create!(message: "Someone just downvoted your " + view_context.link_to( "solution", solution_path(@solution) ).html_safe + ".")
 				
 				respond_to do |format|
 					format.js

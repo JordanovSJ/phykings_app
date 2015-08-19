@@ -20,7 +20,7 @@
 									'%Y-%m-%d %H:%M:%S %Z'
 								).strftime('%d/%m/%Y %H:%M') %>
 					</td>
-					<td><%= n.message %></td>
+					<td><%= n.message.html_safe %></td>
 				</tr>
 				<% if !n.seen?
 						n.update_attributes(seen: true)
