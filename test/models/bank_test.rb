@@ -11,9 +11,9 @@ class BankTest < ActiveSupport::TestCase
 		@solution=get_custom_solution(@relation)
 		@problem_params=get_params_for_problem
 		@solution_params=get_params_for_solution
-		bank=Bank.access
-		bank.total_gold += 1000
-		bank.save!
+		@bank=Bank.access
+		@bank.total_gold += 1000
+		@bank.save!
 		@user2.gold += 500
 		@user2.save!
 	end
@@ -23,15 +23,64 @@ class BankTest < ActiveSupport::TestCase
 		Bank.access.valid?
 	end
 	 
+	#test fail of unlock solutions
+	
+	test "should not unlock answers when not enough gold" do
+		@relationCreator=get_custom_relation(@user1,@problem)
+		@solutionCreator=get_custom_solution(@relationCreator) 
+		@user2.gold = 100
+		@user2.save!
+		assert_not @user2.relation_of(@problem).can_see_solution
+		assert_not @user2.relation_of(@problem).can_see_answer
+		assert Bank.access.present_gold==0
+		@user2.unlock_solutions_of(@problem)
+		@user2.reload
+		assert_not @user2.relation_of(@problem).can_see_solution
+		assert_not @user2.relation_of(@problem).can_see_answer
+		assert @user2.gold==100 , "#{@user2.gold}"
+		assert Bank.access.present_gold== 0, "#{Bank.access.present_gold}"
+		assert @user1.gold=0
+	end
+	
+	test "should not unlock answers when can_see_solution already true" do
+		@relationCreator=get_custom_relation(@user1,@problem)
+		@solutionCreator=get_custom_solution(@relationCreator) 
+		@user2.relation_of(@problem).update_attributes!(can_see_solution: true)
+		assert Bank.access.present_gold==0
+		@user2.unlock_solutions_of(@problem)
+		@user2.reload
+		assert @user2.gold==500 , "#{@user2.gold}"
+		assert Bank.access.present_gold== 0, "#{Bank.access.present_gold}"
+		assert @user1.gold=0
+	end
+	
 	
 		
 	test "unlock solutions of problem" do
 		@relationCreator=get_custom_relation(@user1,@problem)
 		@solutionCreator=get_custom_solution(@relationCreator) 
 		assert_not @user2.relation_of(@problem).can_see_solution
+		assert_not @user2.relation_of(@problem).can_see_answer
+		assert Bank.access.present_gold==0
 		@user2.unlock_solutions_of(@problem)
 		@user2.reload
 		assert @user2.relation_of(@problem).can_see_solution
+		assert @user2.relation_of(@problem).can_see_answer
+		assert @user2.gold==180 , "#{@user2.gold}"
+		assert Bank.access.present_gold== 50, "#{Bank.access.present_gold}"
+		assert @user1.gold=270
+	end
+	
+	test "unlock solutions of problem when already answer unlocked" do
+		@relationCreator=get_custom_relation(@user1,@problem)
+		@solutionCreator=get_custom_solution(@relationCreator) 
+		assert_not @user2.relation_of(@problem).can_see_solution
+		@user2.relation_of(@problem).update_attributes!(can_see_answer: true)
+		assert Bank.access.present_gold==0
+		@user2.unlock_solutions_of(@problem)
+		@user2.reload
+		assert @user2.relation_of(@problem).can_see_solution
+		assert @user2.relation_of(@problem).can_see_answer
 		assert @user2.gold==225 , "#{@user2.gold}"
 		assert Bank.access.present_gold== 50, "#{Bank.access.present_gold}"
 		assert @user1.gold=225
