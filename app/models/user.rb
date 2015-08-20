@@ -11,7 +11,9 @@ class User < ActiveRecord::Base
 	has_many :seen_problems, :through => :user_problem_relations 					
 	has_many :solutions, :through => :user_problem_relations 
 	has_many :notifications
-						
+			
+	belongs_to :competition		
+				
 	#methods
 	
 	#return the solution of problem submitted by the user, if there is no such solutions, returns nil

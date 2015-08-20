@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  n_players: 1
+  duration: 1
+  entry_gold: 1
+
+two:
+  n_players: 1
+  duration: 1
+  entry_gold: 1

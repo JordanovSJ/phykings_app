@@ -11,13 +11,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150818135124) do
+ActiveRecord::Schema.define(version: 20150820124705) do
 
   create_table "banks", force: :cascade do |t|
     t.integer  "total_gold"
     t.integer  "present_gold"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
+  end
+
+  create_table "competitions", force: :cascade do |t|
+    t.integer  "n_players"
+    t.integer  "duration"
+    t.integer  "entry_gold", default: 0
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
   end
 
   create_table "notifications", force: :cascade do |t|
@@ -120,8 +128,10 @@ ActiveRecord::Schema.define(version: 20150818135124) do
     t.integer  "gold",                   default: 0
     t.boolean  "admin",                  default: false
     t.boolean  "moderator",              default: false
+    t.integer  "competition_id"
   end
 
+  add_index "users", ["competition_id"], name: "index_users_on_competition_id"
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
   add_index "users", ["email"], name: "index_users_on_email", unique: true
   add_index "users", ["provider"], name: "index_users_on_provider"

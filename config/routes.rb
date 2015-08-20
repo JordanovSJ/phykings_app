@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'competitions/new'
+
 	# The second argument defines the place of the controller that is going to handle the
 	# omniauth callback.
   devise_for :users, :controllers => { :omniauth_callbacks => "omniauth_callbacks" }
@@ -41,5 +43,7 @@ Rails.application.routes.draw do
 			post ":id/vote", to: "solutions#vote", as: "vote"
 		end
 	end		
+  
+  resources :competitions 
   
 end
