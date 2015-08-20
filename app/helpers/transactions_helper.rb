@@ -12,4 +12,5 @@ module TransactionsHelper
 			user.increment(:gold, gold).save!
 		end
 	end
+
 end

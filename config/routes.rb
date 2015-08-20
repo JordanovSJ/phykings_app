@@ -31,6 +31,8 @@ Rails.application.routes.draw do
 			get ":id/solutions", to: "problems#show_solutions", as: "show_solutions"
 			get "no_solutions"
 			post "vote"
+			post "unlock_answer"
+			post "unlock_solution"
 		end
 	end
 

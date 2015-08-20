@@ -7,14 +7,14 @@
 	<table class="table table-bordered table-hover text-center">
 		<thead>
 			<tr>
-				<th>Submitted</th>
-				<th>Title</th>
-				<th>Creator</th>
-				<th>Category</th>
-				<th>Length (min)</th>
-				<th>Difficulty</th>
-				<th>Status</th>
-				<th>Rating</th>
+				<th class="text-center">Submitted</th>
+				<th class="text-center">Title</th>
+				<th class="text-center">Creator</th>
+				<th class="text-center">Category</th>
+				<th class="text-center">Length (min)</th>
+				<th class="text-center">Difficulty</th>
+				<th class="text-center">Status</th>
+				<th class="text-center">Rating</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -38,7 +38,10 @@
 							<p class="label label-success">Normal solution</p>
 						<% end %>
 					</td>
-					<td></td>
+					<td>
+						<span class="badge alert-success"><%= sol.upvotes %></span>
+						<span class="badge alert-danger"><%= sol.downvotes %></span>
+					</td>
 				</tr>
 			<% end %>
 		</tbody>

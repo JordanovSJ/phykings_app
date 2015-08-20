@@ -52,12 +52,8 @@
 
 <div class="jumbotron container-fluid">
 			<p class="problem-content"><%= @problem.content %></p>
-			<p class="label label-default col-sm-5">
-				<% if current_user.id == @problem.creator_id %>
-					Answer: <%= "$ #{@problem.answer} \\times 10^{#{@problem.degree_of_answer}} #{@problem.units_of_answer}$ " %>
-				<% else %>
-					Answer: <%= link_to "Unlock", "#", class: "btn btn-xs btn-info" %>
-				<% end %>
+			<p class="label label-default col-sm-5" id="problem-answer">
+				<%= render 'problem_answer' %>
 			</p>
 			<div class="col-sm-2 col-sm-offset-3 text-right">
 				<p class="label label-primary">Length: <%= @problem.length %> min</p>

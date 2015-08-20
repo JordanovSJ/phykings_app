@@ -4,16 +4,16 @@
 
 <% unless @no_solutions.empty? %>
 
-	<table class="table table-bordered table-hover">
+	<table class="table table-bordered table-hover text-center">
 		<thead>
 			<tr>
-				<th>Submitted</th>
-				<th>Title</th>
-				<th>Creator</th>
-				<th>Category</th>
-				<th>Length (min)</th>
-				<th>Difficulty</th>
-				<th>Rating</th>
+				<th class="text-center">Submitted</th>
+				<th class="text-center">Title</th>
+				<th class="text-center">Creator</th>
+				<th class="text-center">Category</th>
+				<th class="text-center">Length (min)</th>
+				<th class="text-center">Difficulty</th>
+				<th class="text-center">Rating</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -30,7 +30,7 @@
 					<td><%= prob.category  %></td>
 					<td><%= prob.length %></td>
 					<td><%= prob.difficulty %></td>
-					<td></td>
+					<td><%= prob.rating.present? ? prob.rating.round(1) : "n/a" %></td>
 				</tr>
 			<% end %>
 		</tbody>

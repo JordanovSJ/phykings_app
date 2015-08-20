@@ -7,14 +7,14 @@
 	<table class="table table-bordered table-hover text-center">
 		<thead>
 			<tr>
-				<th>Submitted</th>
-				<th>Title</th>
-				<th>Creator</th>
-				<th>Category</th>
-				<th>Length (min)</th>
-				<th>Difficulty</th>
-				<th>N Solutions</th>
-				<th>Rating</th>
+				<th class="text-center">Submitted</th>
+				<th class="text-center">Title</th>
+				<th class="text-center">Creator</th>
+				<th class="text-center">Category</th>
+				<th class="text-center">Length (min)</th>
+				<th class="text-center">Difficulty</th>
+				<th class="text-center">N Solutions</th>
+				<th class="text-center">Rating</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -35,7 +35,7 @@
 						<span class="badge alert-success"><%= prob.solutions.where(reported: false).count %></span>
 						<span class="badge alert-danger"><%= prob.solutions.where(reported: true).count %></span>
 					</td>
-					<td></td>
+					<td><%= prob.rating.present? ? prob.rating.round(1) : "n/a" %></td>
 				</tr>
 			<% end %>
 		</tbody>

@@ -38,7 +38,7 @@
 							<p class="label label-danger"> No </p>
 						<% end %>
 					</td>
-					<td></td>
+					<td><%= prob.rating.present? ? prob.rating.round(1) : "n/a" %></td>
 				</tr>
 			<% end %>
 		</tbody>

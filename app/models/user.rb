@@ -44,6 +44,7 @@ class User < ActiveRecord::Base
 				if problem.creator.present?
 					sum_to_pay=(repay_percent*cost).to_i
 					transaction_bank_to_user(sum_to_pay, problem.creator)
+					problem.creator.notifications.create!(message: "Someone has unlocked the answer of a problem uploaded by you. As a reward, #{sum_to_pay} gold was added to your account balance.")
 				end
 			end
 		end
@@ -90,6 +91,7 @@ class User < ActiveRecord::Base
 						paid_solutions.each do |ps|
 							if ps.user.present?
 								transaction_bank_to_user(sum_to_pay, ps.user)
+								ps.user.notifications.create!(message: "Someone has unlocked the solutions of a problem to which you have given a solution which is in the top ten solutions of this problem. As a reward, #{sum_to_pay} gold was added to your account balance.")
 							end
 						end
 					else					
@@ -97,6 +99,7 @@ class User < ActiveRecord::Base
 						solutions.each do |ps|
 							if ps.user.present?
 								transaction_bank_to_user(sum_to_pay, ps.user)
+								ps.user.notifications.create!(message: "Someone has unlocked the solutions of a problem to which you have given a solution which is in the top ten solutions of this problem. As a reward, #{sum_to_pay} gold was added to your account balance.")
 							end
 						end				
 					end
