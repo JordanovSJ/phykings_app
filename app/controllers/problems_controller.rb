@@ -128,6 +128,43 @@ class ProblemsController < ApplicationController
 		end
 	end
 	
+	# Triggered by a button on Problem Show to unlock the answer
+	def unlock_answer
+		@problem = current_problem
+		if !current_user.unlock_answer_of(@problem).nil?
+			current_user.notifications.create!(message:"Answer of " + view_context.link_to( @problem.title, problem_path(@problem) ) + " was unlocked. #{COST_TO_UNLOCK_ANSWER} gold were deducted from your account balance.")
+			respond_to do |format|
+				format.js
+				format.html { flash[:success] = "You successfully unlocked the answer of this problem." 
+											redirect_to problem_path(@problem) }
+			end
+		else
+			respond_to do |format|
+				format.js { flash.now[:danger] = "There was a problem. The answer was not unlocked." }
+				format.html { flash[:danger] = "There was a problem. The answer was not unlocked." 
+											redirect_to problem_path(@problem) }
+			end
+		end
+	end
+	
+	def unlock_solution
+		@problem = current_problem
+		if !current_user.unlock_solutions_of(@problem).nil?
+			current_user.notifications.create!(message:"Solutions of " + view_context.link_to( @problem.title, problem_path(@problem) ) + " were unlocked. #{COST_TO_UNLOCK_SOLUTIONS} gold were deducted from your account balance.")
+			respond_to do |format|
+				format.js
+				format.html { flash[:success] = "You successfully unlocked all solutions of this problem." 
+											redirect_to show_solutions_problems_path(@problem) }
+			end
+		else
+			respond_to do |format|
+				format.js
+				format.html { flash[:danger] = "There was a problem. Solutions were not unlocked." 
+											redirect_to show_solutions_problems_path(@problem) }
+			end
+		end
+	end
+	
 	private
 	
   def problem_params
@@ -162,7 +199,7 @@ class ProblemsController < ApplicationController
 
 	  #checks if params[:id] exist
   def check_for_id
-		if Problem.where(id: params[:id]).count==0
+		if Problem.where(id: current_problem.id).count==0
 			flash[:danger]="This problem does not exist"
 			redirect_to root_path
 		end

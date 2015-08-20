@@ -1,8 +1,18 @@
 <h1 class="page-header">
-	Solutions of "<%= Problem.find(params[:id]).title %>"
+	Solutions of "<%= current_problem.title %>"
 </h1>
 
 <% unless @normal_solutions.empty? && @reported_solutions.empty? %>
+
+	<div class="container-fluid col-sm-12 text-center">
+		<% if current_relation.can_see_solution? %>
+			<p class="alert-success">You have unlocked all solutions. You have full access to all current as well as future solutions of this problem.</p>
+		<% else %>
+			<p class="alert-danger">At the moment you can access only your own solution to this problem. If you want to see other people's solutions, you need to unlock all solutions.</p>
+			<%= link_to "Unlock Solutions", unlock_solution_problems_path(problem_id: current_problem.id), method: "post", class: "btn btn-primary" %>
+		<% end %>
+		<hr/>
+	</div>
 
 	<% unless @normal_solutions.empty? %>
 		<div class="col-sm-12">
