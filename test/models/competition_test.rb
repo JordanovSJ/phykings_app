@@ -2,7 +2,11 @@ require 'test_helper'
 
 class CompetitionTest < ActiveSupport::TestCase
 	def setup
-		@competition=Competition.new(length: 10, n_players: 3, entry_gold: 10)
+		#~ @user=users(:go6o)
+		@competition=Competition.new(length: 60, n_players: 3, entry_gold: 10)
+		#~ @problem=get_custom_problem(@user)
+		#~ @competition.competition_problems.create!(problem_id: @problem.id)
+		#~ @competition.save!
 	end
 	
 	test "competition valid" do

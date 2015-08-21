@@ -42,9 +42,15 @@ class ActiveSupport::TestCase
 										content: "custom_solution_content",
 										answer: 42, 
 										degree_of_answer: 10)
-										
-		#return solution								
+					
 	end
+	
+	def get_custom_competition
+		Competition.create!(n_players: 2,
+												entry_gold: 0,
+												length: 30)
+	end
+	
 	
 	def get_params_for_problem
 		params={ content: "params_problem_content", 
@@ -63,3 +69,9 @@ class ActiveSupport::TestCase
 								degree_of_answer: 10}
 	end
 end
+
+	def get_params_for_competition
+		params={n_players: 3,
+						entry_gold: 0,
+						length: 30}
+	end

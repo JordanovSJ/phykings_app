@@ -11,8 +11,19 @@ class ProblemsAndSolutionsIntegrationsTest < ActionDispatch::IntegrationTest
 		@solution=get_custom_solution(@relation)
 		@problem_params=get_params_for_problem
 		@solution_params=get_params_for_solution
+		@competition=competitions(:one)
 	end
 #problems	
+	test "You cannot dleete problemm while used in competition" do
+		sign_in_as(@user1)
+		@competition.competition_problems.create!(problem_id: @problem.id)
+		assert_no_difference 'Problem.count' do
+			delete problem_path(@problem)
+		end
+		assert_not flash.empty?
+		assert_redirected_to problem_path(@problem)
+	end
+
 	test "signed_out user cannot access problems" do
 		get new_problem_path
 		follow_redirect!
@@ -153,5 +164,7 @@ class ProblemsAndSolutionsIntegrationsTest < ActionDispatch::IntegrationTest
 		patch problem_path(@problem), problem: {answer: 0 }	
 		assert @user2.solution_of(@problem).reported
   end
+  
+  
   
 end

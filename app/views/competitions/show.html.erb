@@ -1,5 +1,5 @@
 <div id="competition-show">
-	<% @competition=Competition.first  %>
+
 <% if @competition.users.count < @competition.n_players %>
 	<%= render 'waiting' %>
 <% else %>
