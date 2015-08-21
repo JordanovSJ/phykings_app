@@ -16,6 +16,17 @@
 	</script>
   <%= mathjax_tag %>
   
+  <% if user_signed_in? %>
+		<script type="text/javascript">
+			$(function(){
+				var faye = new Faye.Client('/faye');
+				faye.subscribe('/competitions/<%= current_user.id %>', function(message) {
+					$("#competition-show").html(message.mess);
+				});
+			});
+		</script>
+  <% end %>
+  
   <%= render 'layouts/shim' %>
 </head>
 

@@ -1,0 +1,14 @@
+<div class="page-header">
+	<h1>Competition <%= @competition.id %></h1>
+</div>
+
+<div id="competition-show">
+	<%= render partial: 'show_competition' %>
+</div>
+
+<script type="text/javascript">
+	var faye = new Faye.Client('/faye');
+	<% @competition.users.each do |u| %>
+		faye.publish('/competitions/<%= u.id %>', { mess: "<%= j render partial: 'show_competition' %> " } );
+	<% end %>
+</script>
