@@ -18,16 +18,7 @@ class CompetitionsController < ApplicationController
 		if  @competition.users.count == @competition.n_players
 			choose_problems(@competition)
 		end
-			#~ respond_to do |format|
-				#~ format.js
-				#~ format.html
-			#~ end
-		#~ else
-			#~ respond_to do |format|
-				#~ format.js
-				#~ format.html {redirect_to root_path }
-			#~ end
-		#~ end
+
   end
   
   def new
@@ -61,14 +52,29 @@ class CompetitionsController < ApplicationController
 	 params.require(:competition).permit(:n_players, :length, :entry_gold)
   end
 
-  
+  #chosee random problems for the competition whose total length is equal
+  #to the length of the competition
   def choose_problems(competition)
 		users=competition.users
 		unseen_problems=Problem.all
 		users.each do |u|
 			unseen_problems=unseen_problems.select{ |p| !p.viewers.include?(u)}
-		end
-		
+		end 
+		problems_length=0
+		problem=nil
+		while problems_length < competition.length do
+			max_length=competition.length-problems_length
+			problem=nil
+			problem=unseen_problems.select{ |p| p.length <= max_length && !competition.problems.include?(p)}.sample #balta6tina
+			if problem.present?
+				problems_length += problem.length
+				competition.competition_problems.create!(problem_id: problem.id)
+			else
+				problem=Problem.all.select{ |p| p.length <= max_length && !competition.problems.include?(p)}.sample
+				problems_length += problem.length
+				competition.competition_problems.create!(problem_id: problem.id)
+			end
+		end	
   end
 
 
@@ -85,7 +91,7 @@ class CompetitionsController < ApplicationController
 
   #user cannot participate in a competition if already participate in another!!!
   def not_in_competition
-		if current_user.competition_id.present? && !(current_user.competition_id==params[:id])
+		if current_user.competition_id.present? && !(current_user.competition_id==params[:id].to_i)
 			flash[:danger]="You cannot participate in more than one competitio at a time!!!"
 			redirect_to competition_path(current_user.competition_id)
 		end
