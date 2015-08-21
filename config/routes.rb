@@ -44,6 +44,11 @@ Rails.application.routes.draw do
 		end
 	end		
   
-  resources :competitions 
+  resources :competitions, only: [:new, :show, :create, :index] do
+		collection do
+			post "submit"
+			get "leave" #not sure for get, maybe delete
+		end
+  end
   
 end

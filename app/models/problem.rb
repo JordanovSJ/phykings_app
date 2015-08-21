@@ -5,7 +5,10 @@ class Problem < ActiveRecord::Base
 	has_many :user_problem_relations, :foreign_key => 'seen_problem_id',
 						:dependent => :destroy						
 	has_many :viewers, :through => :user_problem_relations 
-						
+	
+	has_many :competition_problems, :foreign_key => 'problem_id' #dependent => :destroy??
+	has_many :competitions, :through => :competition_problems 
+				
 	#trial						
 	has_many :solutions, :through => :user_problem_relations 
 						

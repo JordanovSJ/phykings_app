@@ -56,9 +56,14 @@ class ProblemsController < ApplicationController
 	end
 	
 	def destroy	
-		Problem.find(params[:id]).destroy
-    flash[:success] = "Problem deleted"
-    redirect_to root_path #previous location
+		if Problem.find(params[:id]).competition_problems.count == 0
+			Problem.find(params[:id]).destroy
+			flash[:success] = "Problem deleted"
+			redirect_to root_path #previous location
+		else
+			flash[:danger]="This problem is being solved in a competition. You must wait the competition to finish to delete the problem!!!"
+			redirect_to problem_path(params[:id])
+		end
 	end
 	
 	# Used to show the solutions of the current problem

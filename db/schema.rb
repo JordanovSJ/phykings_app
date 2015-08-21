@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150820124705) do
+ActiveRecord::Schema.define(version: 20150820202013) do
 
   create_table "banks", force: :cascade do |t|
     t.integer  "total_gold"
@@ -20,9 +20,20 @@ ActiveRecord::Schema.define(version: 20150820124705) do
     t.datetime "updated_at",   null: false
   end
 
+  create_table "competition_problems", force: :cascade do |t|
+    t.integer  "problem_id"
+    t.integer  "competition_id"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
+
+  add_index "competition_problems", ["competition_id"], name: "index_competition_problems_on_competition_id"
+  add_index "competition_problems", ["problem_id", "competition_id"], name: "index_competition_problems_on_problem_id_and_competition_id", unique: true
+  add_index "competition_problems", ["problem_id"], name: "index_competition_problems_on_problem_id"
+
   create_table "competitions", force: :cascade do |t|
     t.integer  "n_players"
-    t.integer  "duration"
+    t.integer  "length"
     t.integer  "entry_gold", default: 0
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false

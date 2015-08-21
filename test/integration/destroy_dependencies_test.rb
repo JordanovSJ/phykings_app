@@ -7,6 +7,7 @@ class DestroyDependenciesTest < ActionDispatch::IntegrationTest
 		@problem=get_custom_problem(@creator)
 		@relation=get_custom_relation(@solver,@problem)
 		@solution=get_custom_solution(@relation)
+		@competition=competitions(:one)
 	end
 	
 	test "when a relation is detroyed its solution should be detroyed too" do
@@ -25,5 +26,12 @@ class DestroyDependenciesTest < ActionDispatch::IntegrationTest
 		assert_difference 'Solution.count', -1 do
       @problem.destroy
     end
+	end
+	
+	test "when a competition is detroyed competion_problems are destroyed too" do
+		@competition.competition_problems.create!(problem_id: @problem.id)
+		assert_difference 'CompetitionProblem.count', -1 do
+			@competition.destroy
+		end
 	end
 end
