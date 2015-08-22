@@ -4,7 +4,7 @@ class CompetitionsController < ApplicationController
 	before_action :check_for_id, only: [:show]
 	before_action :not_in_competition, only: [:create, :new, :show]
 	before_action :belongs_to_competition, only: [:show]
-	
+	before_action :enough_gold, only: [:show, :create]
   def index
   end
     
@@ -54,6 +54,7 @@ class CompetitionsController < ApplicationController
 
   #chosee random problems for the competition whose total length is equal
   #to the length of the competition
+  #problems unseen by the competitors are prefered!
   def choose_problems(competition)
 		users=competition.users
 		unseen_problems=Problem.all
@@ -106,4 +107,16 @@ class CompetitionsController < ApplicationController
 		end
 	end
   
+  #check if user has enough gold to create or enter a competition
+  def enough_gold
+		if params[:id].present?
+			entry_gold=Competition.find(params[:id]).entry_gold  #in case of show action
+		else
+			entry_gold=competition_params[:entry_gold].to_i			 #in case of create action
+		end		
+		if current_user.competition_id.nil? && current_user.gold < entry_gold
+			flash[:danger]="You dont have enough gold!!!"
+			redirect_to competitions_path
+		end
+  end
 end
