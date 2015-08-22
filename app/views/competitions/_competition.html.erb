@@ -1,1 +1,19 @@
-<h1>Competition</h1>
+<div class="col-sm-3">
+	<div class="panel panel-default">
+		<!-- Default panel contents -->
+		<div class="panel-heading">Problems</div>
+		<div class="panel-body">
+			<p>You need to solve the following problems:</p>
+		</div>
+
+		<!-- List group -->
+		<ul class="list-group">
+			<% @problems.each do |prob| %>
+				<%= link_to prob.title + raw('<span class="badge">#{prob.length} min</span>'), "#", class: "list-group-item" %>
+			<% end %>
+		</ul>
+	</div>
+</div>
+
+<%= @competition.length %>
+<%= @problems.count %>

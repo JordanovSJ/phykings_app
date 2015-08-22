@@ -18,6 +18,7 @@ class CompetitionsController < ApplicationController
 		#when the last player joins the competition, find problems for the comepetition
 		if  @competition.users.count == @competition.n_players
 			choose_problems(@competition)
+			@problems = @competition.problems
 		end
 
   end
