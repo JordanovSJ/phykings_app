@@ -54,14 +54,29 @@ class CompetitionsController < ApplicationController
 	 params.require(:competition).permit(:n_players, :length, :entry_gold)
   end
 
-  
+  #chosee random problems for the competition whose total length is equal
+  #to the length of the competition
   def choose_problems(competition)
 		users=competition.users
 		unseen_problems=Problem.all
 		users.each do |u|
-			unseen_problems=unseen_problems.select{ |p| !p.viewers.include?(u) }
-		end
-		
+			unseen_problems=unseen_problems.select{ |p| !p.viewers.include?(u)}
+		end 
+		problems_length=0
+		problem=nil
+		while problems_length < competition.length do
+			max_length=competition.length-problems_length
+			problem=nil
+			problem=unseen_problems.select{ |p| p.length <= max_length && !competition.problems.include?(p)}.sample #balta6tina
+			if problem.present?
+				problems_length += problem.length
+				competition.competition_problems.create!(problem_id: problem.id)
+			else
+				problem=Problem.all.select{ |p| p.length <= max_length && !competition.problems.include?(p)}.sample
+				problems_length += problem.length
+				competition.competition_problems.create!(problem_id: problem.id)
+			end
+		end	
   end
 
 
