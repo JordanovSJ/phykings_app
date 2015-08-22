@@ -26,6 +26,8 @@ gem 'figaro', "~> 0.7.0"
 
 gem 'mathjax-rails', "2.5.1"
 
+gem 'jquery-turbolinks'
+
 group :development, :test do
 
   gem 'byebug'

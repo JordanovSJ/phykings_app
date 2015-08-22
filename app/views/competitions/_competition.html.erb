@@ -9,11 +9,86 @@
 		<!-- List group -->
 		<ul class="list-group">
 			<% @problems.each do |prob| %>
-				<%= link_to prob.title + raw('<span class="badge">#{prob.length} min</span>'), "#", class: "list-group-item" %>
+				<%= link_to(show_problem_competitions_path(problem_id: prob.id), class: "list-group-item") do %>
+					<% if session.has_key?("answer_#{prob.id}") %>
+						<i class="glyphicon glyphicon-ok"></i>
+					<% end %>
+					<%= prob.title %> <span class="badge"><%= prob.length %> min</span>
+				<% end %>
 			<% end %>
 		</ul>
+		
+		<div class="panel-footer">Submit</div>
 	</div>
 </div>
 
-<%= @competition.length %>
-<%= @problems.count %>
+<% if @problem == nil %>
+	<% @problem = @competition.problems.first %>
+<% end %>
+
+<div class="col-sm-6">
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<p><strong><%= @problem.title %></strong></p>
+			<p><span class="badge"><%= @problem.length %> min</span>
+				 <span class="badge"><%= @problem.category %></span>
+				 <span class="badge">Difficulty: <%= @problem.difficulty %></span>
+			</p>
+		</div>
+		<div class="panel-body">
+			<p><%= @problem.content %></p>
+		</div>
+		<div class="panel-footer">
+			
+			<%= form_for( :answer, url: submit_answer_competitions_path(problem_id: @problem.id) ) do |f| %>
+				<div class="row">
+					<div class="field form-group col-sm-4">
+						<%= f.label :answer, "Value" %>
+						<%= f.number_field :answer, class: "form-control" %>
+					</div>
+					
+					<div class="field form-group col-sm-4">
+						<%= f.label :degree_of_answer, "Power" %>
+						<%= f.number_field :degree_of_answer, class: "form-control" %>
+					</div>
+					
+					<div class="field form-group col-sm-4">
+						<%= label_tag :units_of_answer, "Units" %>
+						<p class="form-control">$<%= @problem.units_of_answer %>$</p>
+					</div>
+					
+					<div class="col-sm-12">
+						<%= f.submit "Save Answer", class: "btn btn-success" %>		
+					</div>
+					
+					<div class="col-sm-12">
+						<br/>
+						<p>The format of the answer is: $\textbf{Value}\times 10^{\textbf{Power}} 
+						 <%= @problem.units_of_answer %>$</p>
+						<p>Note: Once you have finished all questions, do not forget to click the "Submit" button.</p>
+					</div>
+					
+				</div>
+			
+			<% end %>
+			
+		</div>
+	</div>
+</div>
+
+<div class="col-sm-3">
+	<div class="panel panel-default">
+		<!-- Default panel contents -->
+		<div class="panel-heading">Players</div>
+
+		<!-- List group -->
+		<ul class="list-group">
+			<% @users.each do |u| %>
+				<li class="list-group-item"><%= u.first_name + " " + u.last_name %></li>
+			<% end %>
+		</ul>
+		
+	</div>
+</div>
+
+
