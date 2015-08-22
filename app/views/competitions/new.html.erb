@@ -1,15 +1,55 @@
+<h1 class="page-header">
+	Create a new competition
+</h1>
+
 <%= form_for(@competition) do |f| %>
-<%= render 'shared/error_messages', object: f.object %>
 
-<%= f.label :n_players %>
-<%= f.number_field :n_players, class: 'form-control' %>
+<div class="row equal">
+	<div class="col-sm-6">
+		<div class="panel panel-default">
+			<div class="panel-body">
+				
+				<%= render 'shared/error_messages', object: f.object %>
 
-<%= f.label :length %>
-<%= f.number_field :length, class: 'form-control' %>
+				<div class="col-sm-4 col-sm-offset-4 field form-group text-center">
+					<%= f.label :n_players, "Players:" %>
+					<%= f.number_field :n_players, class: 'form-control' %>
+				</div>
 
-<%= f.label :entry_gold %>
-<%= f.number_field :entry_gold, class: 'form-control' %>
+				<div class="col-sm-4 col-sm-offset-4 field form-group text-center">
+					<%= f.label :length, "Length (min):" %>
+					<%= f.select :length, LENGTH_COMPETITION.each { |v| [ v, v ] }, {include_blank: true}, {class: "form-control text-center"} %>
+				</div>
+				
+				<div class="col-sm-4 col-sm-offset-4 field form-group text-center">
+					<%= f.label :entry_gold, "Entry Gold:" %>
+					<%= f.number_field :entry_gold, class: 'form-control' %>
+				</div>
 
+				<div class="col-sm-6 col-sm-offset-3 text-center">
+					<%= f.submit "Create competition", class: "btn btn-primary", onclick: " return confirm('Please confirm the parameters of the competition that you want to create: \\n \\n' + $('#competition_n_players').val() + ' players, \\n' + $('#competition_length').val() + ' min, \\n ' + $('#competition_entry_gold').val() + ' gold entry. \\n \\n Please note that the chosen amount of gold will be deducted from your account at the start of the competition.') "%>
+				</div>
+				
+			</div>
+		</div>
+	</div>
 
-<%= f.submit "Create competition", class: "btn btn-primary" %>
 <% end %>
+
+<div class="col-sm-6">
+	<div class="panel panel-default">
+		<div class="panel-body">
+			<p>To create a competition you need to choose three parameters.</p>
+			<ul>
+				<li><strong>Players:</strong> This field indicates the number of users that need to enter the competition before it can start. The fewer players, the sooner the competition will start, while the more players, the bigger the prizes (provided that there is non-zero <strong>entry gold</strong>).</li>
+
+				<li><strong>Length:</strong> You can choose between four different competition styles in terms of time duration.</li>
+				
+				<li><strong>Entry Gold:</strong> This is the amount of gold that a user needs to pay before he/she can enter the competition. The accumulated gold collected from all participants is split between the winners at the end of the competition.</li>
+			</ul>
+		</div>
+	</div>
+</div>
+</div>
+
+

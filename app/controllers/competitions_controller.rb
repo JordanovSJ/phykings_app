@@ -2,10 +2,11 @@ class CompetitionsController < ApplicationController
 	
 	before_action :logged_in_user
 	before_action :check_for_id, only: [:show]
-	before_action :not_in_competition, only: [:create, :new, :show]
+	# before_action :not_in_competition, only: [:create, :new, :show]
 	before_action :belongs_to_competition, only: [:show]
 	
   def index
+		@competitions = Competition.all
   end
     
   def show
@@ -76,7 +77,7 @@ class CompetitionsController < ApplicationController
 
   #user cannot participate in a competition if already participate in another!!!
   def not_in_competition
-		if current_user.competition_id.present? && !(current_user.competition_id==params[:id])
+		if current_user.competition_id.present? && !(current_user.competition_id==params[:id].to_i)
 			flash[:danger]="You cannot participate in more than one competitio at a time!!!"
 			redirect_to competition_path(current_user.competition_id)
 		end
