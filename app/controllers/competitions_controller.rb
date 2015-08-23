@@ -13,6 +13,7 @@ class CompetitionsController < ApplicationController
     
   def show
 		@competition=Competition.find(params[:id])
+		# When the competition is still not full
 		if @competition.users.count < @competition.n_players && current_user.competition_id.nil?
 			current_user.update_attributes!(competition_id: params[:id])
 		end
@@ -24,9 +25,17 @@ class CompetitionsController < ApplicationController
 			end
 			@problems = @competition.problems
 			@users = @competition.users
+			# If problem_id is present then show the chosen problem
 			if params.has_key?(:problem_id)
 				@problem = Problem.find(params[:problem_id])
 			end			
+			# Decides whether the submit button should be disabled
+			@allow_submit = true
+			@problems.each do |prob|
+				unless session.has_key?("answer_#{prob.id}")
+					@allow_submit = false
+				end
+			end
 		end
 
   end
@@ -67,6 +76,13 @@ class CompetitionsController < ApplicationController
   
   #submit answers
   def submit
+		if !current_user.submitted_competition?
+			current_user.update_attributes(submitted_competition: true)
+			redirect_to competition_path(Competition.find(params[:id]))
+		else
+			flash[:danger] = "You have already submitted your answers."
+			redirect_to competition_path(Competition.find(params[:id]))
+		end
 		
   end
   
