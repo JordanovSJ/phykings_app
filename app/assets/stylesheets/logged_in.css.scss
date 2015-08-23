@@ -28,27 +28,24 @@ footer {
 	width: 75px;
 }
 
-/* Vertical divider */
-/*
-.row.vdivide [class*='col-']:not(:last-child):after {
-  background: #e0e0e0;
-  width: 1px;
-  content: "";
-  display:block;
-  position: absolute;
-  top:0;
-  bottom: 0;
-  right: 0;
-  min-height: 40px;
-}
-*/
-
 .form-control.problem-text {
 	height: 300px;
 }
 
 .problem-content {
 	white-space: pre-wrap;
+}
+
+#competition_n_players, #competition_entry_gold {
+	text-align: center;
+}
+
+#competition-table {
+	font-size: 1.4em;
+}
+
+#header-competition-button .btn {
+	color: white;
 }
 
 /* Making the jumbotron smaller */

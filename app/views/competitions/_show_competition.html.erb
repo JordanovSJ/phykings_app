@@ -1,0 +1,5 @@
+<% if @competition.users.count < @competition.n_players %>
+	<%= render 'waiting' %>
+<% else %>
+	<%= render 'competition' %>
+<% end %>

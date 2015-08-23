@@ -1,11 +1,14 @@
 class CompetitionsController < ApplicationController
 	
+	include ApplicationHelper
+	
 	before_action :logged_in_user
 	before_action :check_for_id, only: [:show]
-	before_action :not_in_competition, only: [:create, :new, :show]
+	# before_action :not_in_competition, only: [:create, :new, :show]
 	before_action :belongs_to_competition, only: [:show]
 	before_action :enough_gold, only: [:show, :create]
   def index
+		@competitions = Competition.all
   end
     
   def show
@@ -13,10 +16,17 @@ class CompetitionsController < ApplicationController
 		if @competition.users.count < @competition.n_players && current_user.competition_id.nil?
 			current_user.update_attributes!(competition_id: params[:id])
 		end
-		
+
 		#when the last player joins the competition, find problems for the comepetition
 		if  @competition.users.count == @competition.n_players
-			choose_problems(@competition)
+			if @competition.problems.empty?
+				choose_problems(@competition)
+			end
+			@problems = @competition.problems
+			@users = @competition.users
+			if params.has_key?(:problem_id)
+				@problem = Problem.find(params[:problem_id])
+			end			
 		end
 
   end
@@ -33,6 +43,25 @@ class CompetitionsController < ApplicationController
 			redirect_to competition_path(@competition)
 		else
 			render 'new'
+		end
+  end
+  
+  # In competition, shows the selected problem from the list of chosen problems.
+  def show_problem
+		@problem = Problem.find(params[:problem_id])
+		redirect_to competition_path(Competition.find(params[:id]), problem_id: @problem.id)
+  end
+  
+  # Saves the answer of the current problem in session.
+  def submit_answer
+		@answer = params[:answer]
+		if ( @answer[:degree_of_answer].present? && @answer[:answer].present? )
+			session["answer_#{params[:problem_id]}"] = params[:answer]
+			flash[:success] = "Answer saved successfully. You can always come back and change it if you want."
+			redirect_to competition_path(Competition.find(params[:id]))
+		else
+			flash[:danger] = "Answer not saved. Please make sure you have filled all required fields of the answer."
+			redirect_to competition_path(Competition.find(params[:id]))
 		end
   end
   
