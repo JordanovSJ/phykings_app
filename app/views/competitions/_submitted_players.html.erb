@@ -1,0 +1,17 @@
+<div class="panel panel-default">
+	<div class="panel-body">
+		<p>You have submitted your answers. Results will be displayed as soon as everyone is done.</p>
+		<%= image_tag "loading_spinner.gif", id: "submitted-competition-loading" %>
+	</div>
+	<!-- List group -->
+	<ul class="list-group">
+		<% @competition.users.each do |u| %>
+			<li class="list-group-item">
+				<%= u.first_name + " " + u.last_name %>
+				<% if u.submitted_competition? %>
+					<i class="glyphicon glyphicon-ok"></i>
+				<% end %>
+			</li>
+		<% end %>
+	</ul>
+</div>

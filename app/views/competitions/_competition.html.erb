@@ -82,23 +82,8 @@
 	</div>
 </div>
 
-<div class="col-sm-3">
-	<div class="panel panel-default">
-		<!-- Default panel contents -->
-		<div class="panel-heading">Players</div>
-
-		<!-- List group -->
-		<ul class="list-group">
-			<% @users.each do |u| %>
-				<li class="list-group-item">
-					<%= u.first_name + " " + u.last_name %>
-					<span class="label label-success"><%= u.premium_level %></span>
-					<span class="label label-default"><%= u.free_level %></span>
-				</li>
-			<% end %>
-		</ul>
-		
-	</div>
+<div class="col-sm-3" id="competition-players">
+	<%= render 'competition_players' %>
 </div>
 
 

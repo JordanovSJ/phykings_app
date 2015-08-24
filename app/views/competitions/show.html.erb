@@ -19,6 +19,26 @@
 <script type="text/javascript">
 	var faye = new Faye.Client('/faye');
 	<% @competition.users.each do |u| %>
-		faye.publish('/competitions/<%= u.id %>', { mess: "<%= j render partial: 'show_competition' %> " } );
+	
+		<% if @competition.started_at.present? %>
+			//~ If the competition has started then everyone should reload pages.
+			faye.publish('/competitions/<%= u.id %>', { component: "#competition-show", mess: "reload" } );
+			
+			<% if current_user.submitted_competition %>
+				faye.publish('/competitions/<%= u.id %>', { component: "#competition-players", mess: "<%= j render partial: 'competition_players' %>" } );
+				faye.publish('/competitions/<%= u.id %>', { component: "#submitted-players", mess: "<%= j render partial: 'submitted_players' %>" } );
+			<% end %>
+			
+			<% if @competition.users.where(submitted_competition: false).count == 0 %>
+				faye.publish('/competitions/<%= u.id %>', { component: "#competition-show", mess: "<%= j render partial: 'show_competition' %>" } );
+			<% end %>
+			
+		<% else %>
+		
+			faye.publish('/competitions/<%= u.id %>', { component: "#competition-show", mess: "<%= j render partial: 'show_competition' %>" } );
+			faye.publish('/competitions/<%= u.id %>', { component: "#header-competition-button", mess: "<%= j render partial: 'header_competition_button' %>" } );
+			
+		<% end %>
+		
 	<% end %>
 </script>

@@ -55,8 +55,7 @@
 						
 						<% if current_user.competition_id.present? %>
 							<li id="header-competition-button">
-								<% @competition = Competition.find(current_user.competition_id) %>
-								<%= link_to "Current competition #{@competition.users.count} / #{@competition.n_players}", competition_path(@competition), class: "btn btn-success" %>
+								<%= render 'competitions/header_competition_button' %>
 							</li>
 						<% end %>
 						
