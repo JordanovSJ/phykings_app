@@ -1,5 +1,9 @@
 <% if @competition.users.count < @competition.n_players %>
 	<%= render 'waiting' %>
+<% elsif @competition.users.where(submitted_competition: false).count == 0 %>
+	<%= render 'results' %>
+<% elsif current_user.submitted_competition? %>
+	<%= render 'submitted_competition' %>
 <% else %>
 	<%= render 'competition' %>
 <% end %>

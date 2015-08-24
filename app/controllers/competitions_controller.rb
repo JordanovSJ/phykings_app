@@ -15,6 +15,7 @@ class CompetitionsController < ApplicationController
     
   def show
 		@competition=Competition.find(params[:id])
+		# When the competition is still not full
 		if @competition.users.count < @competition.n_players && current_user.competition_id.nil?
 			current_user.update_attributes!(competition_id: params[:id])
 			transaction_user_to_bank(@competition.entry_gold, current_user)
@@ -22,14 +23,26 @@ class CompetitionsController < ApplicationController
 
 		#when the last player joins the competition, find problems for the comepetition
 		if  @competition.users.count == @competition.n_players
+			# Find problems only once.
 			if @competition.problems.empty?
 				choose_problems(@competition)
 			end
+			
 			@problems = @competition.problems
 			@users = @competition.users
+			
+			# If problem_id is present then show the chosen problem
 			if params.has_key?(:problem_id)
 				@problem = Problem.find(params[:problem_id])
-			end			
+			end
+						
+			# Decides whether the submit button should be disabled
+			@allow_submit = true
+			@problems.each do |prob|
+				unless session.has_key?("answer_#{prob.id}")
+					@allow_submit = false
+				end
+			end
 		end
 
   end
@@ -71,6 +84,21 @@ class CompetitionsController < ApplicationController
   
   #submit answers
   def submit
+		if !current_user.submitted_competition?
+			@results = params[:submit_params]
+			@competition = Competition.find(params[:id])
+			
+			@competition.problems.each do |prob|
+				@results["answer_#{prob.id}"][:check_answer] = Solution.check_answer(@results["answer_#{prob.id}"], prob)
+			end
+			
+			current_user.update_attributes(results: @results)
+			current_user.update_attributes(submitted_competition: true)
+			redirect_to competition_path(Competition.find(params[:id]))
+		else
+			flash[:danger] = "You have already submitted your answers."
+			redirect_to competition_path(Competition.find(params[:id]))
+		end
 		
   end
   

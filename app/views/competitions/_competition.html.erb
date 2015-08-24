@@ -18,7 +18,13 @@
 			<% end %>
 		</ul>
 		
-		<div class="panel-footer">Submit</div>
+		<div class="panel-footer text-center">
+			<% @submit_params = {} %>
+			<% @problems.each do |p| %>
+				<% @submit_params["answer_#{p.id}"] = session["answer_#{p.id}"] %>
+			<% end %>
+			<%= link_to "Submit", submit_competitions_path( submit_params: @submit_params ), method:"post", class: "btn btn-success" + (@allow_submit ? "" : " disabled") %>	
+		</div>
 	</div>
 </div>
 
@@ -57,7 +63,7 @@
 						<p class="form-control">$<%= @problem.units_of_answer %>$</p>
 					</div>
 					
-					<div class="col-sm-12">
+					<div class="col-sm-4 col-sm-offset-4">
 						<%= f.submit "Save Answer", class: "btn btn-success" %>		
 					</div>
 					
