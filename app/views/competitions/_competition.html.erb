@@ -23,7 +23,7 @@
 			<% @problems.each do |p| %>
 				<% @submit_params["answer_#{p.id}"] = session["answer_#{p.id}"] %>
 			<% end %>
-			<%= link_to "Submit", submit_competitions_path( submit_params: @submit_params ), method:"post", class: "btn btn-success" + (@allow_submit ? "" : " disabled") %>	
+			<%= link_to "Submit", submit_competitions_path( submit_params: @submit_params ), method:"get", class: "btn btn-success" + (@allow_submit ? "" : " disabled") %>	
 		</div>
 	</div>
 </div>

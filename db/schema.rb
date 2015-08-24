@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150823111834) do
+ActiveRecord::Schema.define(version: 20150824085626) do
 
   create_table "banks", force: :cascade do |t|
     t.integer  "total_gold"
@@ -37,6 +37,7 @@ ActiveRecord::Schema.define(version: 20150823111834) do
     t.integer  "entry_gold", default: 0
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
+    t.datetime "started_at"
   end
 
   create_table "notifications", force: :cascade do |t|
