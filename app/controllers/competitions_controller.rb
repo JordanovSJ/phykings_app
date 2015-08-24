@@ -58,7 +58,7 @@ class CompetitionsController < ApplicationController
 		end
 		
 		# If the time has run out, submit the competition
-		if ( (Time.now - @competition.started_at) > @competition.length * 60 ) && !current_user.submitted_competition
+		if @competition.started_at? && ( (Time.now - @competition.started_at) > @competition.length * 60 ) && !current_user.submitted_competition
 			@submit_params = {}
 			@competition.problems.each do |p|
 				if session["answer_#{p.id}"].present?

@@ -20,9 +20,7 @@
 		<script type="text/javascript">
 			$(function(){
 				var faye = new Faye.Client('/faye');
-				faye.subscribe('/competitions/<%= current_user.id %>', function(message) {
-					$("#competition-show").html(message.mess);
-				});
+				faye.subscribe('/competitions/<%= current_user.id %>', competition_show);
 			});
 		</script>
   <% end %>

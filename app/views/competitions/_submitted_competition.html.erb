@@ -53,6 +53,8 @@
 							<td>
 								<% if current_user.id == prob.creator_id || ( current_user.relation_of(prob).present? &&
 											current_user.relation_of(prob).can_see_answer?) %>
+
+
 									<%= "$ #{prob.answer} \\times 10^{#{prob.degree_of_answer}} #{prob.units_of_answer}$ " %>
 								<% else %>
 									<%= link_to "Unlock (#{COST_TO_UNLOCK_ANSWER} gold)", "#", method: "post", class: "btn btn-xs btn-info", data: {confirm: "#{COST_TO_UNLOCK_ANSWER} gold will be deducted from your account."}, remote: true %>
