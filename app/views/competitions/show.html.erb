@@ -21,20 +21,30 @@
 	<% @competition.users.each do |u| %>
 	
 		<% if @competition.started_at.present? %>
-			//~ If the competition has started then everyone should reload pages.
+			//~ If the competition has started then everyone should reload pages. But only once!
+			//~ The javascript in competition_functions.js checks if the timer is present and if it is
+			//~ then it does NOT reload the page because the presence of the timer indicates that for
+			//~ that particular user the competition has already started.
 			faye.publish('/competitions/<%= u.id %>', { component: "#competition-show", mess: "reload" } );
 			
+			//~ During the competition, if a user submits his answers, the other users are notified with a
+			//~ with a tick appearing next to that user's name. Therefore, when a user has submitted his
+			//~ answers, everyone should reload the list with players. There are two such lists: one during
+			//~ the competition and one during the waiting screen before everyone submits their answers.
 			<% if current_user.submitted_competition %>
 				faye.publish('/competitions/<%= u.id %>', { component: "#competition-players", mess: "<%= j render partial: 'competition_players' %>" } );
 				faye.publish('/competitions/<%= u.id %>', { component: "#submitted-players", mess: "<%= j render partial: 'submitted_players' %>" } );
 			<% end %>
 			
+			//~ If everyone has submitted thei answers then the screen needs to go to the results page.
+			//~ This is decided again in the show_competition and therefore we just reload it for everyone.
 			<% if @competition.users.where(submitted_competition: false).count == 0 %>
 				faye.publish('/competitions/<%= u.id %>', { component: "#competition-show", mess: "<%= j render partial: 'show_competition' %>" } );
 			<% end %>
 			
 		<% else %>
 		
+			//~ If the competition has not started, reload the header button and the screen.
 			faye.publish('/competitions/<%= u.id %>', { component: "#competition-show", mess: "<%= j render partial: 'show_competition' %>" } );
 			faye.publish('/competitions/<%= u.id %>', { component: "#header-competition-button", mess: "<%= j render partial: 'header_competition_button' %>" } );
 			
