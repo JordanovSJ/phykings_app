@@ -126,7 +126,12 @@ class CompetitionsController < ApplicationController
 			#gold transactions, if any
 			#change of lvl
 			if @competition.users.where(submitted_competition: true).count == @competition.n_players
-				#determine the ranks of the individual players
+				#determine the ranks of the individual players			
+				#for test purpose//////////
+				#~ @competition.users.each do |u|
+					#~ u.update_attributes!(submitted_at: 42)
+				#~ end
+				#/////////////////delete until here!!!!!!!			
 				rank_players(@competition)
 				
 				#TODO: gold transactions (bank to competitors and authors of problems)
