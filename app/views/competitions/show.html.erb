@@ -6,25 +6,15 @@
 			<span class="label label-primary">Length: <%= @competition.length %> min</span>
 			<span class="label label-primary">Entry Gold: <%= @competition.entry_gold %></span>
 		</div>
-		<div class="col-sm-6">
-			<div class="panel panel-default text-center">
-				<div class="panel-body">
-					<% remaining_time = @competition.length*60 - (Time.now - @competition.started_at) %>
-					<div class="container-fluid" id="competition-timer">
-						<%= Time.at( (remaining_time>0) ? remaining_time : 0 ).utc.strftime("%H:%M:%S")  %>
-					</div>
-				</div>
-			</div>
-		</div>
+		
+		<%= render 'competition_timer' %>
+		
 	</div>
 </div>
 
 <div id="competition-show">
 	<%= render partial: 'show_competition' %>
 </div>
-
-<%= javascript_tag "setCompetitionTimer(#{remaining_time.to_i})" %>
-
 
 <script type="text/javascript">
 	var faye = new Faye.Client('/faye');
