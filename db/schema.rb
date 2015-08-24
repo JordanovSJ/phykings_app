@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150823111834) do
+ActiveRecord::Schema.define(version: 20150824110437) do
 
   create_table "banks", force: :cascade do |t|
     t.integer  "total_gold"
@@ -34,9 +34,10 @@ ActiveRecord::Schema.define(version: 20150823111834) do
   create_table "competitions", force: :cascade do |t|
     t.integer  "n_players"
     t.integer  "length"
-    t.integer  "entry_gold", default: 0
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.integer  "entry_gold",        default: 0
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+    t.text     "problems_percents"
   end
 
   create_table "notifications", force: :cascade do |t|
@@ -142,6 +143,7 @@ ActiveRecord::Schema.define(version: 20150823111834) do
     t.integer  "competition_id"
     t.boolean  "submitted_competition",  default: false
     t.text     "results"
+    t.datetime "submitted_at"
   end
 
   add_index "users", ["competition_id"], name: "index_users_on_competition_id"

@@ -26,4 +26,12 @@ module ApplicationHelper
 		return relation
   end
 
+	#methods for some values
+	
+	#returns the value of the problem depending on its length and difficulty
+	#its used in competitions controller to calculate the relative percent of each problem given on a competition
+	def value_problem(problem)
+		value=problem.difficulty * problem.length
+		return value
+	end
 end

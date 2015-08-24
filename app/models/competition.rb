@@ -1,4 +1,6 @@
 class Competition < ActiveRecord::Base
+	serialize :problems_percents, Hash
+
 	has_many :users
 	
 	has_many :competition_problems, :foreign_key => 'competition_id',

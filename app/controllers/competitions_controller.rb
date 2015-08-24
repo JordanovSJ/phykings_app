@@ -1,6 +1,7 @@
 class CompetitionsController < ApplicationController
 	include TransactionsHelper
 	include ApplicationHelper
+	include CompetitionsHelper
 	
 	before_action :logged_in_user
 	before_action :check_for_id, only: [:show]
@@ -30,6 +31,11 @@ class CompetitionsController < ApplicationController
 			
 			@problems = @competition.problems
 			@users = @competition.users
+			
+			if @competition.problems_percents.empty?
+				@competition.update_attributes!(problems_percents: evaluate_problems(@competition))
+			end
+			@problems_percents=@competition.problems_percents
 			
 			# If problem_id is present then show the chosen problem
 			if params.has_key?(:problem_id)
@@ -91,9 +97,24 @@ class CompetitionsController < ApplicationController
 			@competition.problems.each do |prob|
 				@results["answer_#{prob.id}"][:check_answer] = Solution.check_answer(@results["answer_#{prob.id}"], prob)
 			end
-			
+		
 			current_user.update_attributes(results: @results)
+			current_user.update_attributes(submitted_at: Time.now)
 			current_user.update_attributes(submitted_competition: true)
+								
+			#when the competition is over (everyone have submitted answers): 
+			#ranking
+			#gold transactions, if any
+			#change of lvl
+			if @competition.users.where(submitted_competition: true).count == @competition.n_players
+				#determine the ranks of the individual players
+				rank_players(@competition)
+				
+				#TODO: gold transactions (bank to competitors and authors of problems)
+				
+				#TODO: calculate the change of LVLs
+			end
+			
 			redirect_to competition_path(Competition.find(params[:id]))
 		else
 			flash[:danger] = "You have already submitted your answers."
@@ -107,11 +128,15 @@ class CompetitionsController < ApplicationController
   
   end
   
+  
+#PRIVATE!!!
   private
   
 	def competition_params
 	 params.require(:competition).permit(:n_players, :length, :entry_gold)
   end
+
+	#consider to move in competition_helper
 
   #chosee random problems for the competition whose total length is equal
   #to the length of the competition
@@ -133,7 +158,7 @@ class CompetitionsController < ApplicationController
 				competition.competition_problems.create!(problem_id: problem.id)
 			else
 				problem=Problem.all.select{ |p| p.length <= max_length && !competition.problems.include?(p)}.sample
-				#to be removed in future cause unneccessery
+				#to be removed in future, cause unneccessery
 				if problem.nil?
 					flash[:danger]="Couldnt find problems!"
 					@competition=Competition.find(params[:id])
@@ -151,9 +176,34 @@ class CompetitionsController < ApplicationController
 		end	
   end
 
+	#consider to move in competition_helper
+	
+	#return hash of the relative values of each of the problems in percents (integers)
+	def evaluate_problems(competition)
+		total_value=0
+		problems=competition.problems
+		problems.each do |p|
+			total_value += value_problem(p)
+		end
+		hash_percents={}
+		#balta6tina!
+		#the reason for the next line is to make sure that the sum of the percents of the problems is always 100
+		last_problem_percent=100
+		count=1
+		problems.each do |p|
+			if count < problems.count
+				percent=((value_problem(p).to_f / total_value)*100).round(0).to_i
+				hash_percents["percent_problem_#{p.id}"]=percent
+				last_problem_percent -= percent
+				count += 1
+			else
+				hash_percents["percent_problem_#{p.id}"]=last_problem_percent
+			end
+		end
+		return hash_percents
+	end
 
-
-#before actions
+#BEFORE ACTIONS!!!!
 
 	#checks if params[:id] exist
   def check_for_id

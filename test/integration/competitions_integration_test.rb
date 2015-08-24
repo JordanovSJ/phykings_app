@@ -93,4 +93,12 @@ class CompetitionsIntegrationTest	< ActionDispatch::IntegrationTest
 		assert_template 'competitions/show'
 	end	
 	
+	
+	#~ test "problems percent sum must be 100" do
+		#~ sign_in_as(@host)
+		#~ @params[:entry_gold]=1
+		#~ post competitions_path, competition: @params
+		#~ assert_redirected_to competition_path(@host.competition_id)
+		#~ 
+	#~ end
 end
