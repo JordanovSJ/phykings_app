@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150822224423) do
+ActiveRecord::Schema.define(version: 20150823111834) do
 
   create_table "banks", force: :cascade do |t|
     t.integer  "total_gold"
@@ -141,6 +141,7 @@ ActiveRecord::Schema.define(version: 20150822224423) do
     t.boolean  "moderator",              default: false
     t.integer  "competition_id"
     t.boolean  "submitted_competition",  default: false
+    t.text     "results"
   end
 
   add_index "users", ["competition_id"], name: "index_users_on_competition_id"

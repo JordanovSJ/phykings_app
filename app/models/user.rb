@@ -1,6 +1,9 @@
  
 class User < ActiveRecord::Base
 	include TransactionsHelper
+	
+	# Serializes the results field to be used as a Hash
+	serialize :results, Hash
 
 	has_many :uploaded_problems, class_name: 'Problem', 
 															:foreign_key => 'creator_id'
