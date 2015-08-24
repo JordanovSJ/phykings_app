@@ -24,6 +24,12 @@ class CompetitionsController < ApplicationController
 
 		#when the last player joins the competition, find problems for the comepetition
 		if  @competition.users.count == @competition.n_players
+		
+			# Start the comeptition if it has not started yet
+			if @competition.started_at.nil?
+				@competition.update_attributes(started_at: Time.now)
+			end
+		
 			# Find problems only once.
 			if @competition.problems.empty?
 				choose_problems(@competition)
@@ -49,6 +55,19 @@ class CompetitionsController < ApplicationController
 					@allow_submit = false
 				end
 			end
+		end
+		
+		# If the time has run out, submit the competition
+		if ( (Time.now - @competition.started_at) > @competition.length * 60 ) && !current_user.submitted_competition
+			@submit_params = {}
+			@competition.problems.each do |p|
+				if session["answer_#{p.id}"].present?
+					@submit_params["answer_#{p.id}"] = session["answer_#{p.id}"]
+				else
+					@submit_params["answer_#{p.id}"] = {answer:0, degree_of_answer:0}
+				end
+			end
+			redirect_to submit_competitions_path( submit_params: @submit_params )
 		end
 
   end

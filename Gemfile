@@ -27,6 +27,7 @@ gem 'figaro', "~> 0.7.0"
 gem 'mathjax-rails', "2.5.1"
 
 gem 'jquery-turbolinks'
+gem 'jquery-countdown-rails'
 
 group :development, :test do
 

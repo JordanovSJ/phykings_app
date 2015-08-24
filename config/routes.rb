@@ -46,7 +46,7 @@ Rails.application.routes.draw do
   
   resources :competitions, only: [:new, :show, :create, :index] do
 		collection do
-			post ":id/submit", to: "competitions#submit", as: "submit"
+			get ":id/submit", to: "competitions#submit", as: "submit"
 			get "leave" #not sure for get, maybe delete
 			get ":id/show_problem", to: "competitions#show_problem", as: "show_problem"
 			post ":id/submit_answer", to: "competitions#submit_answer", as: "submit_answer"
