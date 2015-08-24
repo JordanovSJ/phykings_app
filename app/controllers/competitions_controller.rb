@@ -1,12 +1,14 @@
 class CompetitionsController < ApplicationController
-	
+	include TransactionsHelper
 	include ApplicationHelper
 	
 	before_action :logged_in_user
 	before_action :check_for_id, only: [:show]
-	# before_action :not_in_competition, only: [:create, :new, :show]
+	before_action :not_in_competition, only: [:create, :new, :show]
 	before_action :belongs_to_competition, only: [:show]
 	before_action :enough_gold, only: [:show, :create]
+	
+	
   def index
 		@competitions = Competition.all
   end
@@ -15,6 +17,7 @@ class CompetitionsController < ApplicationController
 		@competition=Competition.find(params[:id])
 		if @competition.users.count < @competition.n_players && current_user.competition_id.nil?
 			current_user.update_attributes!(competition_id: params[:id])
+			transaction_user_to_bank(@competition.entry_gold, current_user)
 		end
 
 		#when the last player joins the competition, find problems for the comepetition
@@ -39,6 +42,7 @@ class CompetitionsController < ApplicationController
 		@competition=Competition.new(competition_params)
 		if @competition.save
 			current_user.update_attributes!(competition_id: @competition.id)
+			transaction_user_to_bank(@competition.entry_gold, current_user)
 			flash[:success]="You successfully created a competition. Good luck!"
 			redirect_to competition_path(@competition)
 		else
@@ -101,6 +105,18 @@ class CompetitionsController < ApplicationController
 				competition.competition_problems.create!(problem_id: problem.id)
 			else
 				problem=Problem.all.select{ |p| p.length <= max_length && !competition.problems.include?(p)}.sample
+				#to be removed in future cause unneccessery
+				if problem.nil?
+					flash[:danger]="Couldnt find problems!"
+					@competition=Competition.find(params[:id])
+					@competition.users.each do |u|
+						u.update_attributes!(competition_id: nil)
+					end
+					@competition.destroy
+					redirect_to competitions_path
+					return false
+				end
+				#//
 				problems_length += problem.length
 				competition.competition_problems.create!(problem_id: problem.id)
 			end
