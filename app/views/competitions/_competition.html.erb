@@ -35,7 +35,10 @@
 <div class="col-sm-6">
 	<div class="panel panel-default">
 		<div class="panel-heading">
-			<p><strong><%= @problem.title %></strong></p>
+			<p>
+				<strong><%= @problem.title %></strong>
+				<span class="label label-default pull-right">Problem weight: 50%</span>
+			</p>
 			<p><span class="badge"><%= @problem.length %> min</span>
 				 <span class="badge"><%= @problem.category %></span>
 				 <span class="badge">Difficulty: <%= @problem.difficulty %></span>
