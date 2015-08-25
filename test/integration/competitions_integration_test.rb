@@ -109,6 +109,7 @@ class CompetitionsIntegrationTest	< ActionDispatch::IntegrationTest
 		problem3.length=30
 		problem3.difficulty=5
 		problem3.save!
+		get_custom_relation(@host, problem3)
 		sign_in_as(@host)
 		@params[:n_players]=1
 		@params[:length]=60

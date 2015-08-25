@@ -133,6 +133,7 @@ class CompetitionsController < ApplicationController
 				rank_players(@competition)
 												
 				#TODO: gold transactions (bank to competitors and authors of problems)
+				gold_transactions(@competition)
 				
 				#TODO: calculate the change of LVLs
 			end

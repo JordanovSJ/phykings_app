@@ -3,7 +3,7 @@ module CompetitionsHelper
 	#determines the ranks of the users after submission
 	def rank_players(competition)
 		users=competition.users
-		sorted_users = (users.sort_by{|u| user_percents(u)}.reverse).sort_by{|u| u.submitted_at}
+		sorted_users = users.sort_by{|u| [(100 - user_percents(u)), u.submitted_at]}
 		count=0
 		rank=1
 		sorted_users.each do |u|
@@ -26,7 +26,7 @@ module CompetitionsHelper
 	def create_relations(competition, user)
 		problems=competition.problems
 		#boolean value
-		premium= competition.entry_gold >= 500 
+		premium= competition.entry_gold >= MIN_PREMIUM_ENTRY_GOLD 
 		results=user.results
 		problems.each do |p|
 			if user.relation_of(p).nil?
@@ -50,6 +50,25 @@ module CompetitionsHelper
 		end
 	end
 	
+	def gold_transactions(competition)
+		correct_answer=false
+		competition.users.each do |u|
+			if user_percents(u) != 0
+				correct_answer=true
+			end
+		end
+		# if no correct problems all gold for us
+		all_gold=competition.entry_gold * competition.n_players
+		prizes_gold= ((1.0 - (COMPETITION_PERCENT_FOR_US + COMPETITION_PERCENT_FOR_CREATORS)) * all_gold).to_i
+		creators_gold= (COMPETITION_PERCENT_FOR_CREATORS * all_gold).to_i
+		if correct_answer
+			creators_get_gold(competition, creators_gold)
+			players_get_gold(competition, prizes_gold)	
+		else
+			creators_get_gold(competition, creators_gold)
+			#players get pi6ka v ustata
+		end
+	end
 	
 #PRIVATE!!!
 	private
@@ -66,9 +85,65 @@ module CompetitionsHelper
 			if user.results["answer_#{p.id}"][:check_answer]
 				user_perc += problems_percents["percent_problem_#{p.id}"]
 			end
-		end
-		
+		end		
 		return user_perc
 	end
+	
+	
+	def creators_get_gold(competition, gold)
+		problems=competition.problems
+		sum_to_pay=(gold.to_f / problems.count).to_i
+		problems.each do |p|
+			transaction_bank_to_user(sum_to_pay, p.creator)
+		end		
+	end
+	
+	def players_get_gold(competition, gold)
+		users=competition.users
+		#sorted by rank 
+		sorted_users=users.sort_by{|u| u.results[:rank]}
+		max_rank=sorted_users.reverse.first.results[:rank]		
+		if max_rank==1
+			sum_to_pay=gold / users.count
+			users.each do |u|
+				transaction_bank_to_user(sum_to_pay, u)
+			end
+			return true
+		end	
+		# determines the maximum rank that should receive some gold
+		not_found = true
+		max_winning_rank=max_rank-1
+		while not_found do
+			if user_percents(users.select{|u| u.results[:rank] == max_winning_rank}.first) != 0
+				not_found=false
+			else
+				max_winning_rank -= 1
+			end
+		end
+		parts=0	
+		(1..max_winning_rank).each do |rank|
+			n_ranks=users.select{|u| u.results[:rank]==rank}.count
+			degree=max_winning_rank - rank
+			n_parts = 2 ** degree
+			parts += n_parts * n_ranks
+		end	
+		part_value= gold.to_f / parts
+		#the number of players with rank 1
+		n_rank1=users.select{|u| u.results[:rank]==1}.count
+		sorted_users.select{|u| u.results[:rank] <= max_winning_rank}.reverse.each do |u|
+			rank=u.results[:rank]
+			if rank != 1
+				degree=max_winning_rank - rank
+				n_parts = 2 ** degree
+				sum_to_pay=(n_parts * part_value).to_i
+				gold -= sum_to_pay
+				transaction_bank_to_user(sum_to_pay, u)
+			else
+				sum_to_pay = gold / n_rank1
+				transaction_bank_to_user(sum_to_pay, u)
+			end
+		end	
+	end
+	
 	
 end
