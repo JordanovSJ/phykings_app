@@ -3,7 +3,9 @@
 function change_view(message) {
 	if ( message.mess == "reload" && !( $("#competition-timer").length ) ) {
 		location.reload();
-	} else if ( message.mess != "reload" ) {
+	} else if ( message.mess == "results" && !( $("#ranking-players").length ) ) {
+		location.reload();
+	} else if ( message.mess != "reload" && message.mess != "results" ) {
 		if ( $(message.component).length ) {
 			$(message.component).html(message.mess);
 		}

@@ -1,4 +1,4 @@
-<div class="panel panel-default">
+<div class="panel panel-default text-center">
 	<!-- Default panel contents -->
 	<div class="panel-heading">Players</div>
 
@@ -6,10 +6,10 @@
 	<ul class="list-group">
 		<% @users.each do |u| %>
 			<li class="list-group-item">
+				<%= u.first_name + " " + u.last_name %> <br/>
 				<% if u.submitted_competition? %>
 					<i class="glyphicon glyphicon-ok"></i>
 				<% end %>
-				<%= u.first_name + " " + u.last_name %>
 				<span class="label label-success"><%= u.premium_level %></span>
 				<span class="label label-default"><%= u.free_level %></span>
 			</li>

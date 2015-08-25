@@ -39,7 +39,7 @@
 			//~ If everyone has submitted thei answers then the screen needs to go to the results page.
 			//~ This is decided again in the show_competition and therefore we just reload it for everyone.
 			<% if @competition.users.where(submitted_competition: false).count == 0 %>
-				faye.publish('/competitions/<%= u.id %>', { component: "#competition-show", mess: "<%= j render partial: 'show_competition' %>" } );
+				faye.publish('/competitions/<%= u.id %>', { component: "#competition-show", mess: "results" } );
 			<% end %>
 			
 		<% else %>
