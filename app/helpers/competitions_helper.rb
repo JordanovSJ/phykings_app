@@ -22,6 +22,38 @@ module CompetitionsHelper
 		end	
 	end
 	
+	#create the relations between players and problems after a everyone submit the answers of a compeittion
+	def create_relations(competition, user)
+		problems=competition.problems
+		#boolean value
+		premium= competition.entry_gold >= 500 
+		results=user.results
+		problems.each do |p|
+			if user.relation_of(p).nil?
+				relation=UserProblemRelation.new(seen_problem_id: p.id, viewer_id: user.id)
+			else
+				relation=user.relation_of(p)
+			end
+			
+			if premium
+				relation.attempted_during_premium=true
+				if results["answer_#{p.id}"][:check_answer]
+					relation.solved_during_premium=true
+				end
+			else
+				relation.attempted_during_free=true
+				if results["answer_#{p.id}"][:check_answer]
+					relation.solved_during_free=true
+				end
+			end
+			relation.save!
+		end
+	end
+	
+	
+#PRIVATE!!!
+	private
+	
 	#calculates the result in percents of a user after sumbmission
 	def user_percents(user)
 		competition=Competition.find(user.competition_id)

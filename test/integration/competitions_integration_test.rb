@@ -94,11 +94,37 @@ class CompetitionsIntegrationTest	< ActionDispatch::IntegrationTest
 	end	
 	
 	
-	#~ test "problems percent sum must be 100" do
+	test "problems percent sum must be 100" do
+		Problem.delete_all
+		problem1=get_custom_problem(@player2)
+		problem1.length=30
+		problem1.difficulty=3
+		problem1.save!
+		problem2=get_custom_problem(@player2)
+		problem2.length=30
+		problem2.difficulty=9
+		problem2.save!
+		sign_in_as(@host)
+		problem3=get_custom_problem(@host)
+		problem3.length=30
+		problem3.difficulty=5
+		problem3.save!
+		sign_in_as(@host)
+		@params[:n_players]=1
+		@params[:length]=60
+		post competitions_path, competition: @params
+		follow_redirect!
+		@host.reload
+		competition=Competition.find(@host.competition_id)
+		assert Problem.count==3, Problem.count
+		assert competition.problems.count==2 , competition.problems.count
+		assert_not competition.problems.include?(problem3)
+		sum=competition.problems_percents["percent_problem_#{problem1.id}"] + competition.problems_percents["percent_problem_#{problem2.id}"]
+		assert sum==100
+	end
+	
+	#~ test "User relations after competition " do
 		#~ sign_in_as(@host)
-		#~ @params[:entry_gold]=1
 		#~ post competitions_path, competition: @params
-		#~ assert_redirected_to competition_path(@host.competition_id)
-		#~ 
 	#~ end
 end

@@ -120,20 +120,18 @@ class CompetitionsController < ApplicationController
 			current_user.update_attributes(results: @results)
 			current_user.update_attributes(submitted_at: Time.now)
 			current_user.update_attributes(submitted_competition: true)
-								
+			
+			#create user-problem relations
+			create_relations(@competition, current_user)
+					
 			#when the competition is over (everyone have submitted answers): 
 			#ranking
 			#gold transactions, if any
 			#change of lvl
 			if @competition.users.where(submitted_competition: true).count == @competition.n_players
-				#determine the ranks of the individual players			
-				#for test purpose//////////
-				#~ @competition.users.each do |u|
-					#~ u.update_attributes!(submitted_at: 42)
-				#~ end
-				#/////////////////delete until here!!!!!!!			
+				#determine the ranks of the individual players					
 				rank_players(@competition)
-				
+												
 				#TODO: gold transactions (bank to competitors and authors of problems)
 				
 				#TODO: calculate the change of LVLs
@@ -148,8 +146,17 @@ class CompetitionsController < ApplicationController
   end
   
   #leave competition, after submit
-  def leave
-  
+  def destroy
+		@competition=Competition.find(params[:id])
+		@competition.users.each do |u|
+			u.competition_id=nil
+			u.submitted_at=nil
+			u.submitted_competition= false
+			u.results={}
+			u.save!
+		end
+		@competition.destroy
+		redirect_to competitions_path
   end
   
   

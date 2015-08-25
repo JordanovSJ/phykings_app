@@ -44,7 +44,7 @@ Rails.application.routes.draw do
 		end
 	end		
   
-  resources :competitions, only: [:new, :show, :create, :index] do
+  resources :competitions, only: [:new, :show, :create, :index, :destroy] do
 		collection do
 			get ":id/submit", to: "competitions#submit", as: "submit"
 			get "leave" #not sure for get, maybe delete
