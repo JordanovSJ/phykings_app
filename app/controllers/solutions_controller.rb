@@ -137,7 +137,7 @@ class SolutionsController < ApplicationController
 	private
 	
 	def solution_params
-     params.require(:solution).permit(:content, :degree_of_answer, :answer, :reported)
+     params.require(:solution).permit(:content, :degree_of_answer, :answer, :reported, :picture)
   end
   
   #checks if params[:id] exist

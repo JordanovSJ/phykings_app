@@ -3,10 +3,13 @@ class Solution < ActiveRecord::Base
 	has_one :viewer, :through=> :user_problem_relation
 	has_one :seen_problem, :through=> :user_problem_relation
 	
+	mount_uploader :picture, SolutionPictureUploader
+	
 	validates :content, presence: true, length: { maximum: 3000 }
 	validates :user_problem_relation_id, presence: true
 	validates :answer, presence: true
 	validates :degree_of_answer, presence: true
+	validate :picture_size
 
 	#methods
 	
@@ -31,4 +34,13 @@ class Solution < ActiveRecord::Base
 	def problem
 		self.seen_problem
 	end
+	
+	private
+	
+		# Validates the size of an uploaded picture.
+    def picture_size
+      if picture.size > 500.kilobytes
+        errors.add(:picture, "should be less than 500kB")
+      end
+    end
 end
