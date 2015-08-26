@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150826110238) do
+ActiveRecord::Schema.define(version: 20150826183050) do
 
   create_table "banks", force: :cascade do |t|
     t.integer  "total_gold"
@@ -35,10 +35,11 @@ ActiveRecord::Schema.define(version: 20150826110238) do
     t.integer  "n_players"
     t.integer  "length"
     t.integer  "entry_gold",        default: 0
-    t.datetime "created_at",                    null: false
-    t.datetime "updated_at",                    null: false
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
     t.datetime "started_at"
     t.text     "problems_percents"
+    t.boolean  "finished",          default: false
   end
 
   create_table "notifications", force: :cascade do |t|

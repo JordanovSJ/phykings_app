@@ -27,7 +27,7 @@ COMPETITION_PERCENT_FOR_US=0.1
 COMPETITION_PERCENT_FOR_CREATORS=0.05
 
 
-#EXP
+#EXPERIANCE
 MAX_EXP_CHANGE_PROBLEM=50
 BASE_RANK_EXP=2 #used in competition_helper, method: rank_lvl_change
 BASE_EXP=500 #if a user has BASE_EXP less thatn the average in a competition he gets BASE_RANK_EXP time more

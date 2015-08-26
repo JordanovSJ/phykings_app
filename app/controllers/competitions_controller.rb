@@ -6,9 +6,9 @@ class CompetitionsController < ApplicationController
 	before_action :logged_in_user
 	before_action :check_for_id, only: [:show]
 	before_action :not_in_competition, only: [:create, :new, :show]
-	before_action :belongs_to_competition, only: [:show]
+	before_action :belongs_to_competition, except: [:create, :new, :index]
 	before_action :enough_gold, only: [:show, :create]
-	
+	before_action :not_finished, except: [:create, :new, :index]
 	
   def index
 		@competitions = Competition.all
@@ -120,52 +120,50 @@ class CompetitionsController < ApplicationController
 			current_user.update_attributes(results: @results)
 			current_user.update_attributes(submitted_at: Time.now)
 			current_user.update_attributes(submitted_competition: true)
-			
+					
 			#create user-problem relations
 			create_relations(@competition, current_user)
-					
+				
 			#when the competition is over (everyone have submitted answers): 
 			#ranking
 			#gold transactions, if any
 			#change of lvl
 			if @competition.users.where(submitted_competition: true).count == @competition.n_players
-				#determine the ranks of the individual players
-						
+				@competition.update_attributes!(finished:	true)			
 							#~ #FOR TEST PURPOSES!!!!/////////
 							#~ #/////////////////////////////
 							#~ @competition.users.each do |u|
 								#~ u.update_attributes!(submitted_at: 42)
 							#~ end
 							#~ #//////////////////////////////
-							#~ #/////////////////////////////			
-				rank_players(@competition)
-												
+							#~ #/////////////////////////////	
+								
+				#determine the ranks of the individual players	
+				rank_players(@competition)											
 				#gold transactions (bank to competitors and authors of problems)
-				gold_transactions(@competition)
-				
-				#TODO: calculate the change of LVLs
+				gold_transactions(@competition)				
+				#change the LVLs of the players
 				calculate_lvls(@competition)
-			end
-			
+			end			
 			redirect_to competition_path(Competition.find(params[:id]))
 		else
 			flash[:danger] = "You have already submitted your answers."
 			redirect_to competition_path(Competition.find(params[:id]))
-		end
-		
+		end		
   end
   
   #leave competition, after submit
   def destroy
 		@competition=Competition.find(params[:id])
-		@competition.users.each do |u|
-			u.competition_id=nil
-			u.submitted_at=nil
-			u.submitted_competition= false
-			u.results={}
-			u.save!
+		users=@competition.users
+		current_user.competition_id=nil
+		current_user.submitted_at=nil
+		current_user.submitted_competition= false
+		current_user.results={}
+		current_user.save!
+		if users.count == 0
+			@competition.destroy
 		end
-		@competition.destroy
 		redirect_to competitions_path
   end
   
@@ -245,6 +243,14 @@ class CompetitionsController < ApplicationController
 	end
 
 #BEFORE ACTIONS!!!!
+
+	def not_finished
+		@competition=Competition.find(params[:id])
+		if @competition.finished && (current_user.competition_id.nil? || current_user.competition_id != @competition.id)
+			flash[:danger]="This competition is over!!! You cannot join it!"
+			redirect_to competitions_path
+		end
+	end	
 
 	#checks if params[:id] exist
   def check_for_id
