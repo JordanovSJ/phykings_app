@@ -1,0 +1,48 @@
+<div class="table-responsive">
+	<table class="table table-hover">
+		<thead>
+			<tr>
+				<th>Problem</th>
+				<th>Your answer</th>
+				<th>Weight</th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+			<% @competition.problems.each do |prob| %>
+				<tr 
+						data-toggle="popover"  
+						data-content='
+							<div class="container-fluid">
+								<div class="row">
+									<%= link_to "Unlock Answer (#{COST_TO_UNLOCK_ANSWER} gold)", "#", method: "post", class: "btn btn-xs btn-info", data: {confirm: "#{COST_TO_UNLOCK_ANSWER} gold will be deducted from your account."}, remote: true %>
+								</div><br/>
+								<div class="row">
+									<%= link_to raw("See Solutions <span class=\"badge\">#{prob.solutions.count}</span>"), show_solutions_problems_path(prob), class: "btn btn-xs btn-primary col-sm-12"  %>
+								</div><br/>
+								<div class="row">
+									<%= link_to "Submit solution", new_solution_path({problem_id: prob.id}), class: "btn btn-xs btn-success col-sm-12"  %>
+								</div>
+							</div>
+						'
+				>
+					<td><%= link_to prob.title, problem_path(prob) %></td>
+					<td>
+						$<%= current_user.results["answer_#{prob.id}"][:answer] %>
+						 \times 
+						 10^{<%= current_user.results["answer_#{prob.id}"][:degree_of_answer] %>} 
+						 <%= prob.units_of_answer %>$
+					</td>
+					<td><%= @competition.problems_percents["percent_problem_#{prob.id}"] %>%</td>
+					<td>
+						<% if current_user.results["answer_#{prob.id}"][:check_answer] %>
+							<i class="glyphicon glyphicon-ok"></i>
+						<% else %>
+							<i class="glyphicon glyphicon-remove"></i>
+						<% end %>
+					</td>
+				</tr>
+			<% end %>
+		</tbody>
+	</table>
+</div>

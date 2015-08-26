@@ -1,17 +1,28 @@
 <div class="panel panel-default">
 	<div class="panel-heading">Ranking</div>
 	<div class="panel-body">
-		<span class="label label-warning" id="total-prize-ranking">Total Prize Gold: 1200</span>
+		<span class="label label-warning" id="total-prize-ranking">
+			Total Prize Gold: <%= @competition.n_players * @competition.entry_gold %>
+		</span>
 	</div>
 	<!-- List group -->
 	<ul class="list-group">
-		<% @competition.users.each do |u| %>
+		<% @ranked_users.each do |u| %>
 			<li class="list-group-item">
 				<%= u.first_name + " " + u.last_name %> <br/>
-				<span class="badge alert-success pull-left">93%</span>
-				<span class="label label-info">Rank: 1</span>
-				<span class="label label-default">+50</span>
-				<span class="label label-warning">+40</span>
+				<span class="badge alert-success pull-left"><%= user_score(u, @competition) %>%</span>
+				<span class="label label-info">Rank: <%= u.results["rank"] %></span>
+				
+				<% lvl_change = u.results["lvl_change"] %>
+				<% if @competition.entry_gold >= 500 %>
+					<span class="label label-success">
+				<% else %>
+					<span class="label label-default">
+				<% end %>
+					<%= "+" if lvl_change > 0 %><%= lvl_change %></span>
+				<% if u.results.has_key?(:gold_change) %>
+					<span class="label label-warning">+<%= u.results["gold_change"] %></span>
+				<% end %>
 			</li>
 		<% end %>
 	</ul>
