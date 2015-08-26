@@ -26,6 +26,9 @@ module ApplicationHelper
 		return relation
   end
 
+
+
+#GLOBAL FUNCTIONS!!!!
 	#methods for some values
 	
 	#returns the value of the problem depending on its length and difficulty

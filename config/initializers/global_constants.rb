@@ -15,13 +15,20 @@ LENGTH_COMPETITION=[10, 30, 60, 120]
 # At every this many votes the problem parameters will refresh
 VOTES_REFRESH = 20
 
+
+#GOLD
+MIN_PREMIUM_ENTRY_GOLD=500
 COST_TO_UNLOCK_ANSWER= 100
 COST_TO_UNLOCK_SOLUTIONS=500
+	#percents
 PERCENT=0.1
 REPAY_PERCENT=1-PERCENT
-
-MIN_PREMIUM_ENTRY_GOLD=500
-
 COMPETITION_PERCENT_FOR_US=0.1
-
 COMPETITION_PERCENT_FOR_CREATORS=0.05
+
+
+#EXP
+MAX_EXP_CHANGE_PROBLEM=50
+BASE_RANK_EXP=2 #used in competition_helper, method: rank_lvl_change
+BASE_EXP=500 #if a user has BASE_EXP less thatn the average in a competition he gets BASE_RANK_EXP time more
+RANK_LVL_CHANGE_COEFF=25

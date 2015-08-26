@@ -129,13 +129,22 @@ class CompetitionsController < ApplicationController
 			#gold transactions, if any
 			#change of lvl
 			if @competition.users.where(submitted_competition: true).count == @competition.n_players
-				#determine the ranks of the individual players					
+				#determine the ranks of the individual players
+						
+							#~ #FOR TEST PURPOSES!!!!/////////
+							#~ #/////////////////////////////
+							#~ @competition.users.each do |u|
+								#~ u.update_attributes!(submitted_at: 42)
+							#~ end
+							#~ #//////////////////////////////
+							#~ #/////////////////////////////			
 				rank_players(@competition)
 												
-				#TODO: gold transactions (bank to competitors and authors of problems)
+				#gold transactions (bank to competitors and authors of problems)
 				gold_transactions(@competition)
 				
 				#TODO: calculate the change of LVLs
+				calculate_lvls(@competition)
 			end
 			
 			redirect_to competition_path(Competition.find(params[:id]))

@@ -1,4 +1,5 @@
 module CompetitionsHelper
+	include ApplicationHelper
 	
 	#determines the ranks of the users after submission
 	def rank_players(competition)
@@ -33,8 +34,7 @@ module CompetitionsHelper
 				relation=UserProblemRelation.new(seen_problem_id: p.id, viewer_id: user.id)
 			else
 				relation=user.relation_of(p)
-			end
-			
+			end		
 			if premium
 				relation.attempted_during_premium=true
 				if results["answer_#{p.id}"][:check_answer]
@@ -50,6 +50,7 @@ module CompetitionsHelper
 		end
 	end
 	
+	#sends gold to the winners of the competition and the authors of the problems
 	def gold_transactions(competition)
 		correct_answer=false
 		competition.users.each do |u|
@@ -67,6 +68,26 @@ module CompetitionsHelper
 		else
 			creators_get_gold(competition, creators_gold)
 			#players get pi6ka v ustata
+		end
+	end
+	
+	#calculate the change in the lvl of each of the competitors and save it
+	def calculate_lvls(competition)
+		if competition.entry_gold >= MIN_PREMIUM_ENTRY_GOLD
+			premium=true
+		else
+			premium=false
+		end
+		competition.users.each do |u|
+			lvl_change=problems_lvl_change(u) + rank_lvl_change(u, premium)
+			u.results[:lvl_change]=lvl_change
+			if premium
+				u.increment(:premium_level, lvl_change )
+				u.save!
+			else
+				u.increment(:free_level, lvl_change )
+				u.save!
+			end
 		end
 	end
 	
@@ -114,7 +135,8 @@ module CompetitionsHelper
 		not_found = true
 		max_winning_rank=max_rank-1
 		while not_found do
-			if user_percents(users.select{|u| u.results[:rank] == max_winning_rank}.first) != 0
+			users_max_rank=users.select{|u| u.results[:rank] == max_winning_rank}
+			if (users_max_rank.count != 0) && (user_percents(users_max_rank.first) != 0)
 				not_found=false
 			else
 				max_winning_rank -= 1
@@ -145,5 +167,56 @@ module CompetitionsHelper
 		end	
 	end
 	
+	def problems_lvl_change(user)
+		competition = Competition.find(user.competition_id)
+		problems=competition.problems
+		lvl_change=0
+		problems.each do |p|
+			if user.results["answer_#{p.id}"][:check_answer]
+				lvl_change += (p.difficulty * p.length * MAX_EXP_CHANGE_PROBLEM) / (MAX_DIFFICULTY * LENGTH.last)
+			else
+				lvl_change -= ((11 - p.difficulty) * p.length * MAX_EXP_CHANGE_PROBLEM) / (MAX_DIFFICULTY * LENGTH.last)
+			end
+		end
+		return lvl_change
+	end
 	
+	def rank_lvl_change(user, premium)
+
+		if premium
+			user_lvl=user.premium_level
+		else
+			user_lvl=user.free_level
+		end		
+		competition=Competition.find(user.competition_id)
+		users=competition.users
+
+		lvl_sum=0
+		users.each do |u|
+			if premium
+				lvl_sum += u.premium_level
+			else
+				lvl_sum += u.free_level
+			end
+		end
+		average_lvl=lvl_sum.to_f / users.count 
+		
+		
+		sorted_users=users.sort_by{|u| u.results[:rank]}
+		#~ if users.count > 1
+			median_rank=sorted_users[(sorted_users.count / 2)].results[:rank]
+		#~ else
+			#~ median_rank=1
+		#~ end
+		delta_rank=median_rank - user.results[:rank] # <--- delta rank
+
+		if delta_rank > 0
+			delta_lvl= (average_lvl - user_lvl.to_f) / BASE_EXP
+		else
+			delta_lvl= (user_lvl.to_f - average_lvl) / BASE_EXP
+		end
+
+		lvl_change=RANK_LVL_CHANGE_COEFF * delta_rank * (BASE_RANK_EXP ** delta_lvl).to_i
+		return lvl_change
+	end
 end
