@@ -11,6 +11,7 @@ problem1_by_user1:
   category: Optics
   difficulty: 10
   length: 30
+  target: 1
   created_at: <%= 3.years.ago %>
   
 problem1_by_user2:
@@ -23,6 +24,7 @@ problem1_by_user2:
   category: Electromagnetism
   difficulty: 10
   length: 60
+  target: 1
   creator_id: 2
   created_at: <%= 5.years.ago %>
 
@@ -36,5 +38,6 @@ problem2_by_user1:
   category: Classical mechanics
   difficulty: 10
   length: 60
+  target: 1
   creator_id: 1
   created_at: <%= 1.years.ago %>

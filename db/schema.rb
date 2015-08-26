@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150825191059) do
+ActiveRecord::Schema.define(version: 20150826092607) do
 
   create_table "banks", force: :cascade do |t|
     t.integer  "total_gold"
@@ -66,6 +66,7 @@ ActiveRecord::Schema.define(version: 20150825191059) do
     t.float    "rating"
     t.integer  "votes"
     t.integer  "target"
+    t.string   "picture"
   end
 
   add_index "problems", ["creator_id", "created_at"], name: "index_problems_on_creator_id_and_created_at"

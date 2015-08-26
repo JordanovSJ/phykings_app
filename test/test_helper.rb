@@ -28,6 +28,7 @@ class ActiveSupport::TestCase
 																											units_of_answer: "nenkos", 
 																											category: "Electromagnetism",
 																											difficulty: 10,
+																											target: 1,
 																											length: 60)
 	end
 	
@@ -60,6 +61,7 @@ class ActiveSupport::TestCase
 							units_of_answer: "nenkos", 
 							category: "Electromagnetism",
 							difficulty: 10,
+							target: 1,
 							length: 60}
 	end
 	

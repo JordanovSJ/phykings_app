@@ -2,7 +2,7 @@
 	Edit Problem
 </h1>
 
-<%= form_for(@problem) do |f| %>
+<%= form_for(@problem, html: { multipart: true }) do |f| %>
   <%= render 'shared/error_messages', object: f.object %>
   
   <div class="row">
@@ -13,6 +13,9 @@
 		
 		<div class="field form-group col-sm-2">
 			<%= f.label :target, "Type" %>
+			<% ["success", "warning", "danger"].each_with_index do |el, i| %>
+				<span class="label label-<%= el %> round"><%= ["S", "U", "R"][i] %></span>
+			<% end %>
 			<%= f.select :target, ["School", "University", "Research"].each_with_index.map { |v, i| [ v, i+1 ] }, {include_blank: true}, {class: "form-control"} %>
 		</div>
 	</div>
@@ -71,6 +74,9 @@
 		<div class="field form-group col-sm-12">
 			<%= f.label :text  %>
 			<%= f.text_area :content, placeholder: "Problem text...", class: "form-control problem-text" %>
+			<span class="picture">
+				<%= f.file_field :picture, class: "form-control" %>
+			</span>
 		</div>
 		<div class="col-sm-2">
 			<%= f.submit "Save Changes", class: "btn btn-primary btn-success" %>
