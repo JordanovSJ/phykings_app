@@ -1,6 +1,7 @@
 <div class="page-header">
 	<div class="row">
 		<div class="col-sm-6">
+			<%= render 'problem_type' %>
 			<h1>
 				<%= @problem.title %>
 			</h1>
@@ -9,6 +10,7 @@
 				<p> 
 					by <%= link_to @problem.creator.first_name + " " + @problem.creator.last_name, user_path(@problem.creator) %>,
 					<%= time_ago_in_words(@problem.created_at) %> ago
+					
 					<% if current_user==(@problem.creator) || current_user.admin? %>
 						<%= link_to "Edit", edit_problem_path(@problem), class: "btn btn-xs btn-warning"  %>
 						<%= link_to "Delete", @problem, method: :delete, 

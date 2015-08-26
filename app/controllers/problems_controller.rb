@@ -173,7 +173,7 @@ class ProblemsController < ApplicationController
 	private
 	
   def problem_params
-     params.require(:problem).permit(:content, :title, :answer, :degree_of_answer, :units_of_answer, :category, :difficulty, :length)
+     params.require(:problem).permit(:content, :title, :target, :answer, :degree_of_answer, :units_of_answer, :category, :difficulty, :length)
   end
   
   # Handles the params hash when rating problems.

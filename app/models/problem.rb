@@ -20,6 +20,7 @@ class Problem < ActiveRecord::Base
   validates :category, presence: true, inclusion: {in: CATEGORY}
   validates :difficulty, presence: true, inclusion: {in: 1..MAX_DIFFICULTY}
   validates :length, presence: true, inclusion: {in: LENGTH}
+  validates :target, presence: true, inclusion: { in: 1..3 }
   
   default_scope -> { order(created_at: :desc) }
 	
