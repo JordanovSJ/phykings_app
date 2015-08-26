@@ -1,5 +1,5 @@
 <div class="col-sm-3">
-	<div class="panel panel-default">
+	<div class="panel panel-default text-center">
 		<!-- Default panel contents -->
 		<div class="panel-heading">Problems</div>
 		<div class="panel-body">
@@ -13,7 +13,10 @@
 					<% if session.has_key?("answer_#{prob.id}") %>
 						<i class="glyphicon glyphicon-ok"></i>
 					<% end %>
-					<%= prob.title %> <span class="badge"><%= prob.length %> min</span>
+					<%= prob.title %> <br/>
+					<span class="label label-<%= ["success", "warning", "danger"][prob.target-1] %> round"><%= ["S", "U", "R"][prob.target-1] %></span>
+					<span class="label label-default"><%= prob.length %> min</span>
+					<span class="label label-default">Weight: 50%</span>
 				<% end %>
 			<% end %>
 		</ul>
@@ -35,10 +38,14 @@
 <div class="col-sm-6">
 	<div class="panel panel-default">
 		<div class="panel-heading">
-			<p><strong><%= @problem.title %></strong></p>
+			<p>
+				<strong><%= @problem.title %></strong>
+				<span class="label label-default pull-right">Weight: 50%</span>
+			</p>
 			<p><span class="badge"><%= @problem.length %> min</span>
 				 <span class="badge"><%= @problem.category %></span>
 				 <span class="badge">Difficulty: <%= @problem.difficulty %></span>
+				 <span class="label label-<%= ["success", "warning", "danger"][@problem.target-1] %> round pull-right"><%= ["S", "U", "R"][@problem.target-1] %></span>
 			</p>
 		</div>
 		<div class="panel-body">
@@ -82,23 +89,8 @@
 	</div>
 </div>
 
-<div class="col-sm-3">
-	<div class="panel panel-default">
-		<!-- Default panel contents -->
-		<div class="panel-heading">Players</div>
-
-		<!-- List group -->
-		<ul class="list-group">
-			<% @users.each do |u| %>
-				<li class="list-group-item">
-					<%= u.first_name + " " + u.last_name %>
-					<span class="label label-success"><%= u.premium_level %></span>
-					<span class="label label-default"><%= u.free_level %></span>
-				</li>
-			<% end %>
-		</ul>
-		
-	</div>
+<div class="col-sm-3" id="competition-players">
+	<%= render 'competition_players' %>
 </div>
 
 

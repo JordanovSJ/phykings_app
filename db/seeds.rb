@@ -88,7 +88,8 @@ User.all.each_with_index do |user_n, n|
 																			units_of_answer: "\\text{kg}",
 																			category: "Electromagnetism",
 																			difficulty: (i%10)+1,
-																			length: 60 )
+																			length: 60,
+																			target: 1 )
 	end
 end
 
@@ -130,6 +131,7 @@ problem1=Problem.create!(
 							category: "Electromagnetism",
 							difficulty: 10,
 							length: 60,
+							target: 1,
 							creator_id: 1,
 )
 
@@ -143,6 +145,7 @@ problem2=Problem.create!(
 							category: "Electromagnetism",
 							difficulty: 10,
 							length: 60,
+							target: 1,
 							
 							creator_id: 1,
 )
@@ -156,6 +159,7 @@ problem3=Problem.create!(
 							category: "Electromagnetism",
 							difficulty: 10,
 							length: 60,
+							target: 1,
 							creator_id: 2,						
 )
 
@@ -168,6 +172,7 @@ problem4=Problem.create!(
 							category: "Electromagnetism",
 							difficulty: 10,
 							length: 60,
+							target: 1,
 							creator_id: 2,
 )
 

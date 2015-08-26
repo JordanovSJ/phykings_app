@@ -3,11 +3,11 @@ class ProblemsController < ApplicationController
 	
 	#makes sure only a logged_in user can access problem actions
 	before_action :logged_in_user
-	before_action :check_for_id, only: [:show , :edit, :update, :delete]
+	before_action :check_for_id, only: [:show , :edit, :update, :delete, :show_solutions]
 	#only the creator of the problem or an admin are allowed to edit/delete the problem
 	before_action :can_edit_delete_update_problem, only: [:edit, :destroy, :update]
 	#only people who have solved the problem, its creator or an admin is can see the problem
-	before_action :can_see_problem, only: [:show, :vote]
+	before_action :can_see_problem, only: [:show, :vote, :show_solutions]
 	# checks if the submitted vote parameters are valid
 	before_action :valid_vote, only: [:vote]
 	
@@ -173,7 +173,7 @@ class ProblemsController < ApplicationController
 	private
 	
   def problem_params
-     params.require(:problem).permit(:content, :title, :answer, :degree_of_answer, :units_of_answer, :category, :difficulty, :length)
+     params.require(:problem).permit(:content, :title, :target, :answer, :degree_of_answer, :units_of_answer, :category, :difficulty, :length, :picture)
   end
   
   # Handles the params hash when rating problems.

@@ -48,6 +48,7 @@
 </div>
 
 <div class="jumbotron container-fluid">
+			<p><%= image_tag( @solution.picture.url, class: "img-responsive" ) if @solution.picture? %></p>
 			<p class="solution-content"><%= @solution.content %></p>
 			<p class="label label-default col-sm-5">Answer: <%= "$ #{@solution.answer} \\times 10^{#{@solution.degree_of_answer}} #{@solution.problem.units_of_answer}$ " %></p>
 			<div class="col-sm-2 col-sm-offset-3">

@@ -2,18 +2,21 @@
 	Edit Problem
 </h1>
 
-<%= form_for(@problem) do |f| %>
+<%= form_for(@problem, html: { multipart: true }) do |f| %>
   <%= render 'shared/error_messages', object: f.object %>
   
   <div class="row">
-		<div class="field form-group col-sm-8">
+		<div class="field form-group col-sm-6">
 			<%= f.label :title %>
 			<%= f.text_field :title, class: "form-control" %>
 		</div>
 		
-		<div class="field form-group col-sm-4">
-			<%= f.label :category %>
-			<%= f.select :category, CATEGORY.each { |v| [ v, v ] }, {include_blank: true}, {class: "form-control"} %>
+		<div class="field form-group col-sm-2">
+			<%= f.label :target, "Type" %>
+			<% ["success", "warning", "danger"].each_with_index do |el, i| %>
+				<span class="label label-<%= el %> round"><%= ["S", "U", "R"][i] %></span>
+			<% end %>
+			<%= f.select :target, ["School", "University", "Research"].each_with_index.map { |v, i| [ v, i+1 ] }, {include_blank: true}, {class: "form-control"} %>
 		</div>
 	</div>
 	
@@ -71,9 +74,21 @@
 		<div class="field form-group col-sm-12">
 			<%= f.label :text  %>
 			<%= f.text_area :content, placeholder: "Problem text...", class: "form-control problem-text" %>
+			<span class="picture">
+				<%= f.file_field :picture, class: "form-control" %>
+			</span>
 		</div>
 		<div class="col-sm-2">
 			<%= f.submit "Save Changes", class: "btn btn-primary btn-success" %>
 		</div>
 	
 <% end %>
+
+<script type="text/javascript">
+  $('#problem_picture').bind('change', function() {
+    var size_in_kilobytes = this.files[0].size/1024;
+    if (size_in_kilobytes > 500) {
+      alert('Maximum file size is 500kB. Please choose a smaller file.');
+    }
+  });
+</script>

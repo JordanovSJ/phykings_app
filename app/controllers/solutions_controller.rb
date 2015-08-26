@@ -137,7 +137,7 @@ class SolutionsController < ApplicationController
 	private
 	
 	def solution_params
-     params.require(:solution).permit(:content, :degree_of_answer, :answer, :reported)
+     params.require(:solution).permit(:content, :degree_of_answer, :answer, :reported, :picture)
   end
   
   #checks if params[:id] exist
@@ -203,11 +203,13 @@ class SolutionsController < ApplicationController
 	end
 	
 	
-	#does a relation allows a user to see a solution
+	# Checks if a relation allows a user to see a solution
 	def valid_relation_show
-		if current_user.relation_of(Solution.find(params[:id]).problem).present?
-			relation=current_user.relation_of(Solution.find(params[:id]).problem)
-			return relation.attempted_during_premium || relation.can_see_solution || relation.solution.id==params[:id].to_i
+		relation = current_user.relation_of(Solution.find(params[:id]).problem)
+		
+		if relation.present?
+			return relation.attempted_during_premium || relation.can_see_solution || 
+						 ( relation.solution.present? ? (relation.solution.id==params[:id].to_i) : (false) )
 		end
 		
 		return false

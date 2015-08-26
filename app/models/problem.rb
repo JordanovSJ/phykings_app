@@ -11,6 +11,8 @@ class Problem < ActiveRecord::Base
 				
 	#trial						
 	has_many :solutions, :through => :user_problem_relations 
+	
+	mount_uploader :picture, PictureUploader
 						
 	validates :answer, presence: true
 	validates :content, presence: true, length: { maximum: 3000 }
@@ -20,6 +22,8 @@ class Problem < ActiveRecord::Base
   validates :category, presence: true, inclusion: {in: CATEGORY}
   validates :difficulty, presence: true, inclusion: {in: 1..MAX_DIFFICULTY}
   validates :length, presence: true, inclusion: {in: LENGTH}
+  validates :target, presence: true, inclusion: { in: 1..3 }
+  validate :picture_size
   
   default_scope -> { order(created_at: :desc) }
 	
@@ -31,4 +35,13 @@ class Problem < ActiveRecord::Base
 			return self.user_problem_relations.find_by(viewer_id: user.id).solution
 		end
 	end
+	
+	private
+	
+		# Validates the size of an uploaded picture.
+    def picture_size
+      if picture.size > 500.kilobytes
+        errors.add(:picture, "should be less than 500kB")
+      end
+    end
 end

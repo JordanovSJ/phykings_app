@@ -1,0 +1,18 @@
+<div class="panel panel-default">
+	<div class="panel-heading">Ranking</div>
+	<div class="panel-body">
+		<span class="label label-warning" id="total-prize-ranking">Total Prize Gold: 1200</span>
+	</div>
+	<!-- List group -->
+	<ul class="list-group">
+		<% @competition.users.each do |u| %>
+			<li class="list-group-item">
+				<%= u.first_name + " " + u.last_name %> <br/>
+				<span class="badge alert-success pull-left">93%</span>
+				<span class="label label-info">Rank: 1</span>
+				<span class="label label-default">+50</span>
+				<span class="label label-warning">+40</span>
+			</li>
+		<% end %>
+	</ul>
+</div>

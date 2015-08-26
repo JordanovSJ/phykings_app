@@ -1,0 +1,2 @@
+<% @competition = Competition.find(current_user.competition_id) %>
+<%= link_to "Current competition #{@competition.users.count} / #{@competition.n_players}", competition_path(@competition), class: "btn btn-success" %>

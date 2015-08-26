@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150824110437) do
+ActiveRecord::Schema.define(version: 20150826110238) do
 
   create_table "banks", force: :cascade do |t|
     t.integer  "total_gold"
@@ -66,6 +66,8 @@ ActiveRecord::Schema.define(version: 20150824110437) do
     t.integer  "length"
     t.float    "rating"
     t.integer  "votes"
+    t.integer  "target"
+    t.string   "picture"
   end
 
   add_index "problems", ["creator_id", "created_at"], name: "index_problems_on_creator_id_and_created_at"
@@ -81,6 +83,7 @@ ActiveRecord::Schema.define(version: 20150824110437) do
     t.boolean  "reported",                 default: false
     t.integer  "upvotes",                  default: 0
     t.integer  "downvotes",                default: 0
+    t.string   "picture"
   end
 
   add_index "solutions", ["user_problem_relation_id", "created_at"], name: "index_solutions_on_user_problem_relation_id_and_created_at"

@@ -1,2 +1,97 @@
-<p>Results:</p>
-<%= link_to "delete", competition_path(Competition.find(params[:id])), method: "delete" %>
+<div class="col-sm-3 text-center" id="ranking-players">
+	<%= render 'ranking_players' %>
+</div>
+
+<div class="col-sm-9">
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			Your result
+			<%= link_to "Close Competition", competition_path(Competition.find(params[:id])), method: "delete", class: "btn btn-xs btn-danger pull-right", id: "faye-cancel" %>
+		</div>
+		<div class="panel-body">
+			
+			<div class="table-responsive">
+				<table class="table table-hover">
+					<thead>
+						<tr>
+							<th>Problem</th>
+							<th>Your answer</th>
+							<th>Check</th>
+							<th>Answer</th>
+							<th>Solutions</th>
+							<th>Weight</th>
+						</tr>
+					</thead>
+					<tbody>
+						<% @competition.problems.each do |prob| %>
+							<tr>
+								<td><%= link_to prob.title, problem_path(prob) %></td>
+								<td>
+									$<%= current_user.results["answer_#{prob.id}"][:answer] %>
+									 \times 
+									 10^{<%= current_user.results["answer_#{prob.id}"][:degree_of_answer] %>} 
+									 <%= prob.units_of_answer %>$
+								</td>
+								<td>
+									<% if current_user.results["answer_#{prob.id}"][:check_answer] %>
+										<i class="glyphicon glyphicon-ok"></i>
+									<% else %>
+										<i class="glyphicon glyphicon-remove"></i>
+									<% end %>
+								</td>
+								<td>
+									<% if current_user.id == prob.creator_id || ( current_user.relation_of(prob).present? &&
+												current_user.relation_of(prob).can_see_answer? ) %>
+										<%= "$ #{prob.answer} \\times 10^{#{prob.degree_of_answer}} #{prob.units_of_answer}$ " %>
+									<% else %>
+										<%= link_to "Unlock (#{COST_TO_UNLOCK_ANSWER} gold)", "#", method: "post", class: "btn btn-xs btn-info", data: {confirm: "#{COST_TO_UNLOCK_ANSWER} gold will be deducted from your account."}, remote: true %>
+									<% end %>
+								</td>
+								<td>
+									<% if !current_user.results["answer_#{prob.id}"][:check_answer] %>
+										<%= link_to raw("See Solutions <span class=\"badge\">#{prob.solutions.count}</span>"), show_solutions_problems_path(prob), class: "btn btn-xs btn-primary"  %>
+									<% else %>
+										<%= link_to "Submit solution", new_solution_path({problem_id: prob.id}), class: "btn btn-xs btn-success"  %>
+									<% end %>
+								</td>
+								<td>100%</td>
+							</tr>
+						<% end %>
+					</tbody>
+				</table>
+			</div>
+			
+			<div class="col-sm-6 col-sm-offset-3">
+				<div class="panel panel-default text-center">
+					<div class="panel-heading">Your summary</div>
+					<div class="panel-body">
+						
+						<div class="table-responsive">
+							<table class="table table-hover">
+								<thead>
+									<tr>
+										<th>Score</th>
+										<th>Rank</th>
+										<th>Level</th>
+										<th>Gold</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td><span class="badge alert-success">93%</span></td>
+										<td><span class="label label-info">Rank 1</span></td>
+										<td><span class="label label-default">+50</span></td>
+										<td><span class="label label-warning">+40</span></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+

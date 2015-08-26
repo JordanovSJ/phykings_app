@@ -24,7 +24,10 @@
 									"%Y-%m-%d %H:%M:%S %Z"
 								).strftime("%d/%m/%Y") %>
 					</td>
-					<td><%= link_to "Solution of " + sol.problem.title, solution_path(sol) %></td>
+					<td>
+						<span class="label label-<%= ["success", "warning", "danger"][sol.problem.target-1] %> round pull-left"><%= ["S", "U", "R"][sol.problem.target-1] %></span>
+						<%= link_to "Solution of " + sol.problem.title, solution_path(sol) %>
+					</td>
 					<td><%= sol.problem.category  %></td>
 					<td><%= sol.problem.length %></td>
 					<td><%= sol.problem.difficulty %></td>

@@ -1,0 +1,7 @@
+<% if @problem.target == 1 %>
+	<span class="label label-success round">S</span>
+<% elsif @problem.target == 2 %>
+	<span class="label label-warning round">U</span>
+<% elsif @problem.target == 3 %>
+	<span class="label label-danger round">R</span>
+<% end %>

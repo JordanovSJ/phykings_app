@@ -8,7 +8,9 @@
 			<% if @problem.creator.present? %>
 				<p> 
 					by <%= link_to @problem.creator.first_name + " " + @problem.creator.last_name, user_path(@problem.creator) %>,
-					<%= time_ago_in_words(@problem.created_at) %> ago
+					<%= time_ago_in_words(@problem.created_at) %> ago, 
+					<span class="label label-<%= ["success", "warning", "danger"][@problem.target-1] %> round"><%= ["S", "U", "R"][@problem.target-1] %></span>
+					
 					<% if current_user==(@problem.creator) || current_user.admin? %>
 						<%= link_to "Edit", edit_problem_path(@problem), class: "btn btn-xs btn-warning"  %>
 						<%= link_to "Delete", @problem, method: :delete, 
@@ -51,6 +53,7 @@
 	</div>
 
 <div class="jumbotron container-fluid">
+			<p><%= image_tag( @problem.picture.url, class: "img-responsive" ) if @problem.picture? %></p>
 			<p class="problem-content"><%= @problem.content %></p>
 			<p class="label label-default col-sm-5" id="problem-answer">
 				<%= render 'problem_answer' %>

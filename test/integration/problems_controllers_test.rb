@@ -13,6 +13,7 @@ class ProblemsControllersTest	< ActionDispatch::IntegrationTest
 																											units_of_answer: "nenkos", 
 																											category: "Electromagnetism",
 																											difficulty: 10,
+																											target: 1,
 																											length: 60)
 			
 			@params=get_params_for_problem

@@ -203,11 +203,7 @@ module CompetitionsHelper
 		
 		
 		sorted_users=users.sort_by{|u| u.results[:rank]}
-		#~ if users.count > 1
-			median_rank=sorted_users[(sorted_users.count / 2)].results[:rank]
-		#~ else
-			#~ median_rank=1
-		#~ end
+		median_rank=sorted_users[(sorted_users.count / 2)].results[:rank]
 		delta_rank=median_rank - user.results[:rank] # <--- delta rank
 
 		if delta_rank > 0
