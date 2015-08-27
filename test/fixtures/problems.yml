@@ -13,6 +13,7 @@ problem1_by_user1:
   length: 30
   target: 1
   created_at: <%= 3.years.ago %>
+  checked: true
   
 problem1_by_user2:
   id: 2
@@ -27,6 +28,7 @@ problem1_by_user2:
   target: 1
   creator_id: 2
   created_at: <%= 5.years.ago %>
+  checked: true
 
 problem2_by_user1:
   id: 3
@@ -41,3 +43,4 @@ problem2_by_user1:
   target: 1
   creator_id: 1
   created_at: <%= 1.years.ago %>
+  checked: true

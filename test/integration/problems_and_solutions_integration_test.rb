@@ -14,6 +14,16 @@ class ProblemsAndSolutionsIntegrationsTest < ActionDispatch::IntegrationTest
 		@competition=competitions(:one)
 	end
 #problems	
+	test "you cannot see a problem that is not checked" do
+		sign_in_as(@user2)
+		get problem_path(@problem)
+		assert_template 'problems/show'
+		@problem.update_attributes!(checked: false)
+		get problem_path(@problem)
+		assert_redirected_to root_path
+		assert_not flash.empty?
+	end
+
 	test "You cannot dleete problemm while used in competition" do
 		sign_in_as(@user1)
 		@competition.competition_problems.create!(problem_id: @problem.id)

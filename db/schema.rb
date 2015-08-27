@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150826183050) do
+ActiveRecord::Schema.define(version: 20150826203335) do
 
   create_table "banks", force: :cascade do |t|
     t.integer  "total_gold"
@@ -58,8 +58,8 @@ ActiveRecord::Schema.define(version: 20150826183050) do
     t.text     "content"
     t.integer  "answer"
     t.integer  "creator_id"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
     t.integer  "degree_of_answer"
     t.string   "units_of_answer"
     t.string   "category"
@@ -69,6 +69,7 @@ ActiveRecord::Schema.define(version: 20150826183050) do
     t.integer  "votes"
     t.integer  "target"
     t.string   "picture"
+    t.boolean  "checked",          default: false
   end
 
   add_index "problems", ["creator_id", "created_at"], name: "index_problems_on_creator_id_and_created_at"

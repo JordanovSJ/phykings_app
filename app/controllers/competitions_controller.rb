@@ -182,7 +182,8 @@ class CompetitionsController < ApplicationController
   #problems unseen by the competitors are prefered!
   def choose_problems(competition)
 		users=competition.users
-		unseen_problems=Problem.all
+		checked_problems=Problem.all.where(checked: true)  #<-- add checked
+		unseen_problems=checked_problems
 		users.each do |u|
 			unseen_problems=unseen_problems.select{ |p| !p.viewers.include?(u)}
 		end 
@@ -196,7 +197,7 @@ class CompetitionsController < ApplicationController
 				problems_length += problem.length
 				competition.competition_problems.create!(problem_id: problem.id)
 			else
-				problem=Problem.all.select{ |p| p.length <= max_length && !competition.problems.include?(p)}.sample
+				problem=checked_problems.select{ |p| p.length <= max_length && !competition.problems.include?(p)}.sample
 				#to be removed in future, cause unneccessery
 				if problem.nil?
 					flash[:danger]="Couldnt find problems!"
@@ -271,7 +272,7 @@ class CompetitionsController < ApplicationController
 	#user cannot see foreign competitions
 	def belongs_to_competition
 		competition=Competition.find(params[:id])
-		unless competition.users.include?(current_user) || competition.users.count < competition.n_players
+		unless competition.users.include?(current_user) || (competition.users.count < competition.n_players && competition.started_at.nil?)
 			flash[:danger]="This competition is already full !!!"
 			redirect_to competitions_path
 		end

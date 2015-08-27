@@ -76,7 +76,7 @@ class ProblemsController < ApplicationController
 	def no_solutions
 		@no_solutions = []
 		Problem.all.each do |pr|
-			if pr.solutions.empty?
+			if pr.solutions.empty? && pr.checked
 				@no_solutions.push(pr)
 			end
 		end
@@ -238,10 +238,14 @@ class ProblemsController < ApplicationController
 		#it is used to restrict the access to the show action
 	def can_see_problem
 		curr_problem = current_problem
-	#need to fix this after add type to user_problem_relations
-		unless current_user.relation_of(curr_problem).present? || current_user.id==curr_problem.creator.id || curr_problem.solutions.count==0 ||current_user.admin? || current_user.moderator?				
-			flash[:danger] = "You are not allowed to see this problem"
-      redirect_to root_path
+		if curr_problem.checked || current_user.id==curr_problem.creator.id ||current_user.admin? || current_user.moderator?	
+			unless current_user.relation_of(curr_problem).present? || current_user.id==curr_problem.creator.id || curr_problem.solutions.count==0 ||current_user.admin? || current_user.moderator?				
+				flash[:danger] = "You are not allowed to see this problem"
+				redirect_to root_path
+			end
+		else
+			flash[:danger] = "This problem is not checked!!! You cannoot see it!!!!"
+			redirect_to root_path
 		end
 	end
 	

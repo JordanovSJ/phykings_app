@@ -14,6 +14,7 @@ class ProblemsControllersTest	< ActionDispatch::IntegrationTest
 																											category: "Electromagnetism",
 																											difficulty: 10,
 																											target: 1,
+																											checked: true,
 																											length: 60)
 			
 			@params=get_params_for_problem

@@ -29,6 +29,7 @@ class ActiveSupport::TestCase
 																											category: "Electromagnetism",
 																											difficulty: 10,
 																											target: 1,
+																											checked: true,
 																											length: 60)
 	end
 	
@@ -62,6 +63,7 @@ class ActiveSupport::TestCase
 							category: "Electromagnetism",
 							difficulty: 10,
 							target: 1,
+							checked: true,
 							length: 60}
 	end
 	

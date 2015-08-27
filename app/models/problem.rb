@@ -25,6 +25,7 @@ class Problem < ActiveRecord::Base
   validates :target, presence: true, inclusion: { in: 1..3 }
   validate :picture_size
   
+  
   default_scope -> { order(created_at: :desc) }
 	
 
