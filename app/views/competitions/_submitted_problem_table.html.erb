@@ -15,12 +15,6 @@
 						data-content='
 							<div class="container-fluid">
 								<div class="row">
-									<%= link_to "Unlock Answer (#{COST_TO_UNLOCK_ANSWER} gold)", unlock_answer_problems_path(problem_id: prob.id), method: "post", class: "btn btn-xs btn-info", data: {confirm: "#{COST_TO_UNLOCK_ANSWER} gold will be deducted from your account."} %>
-								</div><br/>
-								<div class="row">
-									<%= link_to raw("See Solutions <span class=\"badge\">#{prob.solutions.count}</span>"), show_solutions_problems_path(prob), class: "btn btn-xs btn-primary col-sm-12"  %>
-								</div><br/>
-								<div class="row">
 									<%= link_to "Submit solution", new_solution_path({problem_id: prob.id}), class: "btn btn-xs btn-success col-sm-12"  %>
 								</div>
 							</div>
