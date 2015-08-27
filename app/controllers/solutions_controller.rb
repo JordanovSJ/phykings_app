@@ -10,7 +10,7 @@ class SolutionsController < ApplicationController
 	before_action :check_for_id, only: [:show , :edit, :update, :delete, :vote]
 	before_action :permitted_to_see_solution, only: [:show, :vote]
 	before_action :permitted_to_change_delete_solution, only: [:edit, :update, :destroy]
-
+	before_action :not_in_competition,  only: [:show, :edit]
 
 	
 	def index
@@ -210,8 +210,7 @@ class SolutionsController < ApplicationController
 		if relation.present?
 			return relation.attempted_during_premium || relation.can_see_solution || 
 						 ( relation.solution.present? ? (relation.solution.id==params[:id].to_i) : (false) )
-		end
-		
+		end	
 		return false
 	end
 	
@@ -224,13 +223,24 @@ class SolutionsController < ApplicationController
 		end
 	end
 	
-	
-
+	#obvious
 	def permitted_to_change_delete_solution
 		unless current_user==Solution.find(params[:id]).user || current_user.admin?
 			flash[:danger] = "You are not allowed to change/delete this solution!!!"
 			redirect_to root_path
 		end		
+	end
+	
+	#prevents users in competition to see  the solutions of the problems
+	def not_in_competition		
+		if current_user.competition_id.present? && !current_user.admin? 
+			solution=Solution.find(params[:id])
+			competition=Competition.find(current_user.competition_id)
+			if competition.problems.include?(solution.problem)
+				flash[:danger]="You cannot see this solutions while in competition!!!"
+				redirect_to competition_path(competition)
+			end
+		end
 	end
 end
 

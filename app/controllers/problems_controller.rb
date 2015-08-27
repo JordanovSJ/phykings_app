@@ -10,6 +10,7 @@ class ProblemsController < ApplicationController
 	before_action :can_see_problem, only: [:show, :vote, :show_solutions]
 	# checks if the submitted vote parameters are valid
 	before_action :valid_vote, only: [:vote]
+	before_action :not_in_competition, except: [:new, :create ]
 	
 	def show
 		@problem = current_problem
@@ -249,5 +250,15 @@ class ProblemsController < ApplicationController
 		end
 	end
 	
+	#a user in a competition cannot see problems that are in the competition
+	def not_in_competition
+		if current_user.competition_id.present? && !current_user.admin?
+			competition=Competition.find(current_user.competition_id)
+			if competition.problems.include?(current_problem) 
+				flash[:danger]="You cannot see this problem while in competition!!!"
+				redirect_to competition_path(competition)
+			end
+		end
+	end
 	
 end

@@ -124,8 +124,38 @@ class CompetitionsIntegrationTest	< ActionDispatch::IntegrationTest
 		assert sum==100
 	end
 	
-	#~ test "User relations after competition " do
-		#~ sign_in_as(@host)
-		#~ post competitions_path, competition: @params
-	#~ end
+	test "cant see the problems of the competition as well as their solutions" do
+		Problem.delete_all
+		sign_in_as(@host)
+		problem=get_custom_problem(@host)
+		problem.length=30
+		problem.save!
+		solution1=get_custom_solution(get_custom_relation(@player2,problem))
+		solution2=get_custom_solution(get_custom_relation(@host, problem))
+		problem2=get_custom_problem(@player2)
+		problem2.length=30
+		problem2.save!
+		sign_in_as(@host)
+		@params[:n_players]=1
+		@params[:length]=60
+		post competitions_path, competition: @params
+		follow_redirect!
+		@host.reload
+		competition=Competition.find(@host.competition_id)
+		assert competition.problems.count==2 , competition.problems.count
+		assert competition.problems.include?(problem)
+		get problem_path(problem)
+		assert_redirected_to competition_path(competition)
+		assert_not flash.empty?
+		get problem_path(problem2)
+		assert_redirected_to competition_path(competition)
+		assert_not flash.empty?
+		get solution_path(solution1)
+		assert_redirected_to competition_path(competition)
+		assert_not flash.empty?
+		get solution_path(solution2)
+		assert_redirected_to competition_path(competition)
+		assert_not flash.empty?
+	end
+
 end
