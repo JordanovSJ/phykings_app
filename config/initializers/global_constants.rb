@@ -25,10 +25,13 @@ PERCENT=0.1
 REPAY_PERCENT=1-PERCENT
 COMPETITION_PERCENT_FOR_US=0.1
 COMPETITION_PERCENT_FOR_CREATORS=0.05
+	#base of the exponent used in the function which determines how much gold any of the players gets
+	#rank(n) get gold BASE_GOLD_FUN times more than rank(n+1)
+BASE_GOLD_FUN=2
 
 
 #EXPERIANCE
-MAX_EXP_CHANGE_PROBLEM=50
+MAX_EXP_CHANGE_PROBLEM=25
 BASE_RANK_EXP=2 #used in competition_helper, method: rank_lvl_change
-BASE_EXP=500 #if a user has BASE_EXP less thatn the average in a competition he gets BASE_RANK_EXP time more
+BASE_EXP=300 #if a user has BASE_EXP less thatn the average in a competition he gets BASE_RANK_EXP time more
 RANK_LVL_CHANGE_COEFF=25

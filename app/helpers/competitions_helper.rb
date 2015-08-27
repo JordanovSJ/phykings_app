@@ -79,7 +79,7 @@ module CompetitionsHelper
 			premium=false
 		end
 		competition.users.each do |u|
-			lvl_change=problems_lvl_change(u) + rank_lvl_change(u, premium)
+			lvl_change=rank_lvl_change(u, premium) #+ problems_lvl_change(u) 
 			u.results[:lvl_change]=lvl_change
 			if premium
 				u.increment(:premium_level, lvl_change )
@@ -161,7 +161,7 @@ module CompetitionsHelper
 		(1..max_winning_rank).each do |rank|
 			n_ranks=users.select{|u| u.results[:rank]==rank}.count
 			degree=max_winning_rank - rank
-			n_parts = 2 ** degree
+			n_parts = BASE_GOLD_FUN ** degree
 			parts += n_parts * n_ranks
 		end	
 		part_value= gold.to_f / parts
@@ -171,7 +171,7 @@ module CompetitionsHelper
 			rank=u.results[:rank]
 			if rank != 1
 				degree=max_winning_rank - rank
-				n_parts = 2 ** degree
+				n_parts = BASE_GOLD_FUN ** degree
 				sum_to_pay=(n_parts * part_value).to_i
 				gold -= sum_to_pay
 				transaction_bank_to_user(sum_to_pay, u)
@@ -201,7 +201,6 @@ module CompetitionsHelper
 	end
 	
 	def rank_lvl_change(user, premium)
-
 		if premium
 			user_lvl=user.premium_level
 		else
@@ -209,7 +208,10 @@ module CompetitionsHelper
 		end		
 		competition=Competition.find(user.competition_id)
 		users=competition.users
-
+		sorted_users=users.sort_by{|u| u.results[:rank]}
+		median_rank=get_median_rank(sorted_users)
+		delta_rank= median_rank - user.results[:rank] # <--- delta rank; FLOAT!!!
+		
 		lvl_sum=0
 		users.each do |u|
 			if premium
@@ -218,20 +220,27 @@ module CompetitionsHelper
 				lvl_sum += u.free_level
 			end
 		end
-		average_lvl=lvl_sum.to_f / users.count 
-		
-		
-		sorted_users=users.sort_by{|u| u.results[:rank]}
-		median_rank=sorted_users[(sorted_users.count / 2)].results[:rank]
-		delta_rank=median_rank - user.results[:rank] # <--- delta rank
-
+		average_lvl=lvl_sum.to_f / users.count # <--- average_lvl
 		if delta_rank > 0
 			delta_lvl= (average_lvl - user_lvl.to_f) / BASE_EXP
 		else
 			delta_lvl= (user_lvl.to_f - average_lvl) / BASE_EXP
 		end
 
-		lvl_change=RANK_LVL_CHANGE_COEFF * delta_rank * (BASE_RANK_EXP ** delta_lvl).to_i
+		lvl_change=(RANK_LVL_CHANGE_COEFF * delta_rank * (BASE_RANK_EXP ** delta_lvl)).to_i
 		return lvl_change
+	end
+	
+	def get_median_rank(sorted_users)
+		n_players=sorted_users.count
+		if (n_players % 2) ==0
+			mid_player1=sorted_users[(n_players / 2) - 1]
+			mid_player2=sorted_users[n_players / 2]
+			median_rank=(mid_player1.results[:rank] + mid_player2.results[:rank]).to_f / 2
+		else
+			mid_player=sorted_users[n_players / 2]
+			median_rank=mid_player.results[:rank]
+		end
+		return median_rank
 	end
 end
