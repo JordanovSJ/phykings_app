@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150826203335) do
+ActiveRecord::Schema.define(version: 20150827104449) do
 
   create_table "banks", force: :cascade do |t|
     t.integer  "total_gold"
@@ -150,6 +150,8 @@ ActiveRecord::Schema.define(version: 20150826203335) do
     t.boolean  "submitted_competition",  default: false
     t.text     "results"
     t.datetime "submitted_at"
+    t.integer  "number_free_games",      default: 0
+    t.integer  "number_premium_games",   default: 0
   end
 
   add_index "users", ["competition_id"], name: "index_users_on_competition_id"

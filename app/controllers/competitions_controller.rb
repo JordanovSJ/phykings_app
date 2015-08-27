@@ -17,7 +17,7 @@ class CompetitionsController < ApplicationController
   def show
 		@competition=Competition.find(params[:id])
 		# When the competition is still not full
-		if @competition.users.count < @competition.n_players && current_user.competition_id.nil?
+		if ( @competition.users.count < @competition.n_players ) && current_user.competition_id.nil?
 			current_user.update_attributes!(competition_id: params[:id])
 			transaction_user_to_bank(@competition.entry_gold, current_user)
 		end
@@ -68,6 +68,11 @@ class CompetitionsController < ApplicationController
 				end
 			end
 			redirect_to submit_competitions_path( submit_params: @submit_params )
+		end
+		
+		# Sorted users by rank
+		if @competition.users.where(submitted_competition: false).count == 0
+			@ranked_users = @competition.users.sort_by { |u| u.results[:rank] }
 		end
 
   end
@@ -120,7 +125,13 @@ class CompetitionsController < ApplicationController
 			current_user.update_attributes(results: @results)
 			current_user.update_attributes(submitted_at: Time.now)
 			current_user.update_attributes(submitted_competition: true)
-					
+
+			if @competition.entry_gold >= 500
+				current_user.increment(:number_premium_games).save!
+			else
+				current_user.increment(:number_free_games).save!
+			end
+
 			#create user-problem relations
 			create_relations(@competition, current_user)
 				
@@ -141,7 +152,11 @@ class CompetitionsController < ApplicationController
 				#determine the ranks of the individual players	
 				rank_players(@competition)											
 				#gold transactions (bank to competitors and authors of problems)
-				gold_transactions(@competition)				
+			
+				if @competition.entry_gold > 0
+					gold_transactions(@competition)
+				end
+				
 				#change the LVLs of the players
 				calculate_lvls(@competition)
 			end			
@@ -177,7 +192,7 @@ class CompetitionsController < ApplicationController
 
 	#consider to move in competition_helper
 
-  #chosee random problems for the competition whose total length is equal
+  #choses random problems for the competition whose total length is equal
   #to the length of the competition
   #problems unseen by the competitors are prefered!
   def choose_problems(competition)

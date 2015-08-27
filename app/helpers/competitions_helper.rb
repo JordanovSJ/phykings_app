@@ -84,11 +84,23 @@ module CompetitionsHelper
 			if premium
 				u.increment(:premium_level, lvl_change )
 				u.save!
+				u.notifications.create!(message: "You participated in a competition with non-zero entry gold(premium competition). Your premium level has changed by <span class='label label-success'>#{lvl_change}</span>.")
 			else
 				u.increment(:free_level, lvl_change )
 				u.save!
+				u.notifications.create!(message: "You participated in a competition with no entry gold(free competition). Your free level has changed by <span class='label label-default'>#{lvl_change}</span>.")
 			end
 		end
+	end
+	
+	def user_score(user, competition)
+		score = 0
+		competition.problems.each do |prob|
+			if user.results["answer_#{prob.id}"]["check_answer"]
+				score += competition.problems_percents["percent_problem_#{prob.id}"]
+			end
+		end
+		return score
 	end
 	
 #PRIVATE!!!
@@ -116,6 +128,7 @@ module CompetitionsHelper
 		sum_to_pay=(gold.to_f / problems.count).to_i
 		problems.each do |p|
 			transaction_bank_to_user(sum_to_pay, p.creator)
+			p.creator.notifications.create!(message: "One of your problems was given at a competition with non-zero entry gold. You have been awarded with #{sum_to_pay} gold. Keep up the good work! :)")
 		end		
 	end
 	
@@ -128,6 +141,8 @@ module CompetitionsHelper
 			sum_to_pay=gold / users.count
 			users.each do |u|
 				transaction_bank_to_user(sum_to_pay, u)
+				u.results["gold_change"] = sum_to_pay
+				u.notifications.create!(message: "You did well in a competition with non-zero entry gold. You have won #{sum_to_pay} gold.")
 			end
 			return true
 		end	
@@ -160,9 +175,13 @@ module CompetitionsHelper
 				sum_to_pay=(n_parts * part_value).to_i
 				gold -= sum_to_pay
 				transaction_bank_to_user(sum_to_pay, u)
+				u.results["gold_change"] = sum_to_pay
+				u.notifications.create!(message: "You did well in a competition with non-zero entry gold. You have won #{sum_to_pay} gold.")
 			else
 				sum_to_pay = gold / n_rank1
 				transaction_bank_to_user(sum_to_pay, u)
+				u.results["gold_change"] = sum_to_pay
+				u.notifications.create!(message: "Congratulations! You ranked first in a competition with non-zero entry gold. You have won #{sum_to_pay} gold.")
 			end
 		end	
 	end

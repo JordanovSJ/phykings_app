@@ -16,7 +16,7 @@
 					<%= prob.title %> <br/>
 					<span class="label label-<%= ["success", "warning", "danger"][prob.target-1] %> round"><%= ["S", "U", "R"][prob.target-1] %></span>
 					<span class="label label-default"><%= prob.length %> min</span>
-					<span class="label label-default">Weight: 50%</span>
+					<span class="label label-default">Weight: <%= @competition.problems_percents["percent_problem_#{prob.id}"] %>%</span>
 				<% end %>
 			<% end %>
 		</ul>
@@ -40,7 +40,7 @@
 		<div class="panel-heading">
 			<p>
 				<strong><%= @problem.title %></strong>
-				<span class="label label-default pull-right">Weight: 50%</span>
+				<span class="label label-default pull-right">Weight: <%= @competition.problems_percents["percent_problem_#{@problem.id}"] %>%</span>
 			</p>
 			<p><span class="badge"><%= @problem.length %> min</span>
 				 <span class="badge"><%= @problem.category %></span>
