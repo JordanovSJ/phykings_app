@@ -125,6 +125,11 @@ class CompetitionsController < ApplicationController
 			current_user.update_attributes(results: @results)
 			current_user.update_attributes(submitted_at: Time.now)
 			current_user.update_attributes(submitted_competition: true)
+			if @competition.entry_gold >= 500
+				current_user.increment(:number_premium_games).save!
+			else
+				current_user.increment(:number_free_games).save!
+			end
 			
 			#create user-problem relations
 			create_relations(@competition, current_user)
