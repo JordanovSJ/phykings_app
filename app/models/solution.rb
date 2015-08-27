@@ -17,8 +17,8 @@ class Solution < ActiveRecord::Base
 	def Solution.check_answer(params_solution,problem)
 		value_answer_solution=((params_solution[:answer]).to_i)*10**((params_solution[:degree_of_answer]).to_i)
 		value_answer_problem=(problem.answer)*10**(problem.degree_of_answer)
-		upper_bound=value_answer_problem*1.05
-		lower_bound=value_answer_problem*0.95
+		upper_bound=value_answer_problem*(1.0 + MAX_ACPT_ERR)
+		lower_bound=value_answer_problem*(1.0 - MAX_ACPT_ERR)
 		return (value_answer_solution <= upper_bound && value_answer_solution >= lower_bound)
 	end
 	
@@ -39,7 +39,7 @@ class Solution < ActiveRecord::Base
 	
 		# Validates the size of an uploaded picture.
     def picture_size
-      if picture.size > 500.kilobytes
+      if picture.size > MAX_PIC_SIZE.kilobytes
         errors.add(:picture, "should be less than 500kB")
       end
     end
