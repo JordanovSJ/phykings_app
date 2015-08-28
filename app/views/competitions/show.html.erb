@@ -28,5 +28,15 @@
 			subscription.cancel();
 			window.location = "/";
 		});
+		
+		$('#faye-leave').click(function() {
+			<% @competition.users.each do |u| %>
+				<% unless u.id == current_user.id %>
+					faye.publish('/competitions/<%= u.id %>', { component: "#competition-show", mess: "reload" } );
+				<% end %>
+			<% end %>
+			subscription.cancel();
+		});
+		
 	});
 </script>

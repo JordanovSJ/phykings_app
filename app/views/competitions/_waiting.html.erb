@@ -5,5 +5,10 @@
 			<h3>Waiting for players: <%= @competition.users.count %> / <%= @competition.n_players %></h3>
 		</div>
 	</div>
+	
+	<div class="col-sm-4 col-sm-offset-4 text-center">
+		<%= link_to "Leave", competition_path(@competition), method: "delete", class: "btn btn-xs btn-danger", id: "faye-leave" %>
+	</div>
 </div>
+
 

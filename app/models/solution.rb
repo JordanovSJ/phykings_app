@@ -1,4 +1,7 @@
 class Solution < ActiveRecord::Base
+	#can be commented
+	acts_as_commontable
+
 	belongs_to :user_problem_relation
 	has_one :viewer, :through=> :user_problem_relation
 	has_one :seen_problem, :through=> :user_problem_relation

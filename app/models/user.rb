@@ -1,6 +1,9 @@
  
 class User < ActiveRecord::Base
 	include TransactionsHelper
+			
+		#CAN ADD COMMENTS	
+	acts_as_commontator
 	
 	# Serializes the results field to be used as a Hash
 	serialize :results, Hash
@@ -16,9 +19,13 @@ class User < ActiveRecord::Base
 	has_many :notifications
 			
 	belongs_to :competition		
+
 				
-	#methods
-	
+#METHODS
+	def full_name
+		full_name="#{self.first_name} #{self.last_name}"
+	end
+
 	#return the solution of problem submitted by the user, if there is no such solutions, returns nil
 	def solution_of(problem)
 		if self.seen_problems.include?(problem)

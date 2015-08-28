@@ -1,4 +1,7 @@
 class Problem < ActiveRecord::Base
+		#MAKES PROBLEMS COMMENTABLE
+	acts_as_commontable
+
 	belongs_to :creator, class_name: 'User'
 	
 	#see user.rb for comments

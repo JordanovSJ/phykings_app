@@ -77,6 +77,9 @@ GEM
       execjs
     coffee-script-source (1.9.1.1)
     columnize (0.9.0)
+    commontator (4.10.5)
+      jquery-rails
+      rails (>= 3.1)
     cookiejar (0.3.2)
     daemons (1.2.3)
     debug_inspector (0.0.2)
@@ -401,6 +404,7 @@ DEPENDENCIES
   carmen-rails
   carrierwave (= 0.10.0)
   coffee-rails (~> 4.1.0)
+  commontator (~> 4.10.0)
   devise
   faye-rails (~> 2.0)
   figaro (~> 0.7.0)

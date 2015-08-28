@@ -23,7 +23,7 @@ class CompetitionsController < ApplicationController
 		end
 
 		#when the last player joins the competition, find problems for the comepetition
-		if  @competition.users.count == @competition.n_players
+		if  @competition.users.count == @competition.n_players || @competition.finished?
 		
 			# Start the comeptition if it has not started yet
 			if @competition.started_at.nil?
@@ -170,16 +170,21 @@ class CompetitionsController < ApplicationController
   #leave competition, after submit
   def destroy
 		@competition=Competition.find(params[:id])
-		users=@competition.users
-		current_user.competition_id=nil
-		current_user.submitted_at=nil
-		current_user.submitted_competition= false
-		current_user.results={}
-		current_user.save!
-		if users.count == 0
-			@competition.destroy
+		if @competition.finished? || @competition.started_at.nil?
+			users=@competition.users
+			current_user.competition_id=nil
+			current_user.submitted_at=nil
+			current_user.submitted_competition= false
+			current_user.results={}
+			current_user.save!
+			if users.count == 0
+				@competition.destroy
+			end
+			redirect_to competitions_path
+		else
+			flash[:danger]="You cannot leave when competition is started and not finished!!!"
+			redirect_to comepetition_path(@competition)
 		end
-		redirect_to competitions_path
   end
   
   

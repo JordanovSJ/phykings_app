@@ -15,6 +15,13 @@ class ProblemsController < ApplicationController
 	def show
 		@problem = current_problem
 		@relation = current_relation
+		if @problem.creator_id == current_user.id
+			if !@relation.can_see_solution?
+				@relation.can_see_solution=true
+				@relation.can_see_answer=true
+				@relation.save!
+			end
+		end
 	end
 	
 	def new

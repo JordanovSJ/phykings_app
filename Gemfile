@@ -33,6 +33,9 @@ gem 'carrierwave', '0.10.0'
 gem 'mini_magick', '3.8.0'
 gem 'fog', '1.32.0'
 
+gem 'commontator', '~> 4.10.0'
+
+
 group :development, :test do
 
   gem 'byebug'

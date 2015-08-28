@@ -47,10 +47,14 @@ Rails.application.routes.draw do
   resources :competitions, only: [:new, :show, :create, :index, :destroy] do
 		collection do
 			get ":id/submit", to: "competitions#submit", as: "submit"
-			get "leave" #not sure for get, maybe delete
+			#get "leave" #not sure for get, maybe delete
 			get ":id/show_problem", to: "competitions#show_problem", as: "show_problem"
 			post ":id/submit_answer", to: "competitions#submit_answer", as: "submit_answer"
 		end
   end
   
+  mount Commontator::Engine => '/commontator'
+  #~ Routes for Commontator::Engine:
+    #~ delete_comment PUT   /comments/:id/delete(.:format)             commontator/comments#delete
+  #~ undelete_comment PUT   /comments/:id/undelete(.:format)           commontator/comments#undelete
 end
