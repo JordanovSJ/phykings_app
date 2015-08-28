@@ -1,3 +1,72 @@
 <h1 class="page-header">
 	Home
 </h1>
+
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-sm-8">
+			<h3><%=label_tag "Free Level: " + current_user.free_level.to_s, 
+									 nil, class: "label label-default" %>
+					<%=label_tag "Premium Level: " + current_user.premium_level.to_s, 
+										nil, class: "label label-success" %>
+					<%=label_tag "Gold: " + current_user.gold.to_s, 
+										nil, class: "label label-warning" %></h3>
+		</div>
+		
+		<div class="col-sm-4">
+			<p class="pull-right">Registered Users: <%= User.count %></p>
+		</div>
+	</div><br/>
+	
+	<div class="col-sm-12">
+		<div class="panel panel-default">
+			<div class="panel-body">
+				
+				<div class="col-sm-6 text-center">
+					<%= link_to "Go to Competitions", competitions_path, class: "btn btn-lg btn-danger col-sm-12" %>
+				</div>
+				
+				<div class="col-sm-6">
+					<p><strong><%= Competition.where(started_at: nil).count %></strong> competitions waiting for players.</p>
+					<p><strong><%= Competition.where.not(started_at: nil).count %></strong> competitions currently in play.</p>
+				</div>
+				
+			</div>
+		</div>
+	</div>
+	
+	<div class="col-sm-12">
+		<div class="panel panel-default">
+			<div class="panel-body">
+				
+				<div class="col-sm-6 text-center">
+					<%= link_to "My Problems", my_problems_users_path, class: "btn btn-success col-sm-5" %>
+					<%= link_to "Seen Problems", seen_problems_users_path, class: "btn btn-success col-sm-5 col-sm-offset-2" %>
+				</div>
+				
+				<div class="col-sm-6">
+					<p><strong><%= current_user.uploaded_problems.count %></strong> problems that you have uploaded.</p>
+					<p><strong><%= current_user.seen_problems.count %></strong> problems that you have seen.</p>
+				</div>
+				
+			</div>
+		</div>
+	</div>
+	
+	<div class="col-sm-12">
+		<div class="panel panel-default">
+			<div class="panel-body">
+				
+				<div class="col-sm-6 text-center">
+					<%= link_to "Problems without solutions", no_solutions_problems_path, class: "btn btn-success col-sm-12" %>
+				</div>
+				
+				<div class="col-sm-6">
+					<p><strong><%= current_user.solutions.count %></strong> solutions that you have submitted.</p>
+					<p><strong><%= Problem.select { |p| p.solutions.count == 0}.count %></strong> problems waiting for their first solution.</p>
+				</div>
+				
+			</div>
+		</div>
+	</div>
+</div>

@@ -30,7 +30,13 @@
 						<span class="label label-<%= ["success", "warning", "danger"][prob.target-1] %> round pull-left"><%= ["S", "U", "R"][prob.target-1] %></span>
 						<%= link_to prob.title, problem_path(prob) %>
 					</td>
-					<td><%= link_to prob.creator.first_name + " " + prob.creator.last_name, user_path(prob.creator) %></td>
+					<td>
+						<% if check_user_id(prob.creator_id) %>
+							<%= link_to prob.creator.first_name + " " + prob.creator.last_name, user_path(prob.creator) %>
+						<% else %>
+							<p>Deleted user</p>
+						<% end %>
+					</td>
 					<td><%= prob.category  %></td>
 					<td><%= prob.length %></td>
 					<td><%= prob.difficulty %></td>

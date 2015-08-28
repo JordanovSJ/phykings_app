@@ -1,8 +1,9 @@
  
 class User < ActiveRecord::Base
 	include TransactionsHelper
-			
-		#CAN ADD COMMENTS	
+	include ApplicationHelper
+	
+			#CAN ADD COMMENTS	
 	acts_as_commontator
 	
 	# Serializes the results field to be used as a Hash
@@ -53,10 +54,12 @@ class User < ActiveRecord::Base
 		repay_percent=1-PERCENT
 		if self.gold >= cost && self.relation_of(problem).present? && !self.relation_of(problem).can_see_answer
 			if unlock_answer_transaction(cost, problem)
-				if problem.creator.present?
+				if ( check_user_id(problem.creator_id) && problem.creator.present? )
 					sum_to_pay=(repay_percent*cost).to_i
 					transaction_bank_to_user(sum_to_pay, problem.creator)
 					problem.creator.notifications.create!(message: "Someone has unlocked the answer of a problem uploaded by you. As a reward, #{sum_to_pay} gold was added to your account balance.")
+				else
+					return true
 				end
 			end
 		end
@@ -84,7 +87,7 @@ class User < ActiveRecord::Base
 					solvers_gold=cost
 				else
 					self.relation_of(problem).update_attributes!(can_see_answer: true)
-					if problem.creator.present?
+					if ( check_user_id(problem.creator_id) && problem.creator.present? )
 						sum_to_pay_creator=(REPAY_PERCENT*COST_TO_UNLOCK_ANSWER).to_i 
 						transaction_bank_to_user(sum_to_pay_creator, problem.creator)
 						solvers_gold=cost - COST_TO_UNLOCK_ANSWER	
@@ -101,7 +104,7 @@ class User < ActiveRecord::Base
 						paid_solutions=solutions.sort_by{ |s| (s.upvotes - s.downvotes)}.reverse[0..(max_number_paid_solvers-1)] 
 						sum_to_pay=((REPAY_PERCENT*solvers_gold)/max_number_paid_solvers).to_i
 						paid_solutions.each do |ps|
-							if ps.user.present?
+							if ( check_user_id(ps.user_problem_relation.viewer_id) && ps.user.present? )
 								transaction_bank_to_user(sum_to_pay, ps.user)
 								ps.user.notifications.create!(message: "Someone has unlocked the solutions of a problem to which you have given a solution which is in the top ten solutions of this problem. As a reward, #{sum_to_pay} gold was added to your account balance.")
 							end
@@ -109,7 +112,7 @@ class User < ActiveRecord::Base
 					else					
 						sum_to_pay=((REPAY_PERCENT*solvers_gold) / number_solvers).to_i										
 						solutions.each do |ps|
-							if ps.user.present?
+							if ( check_user_id(ps.user_problem_relation.viewer_id) && ps.user.present? )
 								transaction_bank_to_user(sum_to_pay, ps.user)
 								ps.user.notifications.create!(message: "Someone has unlocked the solutions of a problem to which you have given a solution which is in the top ten solutions of this problem. As a reward, #{sum_to_pay} gold was added to your account balance.")
 							end

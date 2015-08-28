@@ -2,7 +2,7 @@
 	Active Competitions
 </h1>
 
-<% unless @competitions.empty? %>
+<% unless @competitions.where(started_at: nil).empty? %>
 
 	<table class="table table-bordered table-hover text-center" id="competition-table">
 		<thead>
@@ -15,7 +15,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			<% @competitions.each do |com| %>
+			<% @competitions.where(started_at: nil).each do |com| %>
 				<tr>
 					<td>
 						<%=time_ago_in_words(com.created_at) %> ago

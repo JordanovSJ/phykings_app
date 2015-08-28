@@ -9,7 +9,7 @@
 			<p class="alert-success">You have unlocked all solutions. You have full access to all current as well as future solutions of this problem.</p>
 		<% else %>
 			<p class="alert-danger">At the moment you can access only your own solution to this problem. If you want to see other people's solutions, you need to unlock all solutions.</p>
-			<%= link_to "Unlock Solutions", unlock_solution_problems_path(problem_id: current_problem.id), method: "post", class: "btn btn-primary" %>
+			<%= link_to "Unlock Solutions (#{COST_TO_UNLOCK_SOLUTIONS} gold)", unlock_solution_problems_path(problem_id: current_problem.id), method: "post", class: "btn btn-primary" %>
 		<% end %>
 		<hr/>
 	</div>
@@ -40,7 +40,13 @@
 										).strftime("%d/%m/%Y") %>
 							</td>
 							<td><%= link_to "Solution of " + sol.problem.title, solution_path(sol) %></td>
-							<td><%= link_to sol.user.first_name + " " + sol.user.last_name, user_path(sol.user) %></td>
+							<td>
+								<% if check_user_id(sol.user_problem_relation.viewer_id) %>
+									<%= link_to sol.user.first_name + " " + sol.user.last_name, user_path(sol.user) %>
+								<% else %>
+									<p>Deleted user</p>
+								<% end %>
+							</td>
 							<td><%= sol.problem.category  %></td>
 							<td><%= sol.problem.length %></td>
 							<td><%= sol.problem.difficulty %></td>
@@ -82,7 +88,13 @@
 									).strftime("%d/%m/%Y") %>
 						</td>
 						<td><%= link_to "Solution of " + sol.problem.title, solution_path(sol) %></td>
-						<td><%= link_to sol.user.first_name + " " + sol.user.last_name, user_path(sol.user) %></td>
+						<td>
+							<% if check_user_id(sol.user_problem_relation.viewer_id) %>
+								<%= link_to sol.user.first_name + " " + sol.user.last_name, user_path(sol.user) %>
+							<% else %>
+								<p>Deleted user</p>
+							<% end %>
+						</td>
 						<td><%= sol.problem.category  %></td>
 						<td><%= sol.problem.length %></td>
 						<td><%= sol.problem.difficulty %></td>
