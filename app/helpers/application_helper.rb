@@ -25,6 +25,10 @@ module ApplicationHelper
 		end
 		return relation
   end
+  
+  def check_user_id(user_id)
+		return ( User.where(id: user_id).count != 0 )
+  end
 
 
 
