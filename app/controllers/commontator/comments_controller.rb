@@ -11,7 +11,20 @@ module Commontator
       security_transgression_unless @comment.can_be_created_by?(@user)
 
       @per_page = params[:per_page] || @thread.config.comments_per_page
-
+      
+      # Send notification to author
+      item_id = @thread.commontable_id
+      
+      if @thread.commontable_type == "Problem"
+				problem = Problem.find(item_id)
+				problem.creator.notifications.create!( message: "Someone commented on your " +  view_context.link_to("problem", "/problems/#{item_id}") + "." )
+			end
+			
+			if @thread.commontable_type == "Solution"
+				solution = Solution.find(item_id)
+				solution.user.notifications.create!( message: "Someone commented on your " +  view_context.link_to("solution", "/solutions/#{item_id}") + "." )
+			end
+			
       respond_to do |format|
         format.html { redirect_to @thread }
         format.js
