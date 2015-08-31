@@ -8,7 +8,11 @@ module ApplicationHelper
 		if params.has_key?(:problem_id)
 			@current_problem=Problem.find(params[:problem_id])
 		elsif params.has_key?(:id)
-			@current_problem=Problem.find(params[:id])
+			if Problem.where(id: params[:id]).count != 0
+				@current_problem=Problem.find(params[:id])
+			else
+				return nil
+			end
 		end
 		return @current_problem
 	end

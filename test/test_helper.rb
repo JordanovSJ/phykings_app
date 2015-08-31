@@ -50,7 +50,8 @@ class ActiveSupport::TestCase
 	def get_custom_competition
 		Competition.create!(n_players: 2,
 												entry_gold: 0,
-												length: 30)
+												length: 30,
+												target: 4)
 	end
 	
 	
@@ -77,5 +78,6 @@ end
 	def get_params_for_competition
 		params={n_players: 3,
 						entry_gold: 0,
-						length: 30}
+						length: 30,
+						target: 4}
 	end

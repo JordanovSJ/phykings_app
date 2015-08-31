@@ -23,6 +23,7 @@ Rails.application.routes.draw do
 			get "admin_users"
 			get "admin_problems"
 			get "admin_solutions"
+			get "free_gold"
 		end
 	end
 

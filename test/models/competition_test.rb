@@ -3,7 +3,7 @@ require 'test_helper'
 class CompetitionTest < ActiveSupport::TestCase
 	def setup
 		#~ @user=users(:go6o)
-		@competition=Competition.new(length: 60, n_players: 3, entry_gold: 10)
+		@competition=Competition.new(length: 60, n_players: 3, entry_gold: 10, target: 4)
 		#~ @problem=get_custom_problem(@user)
 		#~ @competition.competition_problems.create!(problem_id: @problem.id)
 		#~ @competition.save!

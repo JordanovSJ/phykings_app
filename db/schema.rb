@@ -11,16 +11,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150827131022) do
+ActiveRecord::Schema.define(version: 20150831115636) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "banks", force: :cascade do |t|
-    t.integer  "total_gold"
-    t.integer  "present_gold"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.integer  "total_gold",   limit: 8
+    t.integer  "present_gold", limit: 8
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
   end
 
   create_table "commontator_comments", force: :cascade do |t|
@@ -85,6 +85,7 @@ ActiveRecord::Schema.define(version: 20150827131022) do
     t.datetime "started_at"
     t.text     "problems_percents"
     t.boolean  "finished",          default: false
+    t.integer  "target"
   end
 
   create_table "notifications", force: :cascade do |t|
@@ -197,6 +198,7 @@ ActiveRecord::Schema.define(version: 20150827131022) do
     t.datetime "submitted_at"
     t.integer  "number_free_games",      default: 0
     t.integer  "number_premium_games",   default: 0
+    t.boolean  "got_free_gold",          default: false
   end
 
   add_index "users", ["competition_id"], name: "index_users_on_competition_id", using: :btree

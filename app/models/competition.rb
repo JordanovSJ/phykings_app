@@ -11,7 +11,7 @@ class Competition < ActiveRecord::Base
 	validates :length, presence: true, inclusion: {in: LENGTH_COMPETITION}
 	validates :entry_gold, presence: true, :numericality => { :only_integer => true, :greater_than => -1}
 	validates :n_players, presence: true, :numericality => { :only_integer => true, :greater_than => 0, :less_than => 21}
-
+	validates :target, presence: true, inclusion: { in: 1..4 }
 	
 	
 	private

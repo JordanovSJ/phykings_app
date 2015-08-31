@@ -4,7 +4,7 @@ development:
   database: phykings_app_development
   pool: 5
   timeout: 5000
-  username: aleksandar
+  username: jordan
   password:
 
 test:
@@ -13,6 +13,5 @@ test:
   database: phykings_app_test
   pool: 5
   timeout: 5000
-  min_messages: WARNING
-  username: aleksandar
+  username: jordan
   password:

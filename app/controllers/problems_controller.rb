@@ -212,7 +212,7 @@ class ProblemsController < ApplicationController
 
 	  #checks if params[:id] exist
   def check_for_id
-		if Problem.where(id: current_problem.id).count==0
+		if current_problem.nil?	#Problem.where(id: current_problem.id).count==0
 			flash[:danger]="This problem does not exist"
 			redirect_to root_path
 		end
@@ -259,9 +259,9 @@ class ProblemsController < ApplicationController
 	
 	#a user in a competition cannot see problems that are in the competition
 	def not_in_competition
-		if current_user.competition_id.present? && !current_user.admin?
+		if current_user.competition_id.present?  && !current_user.admin?
 			competition=Competition.find(current_user.competition_id)
-			if competition.problems.include?(current_problem) 
+			if competition.problems.include?(current_problem) && !competition.finished?
 				flash[:danger]="You cannot see this problem while in competition!!!"
 				redirect_to competition_path(competition)
 			end

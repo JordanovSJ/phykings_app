@@ -44,7 +44,18 @@ class User < ActiveRecord::Base
 
 
 	
-	#bank methods
+#bank methods
+	
+	def can_get_free_gold		
+		(!self.got_free_gold? && (self.n_solved_problems >= N_PROBLEMS_FREE_GOLD))
+	end
+	
+	 #returns the number of problems solved during compeittions
+  def n_solved_problems
+		n_solved_problems=self.user_problem_relations.select{|r| (r.solved_during_free || r.solved_during_premium)}.count
+	end
+
+	
 	
 	#badly written comments:
 	#unlocks the answer of the problem if there is a relation between the user and the problem
@@ -189,6 +200,7 @@ class User < ActiveRecord::Base
 	end
   
   private
+
   
   def send_gold_to_solvers(problem,cost)
 		#send gold to the solvers of the problem
