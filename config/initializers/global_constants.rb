@@ -22,6 +22,13 @@ MAX_ACPT_ERR=0.05
 #maximum picture size in kilobytes
 MAX_PIC_SIZE=500
 
+
+#free gold to get after N_PROBLEMS_FREE_GOLD
+FREE_GOLD=1000
+#number of problems solved at competition required to get FREE_GOLD free gold
+N_PROBLEMS_FREE_GOLD=20
+
+
 #GOLD
 MIN_PREMIUM_ENTRY_GOLD=500
 COST_TO_UNLOCK_ANSWER= 100

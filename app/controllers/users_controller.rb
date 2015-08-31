@@ -1,5 +1,7 @@
 class UsersController < ApplicationController
-
+	include TransactionsHelper
+	
+	
 	before_action :logged_in_user
 	before_action :logged_in_as_admin_or_moderator, only: [:admin_users, :admin_problems, :admin_solutions]
 
@@ -61,5 +63,18 @@ class UsersController < ApplicationController
 		@admin_solutions = Solution.all
 	end
 
-
+	def free_gold
+		n_solved_problems=current_user.user_problem_relations.select{|r| (r.solved_during_free || r.solved_during_premium)}.count
+		if  (n_solved_problems >= N_PROBLEMS_FREE_GOLD) && !current_user.got_free_gold?
+			ActiveRecord::Base.transaction do
+				add_gold_to_user(FREE_GOLD, current_user)
+				current_user.update_attributes!(got_free_gold: true)
+			end
+			flash[:success]="You got #{FREE_GOLD} free gold"
+			redirect_to user_path(current_user)
+		else
+			flash[:danger]="You cannot get free gold"
+			redirect_to root_path
+		end
+	end
 end
