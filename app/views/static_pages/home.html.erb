@@ -17,20 +17,17 @@
 			<p class="pull-right">Registered Users: <%= User.count %></p>
 		</div>
 	</div><br/>
-<!--
-	SA6OOOOOO
-	STYLEE THIS!!!!!!!!!!!!//////////////////////////
--->
-	<% if current_user.can_get_free_gold %>
-		<%= link_to "Get 1000 free gold!!! Click here!", free_gold_users_path  %>
-	<% end %>
-	
-	<% if current_user.n_solved_problems < N_PROBLEMS_FREE_GOLD %>
-		<%=  N_PROBLEMS_FREE_GOLD - current_user.n_solved_problems  %> more problems required to get free gold!!!
-	<% end %>
-<!--
-	/////////////////////////////////////////////////
--->
+
+	<div class="col-sm-12 text-center">
+		<% if current_user.can_get_free_gold %>
+			<p><%= link_to "Get 1000 free gold!!! Click here!", free_gold_users_path, class: "btn btn-lg btn-warning"  %></p>
+		<% end %>
+		
+		<% if current_user.n_solved_problems < N_PROBLEMS_FREE_GOLD %>
+			<p>NOTICE: If you solve <%=  N_PROBLEMS_FREE_GOLD - current_user.n_solved_problems  %> more problems during competitions, you will receive <strong>1000 gold</strong> for free!!!	</p>
+		<% end %>
+	</div>
+
 	<div class="col-sm-12">
 		<div class="panel panel-default">
 			<div class="panel-body">
