@@ -207,7 +207,7 @@ ActiveRecord::Schema.define(version: 20150827131022) do
   add_index "users", ["uid"], name: "index_users_on_uid", using: :btree
 
   add_foreign_key "notifications", "users"
-  add_foreign_key "problems", "users", column: "creator_id", name: "fk_problems_creator_id"
+  add_foreign_key "problems", "users", column: "creator_id"
   add_foreign_key "solutions", "user_problem_relations"
   add_foreign_key "users", "competitions"
 end
