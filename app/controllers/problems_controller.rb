@@ -212,7 +212,7 @@ class ProblemsController < ApplicationController
 
 	  #checks if params[:id] exist
   def check_for_id
-		if Problem.where(id: current_problem.id).count==0
+		if current_problem.nil?	#Problem.where(id: current_problem.id).count==0
 			flash[:danger]="This problem does not exist"
 			redirect_to root_path
 		end

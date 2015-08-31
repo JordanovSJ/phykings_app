@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150827131022) do
+ActiveRecord::Schema.define(version: 20150831093023) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -85,6 +85,7 @@ ActiveRecord::Schema.define(version: 20150827131022) do
     t.datetime "started_at"
     t.text     "problems_percents"
     t.boolean  "finished",          default: false
+    t.integer  "target"
   end
 
   create_table "notifications", force: :cascade do |t|

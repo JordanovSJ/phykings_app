@@ -26,6 +26,14 @@
 					<%= f.number_field :entry_gold, class: 'form-control' %>
 				</div>
 
+	<div class="field form-group col-sm-2">
+		<%= f.label :target, "Type" %>
+		<% ["success", "warning", "danger", "notice"].each_with_index do |el, i| %>
+			<span class="label label-<%= el %> round"><%= ["S", "U", "R", "A"][i] %></span>
+		<% end %>
+		<%= f.select :target, ["School", "University", "Research", "Mixed"].each_with_index.map { |v, i| [ v, i+1 ] }, {include_blank: true}, {class: "form-control"} %>
+	</div>
+
 				<div class="col-sm-6 col-sm-offset-3 text-center">
 					<%= f.submit "Create competition", class: "btn btn-primary", onclick: " return confirm('Please confirm the parameters of the competition that you want to create: \\n \\n' + $('#competition_n_players').val() + ' players, \\n' + $('#competition_length').val() + ' min, \\n ' + $('#competition_entry_gold').val() + ' gold entry. \\n \\n Please note that the chosen amount of gold will be deducted from your account at the start of the competition.') "%>
 				</div>

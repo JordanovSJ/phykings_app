@@ -90,7 +90,7 @@ User.all.each_with_index do |user_n, n|
 																			difficulty: (i%10)+1,
 																			checked: true,
 																			length: LENGTH.sample,
-																			target: 1 )
+																			target: [1,2,3].sample )
 	end
 end
 

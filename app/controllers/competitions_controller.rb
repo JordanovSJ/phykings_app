@@ -192,7 +192,7 @@ class CompetitionsController < ApplicationController
   private
   
 	def competition_params
-	 params.require(:competition).permit(:n_players, :length, :entry_gold)
+	 params.require(:competition).permit(:n_players, :length, :entry_gold, :target)
   end
 
 	#consider to move in competition_helper
@@ -202,7 +202,17 @@ class CompetitionsController < ApplicationController
   #problems unseen by the competitors are prefered!
   def choose_problems(competition)
 		users=competition.users
-		checked_problems=Problem.all.where(checked: true)  #<-- add checked
+		case competition.target
+		when 1
+			problems=Problem.all.where(target: 1)
+		when 2
+			problems=Problem.all.where(target: 2)
+		when 3
+			problems=Problem.all.where(target: 3)
+		else
+			problems=Problem.all
+		end	
+		checked_problems=problems.where(checked: true)  #<-- add checked
 		unseen_problems=checked_problems
 		users.each do |u|
 			unseen_problems=unseen_problems.select{ |p| !p.viewers.include?(u)}
