@@ -44,3 +44,155 @@ problem2_by_user1:
   creator_id: 1
   created_at: <%= 1.years.ago %>
   checked: true
+
+
+problem1:
+  id: 4
+  title:	pronlem1
+  content: kolko zuba ima elza
+  answer: 42
+  degree_of_answer: 10
+  units_of_answer: nenkos
+  category: Classical mechanics
+  difficulty: 10
+  length: 10
+  target: 1
+  creator_id: 1
+  created_at: <%= 1.years.ago %>
+  checked: true
+
+
+problem2:
+  id: 5
+  title:	pronlem2
+  content: kolko zuba ima elza
+  answer: 42
+  degree_of_answer: 10
+  units_of_answer: nenkos
+  category: Classical mechanics
+  difficulty: 10
+  length: 10
+  target: 2
+  creator_id: 1
+  created_at: <%= 1.years.ago %>
+  checked: true
+  
+problem3:
+  id: 6
+  title:	pronlem4
+  content: kolko zuba ima elza
+  answer: 42
+  degree_of_answer: 10
+  units_of_answer: nenkos
+  category: Classical mechanics
+  difficulty: 10
+  length: 30
+  target: 1
+  creator_id: 1
+  created_at: <%= 1.years.ago %>
+  checked: true
+  
+problem4:
+  id: 7
+  title:	pronlem4
+  content: kolko zuba ima elza
+  answer: 42
+  degree_of_answer: 10
+  units_of_answer: nenkos
+  category: Classical mechanics
+  difficulty: 10
+  length: 60
+  target: 1
+  creator_id: 1
+  created_at: <%= 1.years.ago %>
+  checked: true
+  
+problem5:
+  id: 8
+  title:	pronlem5
+  content: kolko zuba ima elza
+  answer: 42
+  degree_of_answer: 10
+  units_of_answer: nenkos
+  category: Classical mechanics
+  difficulty: 10
+  length: 60
+  target: 2
+  creator_id: 1
+  created_at: <%= 1.years.ago %>
+  checked: true
+  
+problem6:
+  id: 9
+  title:	pronlem6
+  content: kolko zuba ima elza
+  answer: 42
+  degree_of_answer: 10
+  units_of_answer: nenkos
+  category: Classical mechanics
+  difficulty: 10
+  length: 30
+  target: 2
+  creator_id: 1
+  created_at: <%= 1.years.ago %>
+  checked: true
+
+problem7:
+  id: 10
+  title:	pronlem7
+  content: kolko zuba ima elza
+  answer: 42
+  degree_of_answer: 10
+  units_of_answer: nenkos
+  category: Classical mechanics
+  difficulty: 10
+  length: 10
+  target: 1
+  creator_id: 1
+  created_at: <%= 1.years.ago %>
+  checked: true
+  
+problem8:
+  id: 11
+  title:	pronlem8
+  content: kolko zuba ima elza
+  answer: 42
+  degree_of_answer: 10
+  units_of_answer: nenkos
+  category: Classical mechanics
+  difficulty: 10
+  length: 10
+  target: 1
+  creator_id: 1
+  created_at: <%= 1.years.ago %>
+  checked: true
+  
+problem9:
+  id: 12
+  title:	pronlem9
+  content: kolko zuba ima elza
+  answer: 42
+  degree_of_answer: 10
+  units_of_answer: nenkos
+  category: Classical mechanics
+  difficulty: 10
+  length: 10
+  target: 2
+  creator_id: 1
+  created_at: <%= 1.years.ago %>
+  checked: true
+  
+problem10:
+  id: 13
+  title:	pronlem10
+  content: kolko zuba ima elza
+  answer: 42
+  degree_of_answer: 10
+  units_of_answer: nenkos
+  category: Classical mechanics
+  difficulty: 10
+  length: 10
+  target: 2
+  creator_id: 1
+  created_at: <%= 1.years.ago %>
+  checked: true
