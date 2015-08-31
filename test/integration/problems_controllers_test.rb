@@ -57,7 +57,7 @@ class ProblemsControllersTest	< ActionDispatch::IntegrationTest
     assert_difference 'Problem.count', 1 do
       post problems_path, problem: @params
     end
-    assert_redirected_to problem_path(Problem.find(Problem.count))
+    assert_redirected_to problem_path(Problem.first)
   end
 
 		#update action tests
@@ -80,8 +80,9 @@ class ProblemsControllersTest	< ActionDispatch::IntegrationTest
 
 	test "creator should update problem" do
 		sign_in_as(@user)
-		patch problem_path(@custom_problem),id: @custom_problem, problem: {title: "newTitle" }		
-		@custom_problem=Problem.find(Problem.count)
+		patch problem_path(@custom_problem),id: @custom_problem.id, problem: {title: "newTitle" }		
+		#~ @custom_problem=Problem.find(Problem.count)
+		@custom_problem.reload
     assert_redirected_to problem_path(@custom_problem)
     assert_not flash.empty?
     assert_not "love"==@custom_problem.title

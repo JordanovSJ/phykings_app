@@ -3,6 +3,8 @@ class CreateUserProblemRelations < ActiveRecord::Migration
     create_table :user_problem_relations do |t|
       t.integer :viewer_id
       t.integer :seen_problem_id
+      #~ t.references :viewer, references: :users, index: true, foreign_key: true
+      #~ t.references :seen_problem, references: :problems, index: true, foreign_key: true
 
       t.timestamps null: false
     end

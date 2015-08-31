@@ -143,7 +143,7 @@ class ProblemsAndSolutionsIntegrationsTest < ActionDispatch::IntegrationTest
 		assert_no_difference 'Solution.count' do
       post solutions_path, {solution: @solution_params, problem_id: @problem.id }						
     end  
-   assert_redirected_to edit_problem_path(@solution)
+   assert_redirected_to edit_problem_path(@problem)
    assert_not flash.empty?
   end
 

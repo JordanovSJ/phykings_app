@@ -25,5 +25,8 @@ module PhykingsApp
     
     config.middleware.delete Rack::Lock
 		config.middleware.use FayeRails::Middleware, mount: '/faye', :timeout => 25
+		
+		# For PostgreSQL
+		#~ config.active_record.schema_format = :sql
   end
 end

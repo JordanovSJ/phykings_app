@@ -38,6 +38,10 @@ gem 'fog', '1.32.0'
 
 gem 'commontator', '~> 4.10.0'
 
+# Silent Postgres Outputs
+# gem 'silent-postgres', '~> 0.1.1'
+
+#~ gem 'schema_plus', '~> 2.0.0'
 
 group :development, :test do
 
