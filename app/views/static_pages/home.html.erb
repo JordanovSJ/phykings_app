@@ -18,64 +18,68 @@
 		</div>
 	</div><br/>
 
-	<div class="col-sm-12 text-center">
-		<% if current_user.can_get_free_gold %>
-			<p><%= link_to "Get 1000 free gold!!! Click here!", free_gold_users_path, class: "btn btn-lg btn-warning"  %></p>
-		<% end %>
-		
-		<% if current_user.n_solved_problems < N_PROBLEMS_FREE_GOLD %>
-			<p>NOTICE: If you solve <%=  N_PROBLEMS_FREE_GOLD - current_user.n_solved_problems  %> more problems during competitions, you will receive <strong>1000 gold</strong> for free!!!	</p>
-		<% end %>
+	<div class="row">
+		<div class="col-sm-12 text-center">
+			<% if current_user.can_get_free_gold %>
+				<p><%= link_to "Get 1000 free gold!!! Click here!", free_gold_users_path, class: "btn btn-lg btn-warning"  %></p>
+			<% end %>
+			
+			<% if current_user.n_solved_problems < N_PROBLEMS_FREE_GOLD %>
+				<p>NOTICE: If you solve <%=  N_PROBLEMS_FREE_GOLD - current_user.n_solved_problems  %> more problems during competitions, you will receive <strong>1000 gold</strong> for free!!!	</p>
+			<% end %>
+		</div>
 	</div>
+	
+	<br/>
 
-	<div class="col-sm-12">
-		<div class="panel panel-default">
-			<div class="panel-body">
-				
-				<div class="col-sm-6 text-center">
-					<%= link_to "Go to Competitions", competitions_path, class: "btn btn-lg btn-danger col-sm-12" %>
+	<div class="row equal">
+		<div class="col-sm-4">
+			<div class="panel panel-default">
+				<div class="container-fluid panel-heading">
+					<div class="col-sm-12 text-center">
+						<p><%= link_to "Go to Competitions", competitions_path, class: "btn btn-lg btn-danger col-sm-12" %></p>
+					</div>
 				</div>
-				
-				<div class="col-sm-6">
-					<p><strong><%= Competition.where(started_at: nil).count %></strong> competitions waiting for players.</p>
-					<p><strong><%= Competition.where.not(started_at: nil).count %></strong> competitions currently in play.</p>
+				<div class="panel-body">
+					
+					<div class="col-sm-12">
+						<p><strong><%= Competition.where(started_at: nil).count %></strong> competitions waiting for players.</p>
+						<p><strong><%= Competition.where.not(started_at: nil).count %></strong> competitions currently in play.</p>
+					</div>
+					
 				</div>
-				
 			</div>
 		</div>
-	</div>
-	
-	<div class="col-sm-12">
-		<div class="panel panel-default">
-			<div class="panel-body">
-				
-				<div class="col-sm-6 text-center">
-					<%= link_to "My Problems", my_problems_users_path, class: "btn btn-success col-sm-5" %>
-					<%= link_to "Seen Problems", seen_problems_users_path, class: "btn btn-success col-sm-5 col-sm-offset-2" %>
+		
+		<div class="col-sm-4">
+			<div class="panel panel-default">
+				<div class="container-fluid panel-heading text-center">
+					<%= link_to "Seen Problems", seen_problems_users_path, class: "btn btn-success" %>
 				</div>
-				
-				<div class="col-sm-6">
-					<p><strong><%= current_user.uploaded_problems.count %></strong> problems that you have uploaded.</p>
-					<p><strong><%= current_user.seen_problems.count %></strong> problems that you have seen.</p>
+				<div class="panel-body">
+					
+					<div class="col-sm-12">
+						<p><strong><%= current_user.uploaded_problems.count %></strong> problems that you have uploaded.</p>
+						<p><strong><%= current_user.seen_problems.count %></strong> problems that you have seen.</p>
+					</div>
+					
 				</div>
-				
 			</div>
 		</div>
-	</div>
-	
-	<div class="col-sm-12">
-		<div class="panel panel-default">
-			<div class="panel-body">
-				
-				<div class="col-sm-6 text-center">
-					<%= link_to "Problems without solutions", no_solutions_problems_path, class: "btn btn-success col-sm-12" %>
+		
+		<div class="col-sm-4">
+			<div class="panel panel-default">
+				<div class="container-fluid panel-heading text-center">
+					<%= link_to "Problems without solutions", no_solutions_problems_path, class: "btn btn-success" %>
 				</div>
-				
-				<div class="col-sm-6">
-					<p><strong><%= current_user.solutions.count %></strong> solutions that you have submitted.</p>
-					<p><strong><%= Problem.select { |p| p.solutions.count == 0}.count %></strong> problems waiting for their first solution.</p>
+				<div class="panel-body">
+					
+					<div class="col-sm-12">
+						<p><strong><%= current_user.solutions.count %></strong> solutions that you have submitted.</p>
+						<p><strong><%= Problem.select { |p| p.solutions.count == 0}.count %></strong> problems waiting for their first solution.</p>
+					</div>
+					
 				</div>
-				
 			</div>
 		</div>
 	</div>
