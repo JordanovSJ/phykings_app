@@ -13,6 +13,9 @@
 
 ActiveRecord::Schema.define(version: 20150827131022) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "banks", force: :cascade do |t|
     t.integer  "total_gold"
     t.integer  "present_gold"
@@ -34,10 +37,10 @@ ActiveRecord::Schema.define(version: 20150827131022) do
     t.datetime "updated_at"
   end
 
-  add_index "commontator_comments", ["cached_votes_down"], name: "index_commontator_comments_on_cached_votes_down"
-  add_index "commontator_comments", ["cached_votes_up"], name: "index_commontator_comments_on_cached_votes_up"
-  add_index "commontator_comments", ["creator_id", "creator_type", "thread_id"], name: "index_commontator_comments_on_c_id_and_c_type_and_t_id"
-  add_index "commontator_comments", ["thread_id", "created_at"], name: "index_commontator_comments_on_thread_id_and_created_at"
+  add_index "commontator_comments", ["cached_votes_down"], name: "index_commontator_comments_on_cached_votes_down", using: :btree
+  add_index "commontator_comments", ["cached_votes_up"], name: "index_commontator_comments_on_cached_votes_up", using: :btree
+  add_index "commontator_comments", ["creator_id", "creator_type", "thread_id"], name: "index_commontator_comments_on_c_id_and_c_type_and_t_id", using: :btree
+  add_index "commontator_comments", ["thread_id", "created_at"], name: "index_commontator_comments_on_thread_id_and_created_at", using: :btree
 
   create_table "commontator_subscriptions", force: :cascade do |t|
     t.string   "subscriber_type", null: false
@@ -47,8 +50,8 @@ ActiveRecord::Schema.define(version: 20150827131022) do
     t.datetime "updated_at"
   end
 
-  add_index "commontator_subscriptions", ["subscriber_id", "subscriber_type", "thread_id"], name: "index_commontator_subscriptions_on_s_id_and_s_type_and_t_id", unique: true
-  add_index "commontator_subscriptions", ["thread_id"], name: "index_commontator_subscriptions_on_thread_id"
+  add_index "commontator_subscriptions", ["subscriber_id", "subscriber_type", "thread_id"], name: "index_commontator_subscriptions_on_s_id_and_s_type_and_t_id", unique: true, using: :btree
+  add_index "commontator_subscriptions", ["thread_id"], name: "index_commontator_subscriptions_on_thread_id", using: :btree
 
   create_table "commontator_threads", force: :cascade do |t|
     t.string   "commontable_type"
@@ -60,7 +63,7 @@ ActiveRecord::Schema.define(version: 20150827131022) do
     t.datetime "updated_at"
   end
 
-  add_index "commontator_threads", ["commontable_id", "commontable_type"], name: "index_commontator_threads_on_c_id_and_c_type", unique: true
+  add_index "commontator_threads", ["commontable_id", "commontable_type"], name: "index_commontator_threads_on_c_id_and_c_type", unique: true, using: :btree
 
   create_table "competition_problems", force: :cascade do |t|
     t.integer  "problem_id"
@@ -69,9 +72,9 @@ ActiveRecord::Schema.define(version: 20150827131022) do
     t.datetime "updated_at",     null: false
   end
 
-  add_index "competition_problems", ["competition_id"], name: "index_competition_problems_on_competition_id"
-  add_index "competition_problems", ["problem_id", "competition_id"], name: "index_competition_problems_on_problem_id_and_competition_id", unique: true
-  add_index "competition_problems", ["problem_id"], name: "index_competition_problems_on_problem_id"
+  add_index "competition_problems", ["competition_id"], name: "index_competition_problems_on_competition_id", using: :btree
+  add_index "competition_problems", ["problem_id", "competition_id"], name: "index_competition_problems_on_problem_id_and_competition_id", unique: true, using: :btree
+  add_index "competition_problems", ["problem_id"], name: "index_competition_problems_on_problem_id", using: :btree
 
   create_table "competitions", force: :cascade do |t|
     t.integer  "n_players"
@@ -92,8 +95,8 @@ ActiveRecord::Schema.define(version: 20150827131022) do
     t.datetime "updated_at",                 null: false
   end
 
-  add_index "notifications", ["user_id", "created_at"], name: "index_notifications_on_user_id_and_created_at"
-  add_index "notifications", ["user_id"], name: "index_notifications_on_user_id"
+  add_index "notifications", ["user_id", "created_at"], name: "index_notifications_on_user_id_and_created_at", using: :btree
+  add_index "notifications", ["user_id"], name: "index_notifications_on_user_id", using: :btree
 
   create_table "problems", force: :cascade do |t|
     t.string   "title"
@@ -114,8 +117,8 @@ ActiveRecord::Schema.define(version: 20150827131022) do
     t.boolean  "checked",          default: false
   end
 
-  add_index "problems", ["creator_id", "created_at"], name: "index_problems_on_creator_id_and_created_at"
-  add_index "problems", ["creator_id"], name: "index_problems_on_creator_id"
+  add_index "problems", ["creator_id", "created_at"], name: "index_problems_on_creator_id_and_created_at", using: :btree
+  add_index "problems", ["creator_id"], name: "index_problems_on_creator_id", using: :btree
 
   create_table "solutions", force: :cascade do |t|
     t.text     "content"
@@ -130,8 +133,8 @@ ActiveRecord::Schema.define(version: 20150827131022) do
     t.string   "picture"
   end
 
-  add_index "solutions", ["user_problem_relation_id", "created_at"], name: "index_solutions_on_user_problem_relation_id_and_created_at"
-  add_index "solutions", ["user_problem_relation_id"], name: "index_solutions_on_user_problem_relation_id"
+  add_index "solutions", ["user_problem_relation_id", "created_at"], name: "index_solutions_on_user_problem_relation_id_and_created_at", using: :btree
+  add_index "solutions", ["user_problem_relation_id"], name: "index_solutions_on_user_problem_relation_id", using: :btree
 
   create_table "user_problem_relations", force: :cascade do |t|
     t.integer  "viewer_id"
@@ -154,9 +157,9 @@ ActiveRecord::Schema.define(version: 20150827131022) do
     t.boolean  "solution_vote"
   end
 
-  add_index "user_problem_relations", ["seen_problem_id"], name: "index_user_problem_relations_on_seen_problem_id"
-  add_index "user_problem_relations", ["viewer_id", "seen_problem_id"], name: "index_user_problem_relations_on_viewer_id_and_seen_problem_id", unique: true
-  add_index "user_problem_relations", ["viewer_id"], name: "index_user_problem_relations_on_viewer_id"
+  add_index "user_problem_relations", ["seen_problem_id"], name: "index_user_problem_relations_on_seen_problem_id", using: :btree
+  add_index "user_problem_relations", ["viewer_id", "seen_problem_id"], name: "index_user_problem_relations_on_viewer_id_and_seen_problem_id", unique: true, using: :btree
+  add_index "user_problem_relations", ["viewer_id"], name: "index_user_problem_relations_on_viewer_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "",    null: false
@@ -196,11 +199,15 @@ ActiveRecord::Schema.define(version: 20150827131022) do
     t.integer  "number_premium_games",   default: 0
   end
 
-  add_index "users", ["competition_id"], name: "index_users_on_competition_id"
-  add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
-  add_index "users", ["email"], name: "index_users_on_email", unique: true
-  add_index "users", ["provider"], name: "index_users_on_provider"
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
-  add_index "users", ["uid"], name: "index_users_on_uid"
+  add_index "users", ["competition_id"], name: "index_users_on_competition_id", using: :btree
+  add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
+  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["provider"], name: "index_users_on_provider", using: :btree
+  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+  add_index "users", ["uid"], name: "index_users_on_uid", using: :btree
 
+  add_foreign_key "notifications", "users"
+  add_foreign_key "problems", "users", column: "creator_id", name: "fk_problems_creator_id"
+  add_foreign_key "solutions", "user_problem_relations"
+  add_foreign_key "users", "competitions"
 end

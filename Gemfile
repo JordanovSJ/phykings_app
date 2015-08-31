@@ -2,7 +2,10 @@ source 'https://rubygems.org'
 
 
 gem 'rails', '4.2.1'
-gem 'sqlite3'
+
+# PostgreSQL
+gem 'pg'
+
 gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.1.0'
@@ -35,10 +38,15 @@ gem 'fog', '1.32.0'
 
 gem 'commontator', '~> 4.10.0'
 
+# Silent Postgres Outputs
+# gem 'silent-postgres', '~> 0.1.1'
+
+#~ gem 'schema_plus', '~> 2.0.0'
 
 group :development, :test do
 
   gem 'byebug'
+  # gem 'sqlite3'
 
   # Access an IRB console on exception pages or by using <%= console %> in views
   gem 'web-console', '~> 2.0'
@@ -50,6 +58,10 @@ group :test do
   gem 'guard-minitest',     '2.3.1'
   gem "capybara"
   gem "launchy"
+end
+
+group :production do
+  gem 'rails_12factor', '0.0.2'
 end
 
 
