@@ -79,7 +79,7 @@ module CompetitionsHelper
 			premium=false
 		end
 		competition.users.each do |u|
-			lvl_change=rank_lvl_change(u, premium) #+ problems_lvl_change(u) 
+			lvl_change=rank_lvl_change(u, premium) + problems_lvl_change(u) 
 			u.results[:lvl_change]=lvl_change
 			if premium
 				u.increment(:premium_level, lvl_change )

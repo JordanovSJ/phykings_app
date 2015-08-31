@@ -4,7 +4,8 @@
 /* -- custom css for Bootstrap 3.x --*/
 
 /* move special fonts to HTML head for better performance */
-@import url(http://fonts.googleapis.com/css?family=Voltaire);
+
+@import url(https://fonts.googleapis.com/css?family=Roboto+Condensed);
 
 $main-green: #185621;
 $dark-green: #0E3511;
@@ -16,7 +17,7 @@ html,
 body {
   height: 100%;
   width: 100%;
-  font-family:Arial,sans-serif;
+	font-family: 'Roboto Condensed';
 }
 
 /* Fix the div field-with-error change of appearance
@@ -32,8 +33,10 @@ body {
 /* use special fonts in certain elements */
 h1,h2,h3,h4,.lead,.btn,.navbar a {
   text-transform:uppercase;
-  font-family:'Voltaire',Arial,sans-serif;
-  letter-spacing:2px;
+/*
+  font-family:'Exo',Arial,sans-serif;
+*/
+  letter-spacing:1px;
 }
 
 h1 {
