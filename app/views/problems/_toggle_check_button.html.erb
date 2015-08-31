@@ -1,0 +1,6 @@
+<% @problem = current_problem %>
+<% if @problem.checked? %>
+	<%= link_to "Uncheck", toggle_check_problems_path(id: @problem.id), class: "btn btn-danger", remote: true %>
+<% else %>
+	<%= link_to "Mark as Checked", toggle_check_problems_path(id: @problem.id), class: "btn btn-success", remote: true %>
+<% end %>

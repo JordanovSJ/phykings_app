@@ -48,6 +48,11 @@
 		</div>
 		
 		<div class="col-sm-6 text-right" id="problem-rating">
+			<% if current_user.admin? || current_user.moderator? %>
+				<span id="check-button">
+					<%= render 'toggle_check_button' %>
+				</span>
+			<% end %>
 			<%= render 'problem_rating' %>
 		</div>
 	</div>

@@ -178,6 +178,24 @@ class ProblemsController < ApplicationController
 		end
 	end
 	
+	def toggle_check
+		if current_user.admin? || current_user.moderator?
+			curr_problem = current_problem
+			curr_problem.checked = !curr_problem.checked
+			curr_problem.save!
+			
+			respond_to do |format|
+				format.js {}
+				format.html {
+					flash[:success] = "Problem check status toggled."
+					redirect_to problem_path(curr_problem)
+				}
+			end
+		else
+			flash[:danger] = "You are not allowed to check/uncheck problems"
+		end
+	end
+	
 	private
 	
   def problem_params

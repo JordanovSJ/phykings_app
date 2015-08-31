@@ -36,6 +36,7 @@ Rails.application.routes.draw do
 			post "vote"
 			post "unlock_answer"
 			post "unlock_solution"
+			get "toggle_check"
 		end
 	end
 
