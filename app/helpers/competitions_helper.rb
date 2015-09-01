@@ -79,16 +79,16 @@ module CompetitionsHelper
 			premium=false
 		end
 		competition.users.each do |u|
-			lvl_change=rank_lvl_change(u, premium) #+ problems_lvl_change(u) 
+			lvl_change=rank_lvl_change(u, premium) + problems_lvl_change(u) 
 			u.results[:lvl_change]=lvl_change
 			if premium
 				u.increment(:premium_level, lvl_change )
 				u.save!
-				u.notifications.create!(message: "You participated in a competition with non-zero entry gold(premium competition). Your premium level has changed by <span class='label label-success'>#{lvl_change}</span>.")
+				u.notifications.create!(message: "You participated in a competition with more than 500 entry gold(premium competition). Your premium level has changed by <span class='label label-success'>#{lvl_change}</span> .")
 			else
 				u.increment(:free_level, lvl_change )
 				u.save!
-				u.notifications.create!(message: "You participated in a competition with no entry gold(free competition). Your free level has changed by <span class='label label-default'>#{lvl_change}</span>.")
+				u.notifications.create!(message: "You participated in a competition less than 500 entry gold(free competition). Your free level has changed by <span class='label label-default'>#{lvl_change}</span> .")
 			end
 		end
 	end

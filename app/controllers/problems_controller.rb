@@ -83,12 +83,15 @@ class ProblemsController < ApplicationController
 	
 	# Used for the "Problems without solution" view
 	def no_solutions
-		@no_solutions = []
-		Problem.all.each do |pr|
-			if pr.solutions.empty? && pr.checked
-				@no_solutions.push(pr)
-			end
-		end
+		#~ @no_solutions = []
+		#~ Problem.all.each do |pr|
+			#~ if pr.solutions.empty? && pr.checked
+				#~ @no_solutions.push(pr)
+			#~ end
+		#~ end
+		
+		@no_solutions = Problem.where(checked: true).select { |p| p.solutions.empty?}.paginate(page: params[:page], per_page: 10)
+
 	end
 	
 	# Sends a vote to the current relation
@@ -176,6 +179,24 @@ class ProblemsController < ApplicationController
 				format.html { flash[:danger] = "There was a problem. Solutions were not unlocked." 
 											redirect_to show_solutions_problems_path(@problem) }
 			end
+		end
+	end
+	
+	def toggle_check
+		if current_user.admin? || current_user.moderator?
+			curr_problem = current_problem
+			curr_problem.checked = !curr_problem.checked
+			curr_problem.save!
+			
+			respond_to do |format|
+				format.js {}
+				format.html {
+					flash[:success] = "Problem check status toggled."
+					redirect_to problem_path(curr_problem)
+				}
+			end
+		else
+			flash[:danger] = "You are not allowed to check/uncheck problems"
 		end
 	end
 	

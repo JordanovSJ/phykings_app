@@ -49,6 +49,7 @@
 			</p>
 		</div>
 		<div class="panel-body">
+			<p><%= image_tag( @problem.picture.url, class: "img-responsive" ) if @problem.picture? %></p>
 			<p><%= @problem.content %></p>
 		</div>
 		<div class="panel-footer">
@@ -57,12 +58,12 @@
 				<div class="row">
 					<div class="field form-group col-sm-4">
 						<%= f.label :answer, "Value" %>
-						<%= f.number_field :answer, class: "form-control" %>
+						<%= f.number_field :answer, value: session.has_key?("answer_#{@problem.id}") ? session["answer_#{@problem.id}"]["answer"].to_i : "", class: "form-control" %>
 					</div>
 					
 					<div class="field form-group col-sm-4">
 						<%= f.label :degree_of_answer, "Power" %>
-						<%= f.number_field :degree_of_answer, class: "form-control" %>
+						<%= f.number_field :degree_of_answer, value: session.has_key?("answer_#{@problem.id}") ? session["answer_#{@problem.id}"]["degree_of_answer"].to_i : "", class: "form-control" %>
 					</div>
 					
 					<div class="field form-group col-sm-4">
@@ -71,7 +72,10 @@
 					</div>
 					
 					<div class="col-sm-4 col-sm-offset-4">
-						<%= f.submit "Save Answer", class: "btn btn-success" %>		
+						<%= f.submit "Save Answer", class: "btn btn-success" %>	
+						<% if session.has_key?("answer_#{@problem.id}") %>
+							<i class="glyphicon glyphicon-ok"> Saved</i>
+						<% end %>	
 					</div>
 					
 					<div class="col-sm-12">

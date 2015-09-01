@@ -36,31 +36,31 @@ class UsersController < ApplicationController
 	end
 	
 	def my_problems
-		@my_problems = current_user.uploaded_problems
+		@my_problems = current_user.uploaded_problems.paginate(page: params[:page], per_page: 10)
 	end
 	
 	def my_solutions
-		@my_solutions = current_user.solutions
+		@my_solutions = current_user.solutions.paginate(page: params[:page], per_page: 10)
 	end
 	
 	def seen_problems
-		@seen_problems = current_user.seen_problems
+		@seen_problems = current_user.seen_problems.paginate(page: params[:page], per_page: 10)
 	end
 	
 	def show_notifications
-		@notifications = current_user.notifications
+		@notifications = current_user.notifications.paginate(page: params[:page], per_page: 10)
 	end
 	
 	def admin_users
-		@admin_users = User.all
+		@admin_users = User.paginate(page: params[:page], per_page: 10)
 	end
 	
 	def admin_problems
-		@admin_problems = Problem.all
+		@admin_problems = Problem.paginate(page: params[:page], per_page: 10)
 	end
 	
 	def admin_solutions
-		@admin_solutions = Solution.all
+		@admin_solutions = Solution.paginate(page: params[:page], per_page: 10)
 	end
 
 	def free_gold

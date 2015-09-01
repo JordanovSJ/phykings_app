@@ -13,7 +13,7 @@ Used in header_in
 							<% if current_user.image.present? %>
 								<%= image_tag current_user.image, class: "profile-image img-circle" %>
 							<% else %>
-								<img  src="http://api.randomuser.me/portraits/thumb/men/12.jpg" class= "profile-image img-circle">
+								<img  src="http://api.randomuser.me/portraits/thumb/men/10.jpg" class= "profile-image img-circle">
 							<% end %>
 							<%= current_user.first_name %> <b class="caret"></b>
             </a>
@@ -26,11 +26,12 @@ Used in header_in
 									</ul>
 							</li>
 							<li class="divider"></li>
-              <li><%= link_to "Personal info", static_pages_click_home_path, remote: true %></li>
-              <li><%= link_to "Stats", "#" %></li>  
-              <li><%= link_to "My Problems", static_pages_click_home_path, remote: true %></li> 
-              <li><%= link_to "My Solutions", static_pages_click_home_path, remote: true %></li> 
-              <li><%= link_to "Seen problems", static_pages_click_home_path, remote: true %></li>  
+              <li><%= link_to "Personal info", static_pages_click_home_path(sidebar_item: "profile-personal-info"), remote: true %></li>
+              <li><%= link_to "Stats", static_pages_click_home_path(sidebar_item: "profile-stats"), remote: true %></li>  
+              <li><%= link_to "Notifications", static_pages_click_home_path(sidebar_item: "profile-notifications"), remote: true %></li>
+              <li><%= link_to "My Problems", static_pages_click_home_path(sidebar_item: "profile-my-problems"), remote: true %></li> 
+              <li><%= link_to "My Solutions", static_pages_click_home_path(sidebar_item: "profile-my-solutions"), remote: true %></li> 
+              <li><%= link_to "Seen problems", static_pages_click_home_path(sidebar_item: "profile-seen-problems"), remote: true %></li>
               <li class="divider"></li>
               <li><%= link_to "Sign out", destroy_user_session_url, method: "DELETE" %></li>
 						</ul>    

@@ -8,4 +8,6 @@ $("#thread_<%= @thread.id %>_new_comment_form_div").fadeIn()[0].scrollIntoView()
 
 $("#thread_<%= @thread.id %>_new_comment_link_div").hide();
 
+MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+
 <%= javascript_proc %>
