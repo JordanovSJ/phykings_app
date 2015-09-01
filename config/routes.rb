@@ -55,7 +55,4 @@ Rails.application.routes.draw do
   end
   
   mount Commontator::Engine => '/commontator'
-  #~ Routes for Commontator::Engine:
-    #~ delete_comment PUT   /comments/:id/delete(.:format)             commontator/comments#delete
-  #~ undelete_comment PUT   /comments/:id/undelete(.:format)           commontator/comments#undelete
 end
