@@ -21,7 +21,7 @@
 				<% end %>
 					<%= "+" if lvl_change > 0 %><%= lvl_change %></span>
 				<% if u.results.has_key?(:gold_change) %>
-					<span class="label label-warning">+<%= u.results["gold_change"] %></span>
+					<span class="label label-warning">+<%= u.results[:gold_change] %></span>
 				<% end %>
 			</li>
 		<% end %>

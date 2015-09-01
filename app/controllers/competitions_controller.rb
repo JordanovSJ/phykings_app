@@ -58,9 +58,12 @@ class CompetitionsController < ApplicationController
 		end
 		
 		# If the time has run out, submit the competition
-		time_since_end = (Time.now - @competition.started_at) - @competition.length * 60
-		if @competition.started_at? && ( time_since_end > 0 ) && !current_user.submitted_competition
-			if time_since_end < 60
+		if @competition.started_at?
+			time_since_end = (Time.now - @competition.started_at) - @competition.length * 60
+		end
+		
+		if @competition.started_at? && ( time_since_end >= 0 ) && !@competition.finished
+			if time_since_end < 60 && !current_user.submitted_competition
 				@submit_params = {}
 				@competition.problems.each do |p|
 					if session["answer_#{p.id}"].present?
@@ -70,15 +73,23 @@ class CompetitionsController < ApplicationController
 					end
 				end
 				redirect_to submit_competitions_path( submit_params: @submit_params )
-			else
+			elsif time_since_end >=60
 				#dachko_submit
-				redirect_to competition_path( @competition )
+				if submit_2( @competition )
+					#@ranked_users = @competition.users.sort_by { |u| u.results[:rank] } #<------
+					redirect_to competition_path( @competition )
+				else
+					@competition.update_attributes!(finished: true)
+					flash[:danger] = "Something went wrong."
+					#@ranked_users = @competition.users.sort_by { |u| u.results[:rank] } #<------
+					redirect_to competition_path( @competition )
+				end
 			end
 		end
 		
 		# Sorted users by rank
 		if @competition.users.where(submitted_competition: false).count == 0
-			@ranked_users = @competition.users.sort_by { |u| u.results[:rank] }
+			@ranked_users = @competition.users.sort_by { |u| u.results["rank"] }
 		end
 
   end
@@ -107,14 +118,21 @@ class CompetitionsController < ApplicationController
   
   # Saves the answer of the current problem in session.
   def submit_answer
-		@answer = params[:answer]
-		if ( @answer[:degree_of_answer].present? && @answer[:answer].present? )
-			session["answer_#{params[:problem_id]}"] = params[:answer]
-			flash[:success] = "Answer saved successfully. You can always come back and change it if you want."
-			redirect_to competition_path(Competition.find(params[:id]))
+		competition = Competition.find(params[:id])
+		remaining_time = competition.length*60 - (Time.now - competition.started_at)
+		if remaining_time > 0
+			@answer = params[:answer]
+			if ( @answer[:degree_of_answer].present? && @answer[:answer].present? )
+				session["answer_#{params[:problem_id]}"] = params[:answer]
+				flash[:success] = "Answer saved successfully. You can always come back and change it if you want."
+				redirect_to competition_path(competition)
+			else
+				flash[:danger] = "Answer not saved. Please make sure you have filled all required fields of the answer."
+				redirect_to competition_path(competition)
+			end
 		else
-			flash[:danger] = "Answer not saved. Please make sure you have filled all required fields of the answer."
-			redirect_to competition_path(Competition.find(params[:id]))
+			flash[:danger] = "Time is over. You cannot save answers any more."
+			redirect_to competition_path(competition)
 		end
   end
   

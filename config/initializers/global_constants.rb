@@ -51,3 +51,6 @@ MAX_EXP_CHANGE_PROBLEM=25
 BASE_RANK_EXP=2 #used in competition_helper, method: rank_lvl_change
 BASE_EXP=300 #if a user has BASE_EXP less thatn the average in a competition he gets BASE_RANK_EXP time more
 RANK_LVL_CHANGE_COEFF=25
+
+# Rescue timer after end of time
+RESCUE_TIME = 60
