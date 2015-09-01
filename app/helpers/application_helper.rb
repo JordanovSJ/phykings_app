@@ -45,4 +45,54 @@ module ApplicationHelper
 		value=problem.difficulty * problem.length
 		return value
 	end
+	
+	
+	 def submit_2(competition)
+		if !competition.finished?
+			problems=competition.problems
+			unsubmitted_users=competition.users.where(submitted_competition: false)
+			#each unsubmitted user do
+			unsubmitted_users.each do |uu|
+				uu.submitted_at=Time.now
+				uu.submitted_competition=true
+				if @competition.entry_gold >= 500
+					uu.increment(:number_premium_games)
+				else
+					uu.increment(:number_free_games)
+				end
+				#set the answers of all problems to 0
+				problems.each do |p|
+					uu.results["answer_#{p.id}"][:answer]=0
+					uu.results["answer_#{p.id}"][:degree_of_answer]=0
+					uu.results["answer_#{p.id}"][:check_answer]=false
+				end
+				uu.save!
+				uu.reload #???
+				#create user-problem relations
+				create_relations(@competition, uu)
+			end
+			
+			if (competition.users.where(submitted_competition: true).count == competition.n_players) && !competition.finished?
+				if !final_submit_do(competition).nil?
+					competition.update_attributes!(finished: true)
+				end
+			end
+			#blabla
+		end
+  end
+  
+  
+  def final_submit_do(competition)
+		ActiveRecord::Base.transaction do	
+			rank_players(@competition)											
+			#gold transactions (bank to competitors and authors of problems)	
+			if @competition.entry_gold > 0
+				gold_transactions(@competition)
+			end		
+			#change the LVLs of the players
+			calculate_lvls(@competition)
+		end
+  end
+  
+  
 end

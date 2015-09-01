@@ -7,10 +7,11 @@ class SolutionsController < ApplicationController
 	before_action :has_solution, only: [:create, :new]
 	before_action :permitted_to_submit_solution, only: [:create, :new]
 	before_action :permitted_to_update_report , only: [:update]
+	before_action :not_in_competition,  only: [:show, :edit]
 	before_action :check_for_id, only: [:show , :edit, :update, :delete, :vote]
 	before_action :permitted_to_see_solution, only: [:show, :vote]
 	before_action :permitted_to_change_delete_solution, only: [:edit, :update, :destroy]
-	before_action :not_in_competition,  only: [:show, :edit]
+	
 
 	
 	def index
