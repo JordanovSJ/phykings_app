@@ -58,16 +58,22 @@ class CompetitionsController < ApplicationController
 		end
 		
 		# If the time has run out, submit the competition
-		if @competition.started_at? && ( (Time.now - @competition.started_at) > @competition.length * 60 ) && !current_user.submitted_competition
-			@submit_params = {}
-			@competition.problems.each do |p|
-				if session["answer_#{p.id}"].present?
-					@submit_params["answer_#{p.id}"] = session["answer_#{p.id}"]
-				else
-					@submit_params["answer_#{p.id}"] = {answer:0, degree_of_answer:0}
+		time_since_end = (Time.now - @competition.started_at) - @competition.length * 60
+		if @competition.started_at? && ( time_since_end > 0 ) && !current_user.submitted_competition
+			if time_since_end < 60
+				@submit_params = {}
+				@competition.problems.each do |p|
+					if session["answer_#{p.id}"].present?
+						@submit_params["answer_#{p.id}"] = session["answer_#{p.id}"]
+					else
+						@submit_params["answer_#{p.id}"] = {answer:0, degree_of_answer:0}
+					end
 				end
+				redirect_to submit_competitions_path( submit_params: @submit_params )
+			else
+				#dachko_submit
+				redirect_to competition_path( @competition )
 			end
-			redirect_to submit_competitions_path( submit_params: @submit_params )
 		end
 		
 		# Sorted users by rank
