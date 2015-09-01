@@ -82,12 +82,15 @@ class ProblemsController < ApplicationController
 	
 	# Used for the "Problems without solution" view
 	def no_solutions
-		@no_solutions = []
-		Problem.all.each do |pr|
-			if pr.solutions.empty? && pr.checked
-				@no_solutions.push(pr)
-			end
-		end
+		#~ @no_solutions = []
+		#~ Problem.all.each do |pr|
+			#~ if pr.solutions.empty? && pr.checked
+				#~ @no_solutions.push(pr)
+			#~ end
+		#~ end
+		
+		@no_solutions = Problem.where(checked: true).select { |p| p.solutions.empty?}.paginate(page: params[:page], per_page: 10)
+
 	end
 	
 	# Sends a vote to the current relation

@@ -38,6 +38,9 @@ gem 'fog', '1.32.0'
 
 gem 'commontator', '~> 4.10.0'
 
+gem 'will_paginate', '3.0.7'
+gem 'bootstrap-will_paginate', '0.0.10'
+
 # Silent Postgres Outputs
 # gem 'silent-postgres', '~> 0.1.1'
 
