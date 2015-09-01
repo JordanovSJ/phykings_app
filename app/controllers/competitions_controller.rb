@@ -177,6 +177,11 @@ class CompetitionsController < ApplicationController
 			current_user.submitted_competition= false
 			current_user.results={}
 			current_user.save!
+			
+			if current_user.can_get_free_gold
+				current_user.notifications.create!( message: "Congratulations! You are now entitled to 1000 gold free gift." )
+			end
+			
 			if users.count == 0
 				@competition.destroy
 			end

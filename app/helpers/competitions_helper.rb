@@ -84,11 +84,11 @@ module CompetitionsHelper
 			if premium
 				u.increment(:premium_level, lvl_change )
 				u.save!
-				u.notifications.create!(message: "You participated in a competition with non-zero entry gold(premium competition). Your premium level has changed by <span class='label label-success'>#{lvl_change}</span>.")
+				u.notifications.create!(message: "You participated in a competition with more than 500 entry gold(premium competition). Your premium level has changed by <span class='label label-success'>#{lvl_change}</span> .")
 			else
 				u.increment(:free_level, lvl_change )
 				u.save!
-				u.notifications.create!(message: "You participated in a competition with no entry gold(free competition). Your free level has changed by <span class='label label-default'>#{lvl_change}</span>.")
+				u.notifications.create!(message: "You participated in a competition less than 500 entry gold(free competition). Your free level has changed by <span class='label label-default'>#{lvl_change}</span> .")
 			end
 		end
 	end
