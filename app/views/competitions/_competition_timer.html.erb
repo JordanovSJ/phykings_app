@@ -3,7 +3,10 @@
 		<div class="panel panel-default text-center">
 			<div class="panel-body">
 				
-					<% remaining_time = @competition.length*60 - (Time.now - @competition.started_at) %>
+					<% remaining_time = @competition.length*60 - (Time.now - @competition.started_at) + 2 %>
+					<% if remaining_time < 0 && !@competition.finished %>
+						<% remaining_time += RESCUE_TIME + 2 %>
+					<% end %>
 					<div class="container-fluid" id="competition-timer">
 						<%= Time.at( (remaining_time>0) ? remaining_time : 0 ).utc.strftime("%H:%M:%S")  %>
 					</div>

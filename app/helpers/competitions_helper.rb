@@ -17,7 +17,7 @@ module CompetitionsHelper
 					rank = count+1
 				end
 			end
-			u.results[:rank]=rank
+			u.results["rank"]=rank
 			u.save!
 			count += 1
 		end	
@@ -80,7 +80,7 @@ module CompetitionsHelper
 		end
 		competition.users.each do |u|
 			lvl_change=rank_lvl_change(u, premium) + problems_lvl_change(u) 
-			u.results[:lvl_change]=lvl_change
+			u.results["lvl_change"]=lvl_change
 			if premium
 				u.increment(:premium_level, lvl_change )
 				u.save!
@@ -102,6 +102,44 @@ module CompetitionsHelper
 		end
 		return score
 	end
+	
+	# #### SUBMIT 2 #####
+	
+	def submit_2(competition)
+		if !competition.finished?
+			problems=competition.problems
+			unsubmitted_users=competition.users.where(submitted_competition: false)
+			#each unsubmitted user do
+			unsubmitted_users.each do |uu|
+				uu.submitted_at=Time.now
+				uu.submitted_competition=true
+				if competition.entry_gold >= 500
+					uu.increment(:number_premium_games)
+				else
+					uu.increment(:number_free_games)
+				end
+				#set the answers of all problems to 0
+				problems.each do |p|
+					uu.results["answer_#{p.id}"]={}
+					uu.results["answer_#{p.id}"]["answer"]=0
+					uu.results["answer_#{p.id}"]["degree_of_answer"]=0
+					uu.results["answer_#{p.id}"]["check_answer"]=false
+				end
+				uu.save!
+				uu.reload #???
+				#create user-problem relations
+				create_relations(competition, uu)
+			end
+			
+			if (competition.users.where(submitted_competition: true).count == competition.n_players) && !competition.finished?
+				if !final_submit_do(competition).nil?
+					competition.update_attributes!(finished: true)
+				end
+			end
+			competition.reload
+			return competition.finished
+		end
+  end
 	
 #PRIVATE!!!
 	private
@@ -135,8 +173,8 @@ module CompetitionsHelper
 	def players_get_gold(competition, gold)
 		users=competition.users
 		#sorted by rank 
-		sorted_users=users.sort_by{|u| u.results[:rank]}
-		max_rank=sorted_users.reverse.first.results[:rank]		
+		sorted_users=users.sort_by{|u| u.results["rank"]}
+		max_rank=sorted_users.reverse.first.results["rank"]		
 		if max_rank==1
 			sum_to_pay=gold / users.count
 			users.each do |u|
@@ -150,7 +188,7 @@ module CompetitionsHelper
 		not_found = true
 		max_winning_rank=max_rank-1
 		while not_found do
-			users_max_rank=users.select{|u| u.results[:rank] == max_winning_rank}
+			users_max_rank=users.select{|u| u.results["rank"] == max_winning_rank}
 			if (users_max_rank.count != 0) && (user_percents(users_max_rank.first) != 0)
 				not_found=false
 			else
@@ -166,9 +204,9 @@ module CompetitionsHelper
 		end	
 		part_value= gold.to_f / parts
 		#the number of players with rank 1
-		n_rank1=users.select{|u| u.results[:rank]==1}.count
-		sorted_users.select{|u| u.results[:rank] <= max_winning_rank}.reverse.each do |u|
-			rank=u.results[:rank]
+		n_rank1=users.select{|u| u.results["rank"]==1}.count
+		sorted_users.select{|u| u.results["rank"] <= max_winning_rank}.reverse.each do |u|
+			rank=u.results["rank"]
 			if rank != 1
 				degree=max_winning_rank - rank
 				n_parts = BASE_GOLD_FUN ** degree
@@ -208,9 +246,9 @@ module CompetitionsHelper
 		end		
 		competition=Competition.find(user.competition_id)
 		users=competition.users
-		sorted_users=users.sort_by{|u| u.results[:rank]}
+		sorted_users=users.sort_by{|u| u.results["rank"]}
 		median_rank=get_median_rank(sorted_users)
-		delta_rank= median_rank - user.results[:rank] # <--- delta rank; FLOAT!!!
+		delta_rank= median_rank - user.results["rank"] # <--- delta rank; FLOAT!!!
 		
 		lvl_sum=0
 		users.each do |u|
@@ -236,11 +274,25 @@ module CompetitionsHelper
 		if (n_players % 2) ==0
 			mid_player1=sorted_users[(n_players / 2) - 1]
 			mid_player2=sorted_users[n_players / 2]
-			median_rank=(mid_player1.results[:rank] + mid_player2.results[:rank]).to_f / 2
+			median_rank=(mid_player1.results["rank"] + mid_player2.results["rank"]).to_f / 2
 		else
 			mid_player=sorted_users[n_players / 2]
-			median_rank=mid_player.results[:rank]
+			median_rank=mid_player.results["rank"]
 		end
 		return median_rank
 	end
+	
+	# Needed for SUBMIT 2
+	def final_submit_do(competition)
+		ActiveRecord::Base.transaction do	
+			rank_players(competition)											
+			#gold transactions (bank to competitors and authors of problems)	
+			if @competition.entry_gold > 0
+				gold_transactions(competition)
+			end		
+			#change the LVLs of the players
+			calculate_lvls(competition)
+			return true
+		end
+  end
 end
