@@ -1,3 +1,12 @@
+production:
+  adapter: postgresql
+  encoding: unicode
+  database: phykings_app_production
+  pool: 5
+  timeout: 5000
+  username: jordan
+  password:
+
 development:
   adapter: postgresql
   encoding: unicode
