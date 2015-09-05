@@ -2,11 +2,11 @@
 	<script type="text/javascript">
 		var subscription;
 		$(function(){
-			setInterval(function(){ 
-				var faye = new Faye.Client('/faye');
-				subscription = faye.subscribe('/competitions/<%= current_user.id %>', change_view);}, 23000);
-			//~ var faye = new Faye.Client('/faye');
-			//~ subscription = faye.subscribe('/competitions/<%= current_user.id %>', change_view);
+			//~ setInterval(function(){ 
+				//~ var faye = new Faye.Client('/faye');
+				//~ subscription = faye.subscribe('/competitions/%= current_user.id %', change_view);}, 23000);
+			var faye = new Faye.Client('/faye');
+			subscription = faye.subscribe('/competitions/<%= current_user.id %>', change_view);
 		});
 	</script>
 <% end %>

@@ -41,7 +41,9 @@
 		
 		$(document).ready(function(){
 			<% @competition.users.each do |u| %>
-				setInterval(function(){ faye.publish('/competitions/<%= u.id %>', { component: "", mess: "ping" }); }, 20000);
+				setInterval(function(){ 
+					var new_cl = new Faye.Client('/faye');
+					new_cl.publish('/competitions/<%= u.id %>', { component: "", mess: "ping" }); }, 20000);
 			<% end %>
 		});
 	});
