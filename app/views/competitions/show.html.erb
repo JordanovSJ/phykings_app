@@ -24,6 +24,7 @@
 
 <script type="text/javascript">
 	$(function(){
+		var faye = new Faye.Client('/faye');
 		$('#faye-cancel').click(function() {
 			subscription.cancel();
 			window.location = "/";
@@ -38,5 +39,11 @@
 			subscription.cancel();
 		});
 		
+		$(document).ready(function(){
+			<% @competition.users.each do |u| %>
+				setInterval(function(){ faye.publish('/competitions/<%= u.id %>', { component: "", mess: "ping" }); }, 20000);
+			<% end %>
+		});
 	});
+
 </script>
