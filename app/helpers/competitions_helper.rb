@@ -79,7 +79,13 @@ module CompetitionsHelper
 			premium=false
 		end
 		competition.users.each do |u|
-			lvl_change=rank_lvl_change(u, premium) + problems_lvl_change(u) 
+			#if the user solved nothing gets 0
+			if user_percents(u) == 0
+				lvl_change=0
+			else
+				lvl_change=rank_lvl_change(u, premium) + problems_lvl_change(u)
+			end
+			 
 			u.results["lvl_change"]=lvl_change
 			if premium
 				u.increment(:premium_level, lvl_change )
