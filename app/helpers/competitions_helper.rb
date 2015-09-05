@@ -152,6 +152,10 @@ module CompetitionsHelper
 	
 	#calculates the result in percents of a user after sumbmission
 	def user_percents(user)
+		if user.results["score"].present?
+			return user.results["score"]
+		end
+	
 		competition=Competition.find(user.competition_id)
 		problems_percents=competition.problems_percents
 		problems=competition.problems
@@ -163,6 +167,8 @@ module CompetitionsHelper
 				user_perc += problems_percents["percent_problem_#{p.id}"]
 			end
 		end		
+		user.results["score"]=user_perc
+		user.save!
 		return user_perc
 	end
 	
@@ -236,12 +242,13 @@ module CompetitionsHelper
 		lvl_change=0
 		problems.each do |p|
 			if user.results["answer_#{p.id}"][:check_answer]
-				lvl_change += (p.difficulty * p.length * MAX_EXP_CHANGE_PROBLEM) / (MAX_DIFFICULTY * LENGTH.last)
+				lvl_change += (p.difficulty * p.length * MAX_EXP_CHANGE_PROBLEM).to_f / (MAX_DIFFICULTY * LENGTH.last)
 			else
-				lvl_change -= ((11 - p.difficulty) * p.length * MAX_EXP_CHANGE_PROBLEM) / (MAX_DIFFICULTY * LENGTH.last)
+				lvl_change -= ((11 - p.difficulty) * p.length * MAX_EXP_CHANGE_PROBLEM).to_f / (MAX_DIFFICULTY * LENGTH.last)
 			end
 		end
-		return lvl_change
+		lvl_change += (user_percents * MAX_EXP_CHANGE_PROBLEM).to_f
+		return lvl_change.to_i
 	end
 	
 	def rank_lvl_change(user, premium)
