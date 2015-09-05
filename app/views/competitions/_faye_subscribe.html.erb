@@ -3,7 +3,7 @@
 		var subscription;
 		var faye = new Faye.Client('/faye');
 		
-		setInterval(function(){ faye = new Faye.Client('/faye'); }, 20000);
+		//~ setInterval(function(){ faye = new Faye.Client('/faye'); }, 20000);
 		
 		$(function(){
 			subscription = faye.subscribe('/competitions/<%= current_user.id %>', change_view);
