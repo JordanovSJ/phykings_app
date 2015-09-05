@@ -336,7 +336,7 @@ Problem.create!(
 							title: "Steady motion",
 							answer: 1,
 							degree_of_answer: 0,
-							units_of_answer: "s",
+							units_of_answer: "-",
 							category: "Classical mechanics",
 							difficulty: 5,
 							length: 10,
@@ -348,6 +348,84 @@ on a distance to a certain point on the plane as $1/r^n$, where $n$ is a
 constant. What is the minimum value of $n$ for which the motion of the particle along
 the circle will not be steady?",
 )
+
+#21
+Problem.create!(
+							title: "Bullet motion",
+							answer: 7,
+							degree_of_answer: -2,
+							units_of_answer: "m",
+							category: "Classical mechanics",
+							difficulty: 5,
+							length: 10,
+							target: 1,
+							creator_id: 11, 
+							content: "A rifle was aimed at the vertical line on the target located
+precisely in the northern direction, and then fired. Assuming the air
+drag to be negligible, find how much off the line, and in what direc-
+tion, will the bullet hit the target. The shot was fired in the horizontaldirection at the latitude $60°$, the bullet velocity $v = 900 m/s$,
+and the distance from the target equals $s = 1.0 km$.",
+)
+
+#22
+Problem.create!(
+							title: "Problem 22",
+							answer: 8,
+							degree_of_answer: 0,
+							units_of_answer: "s",
+							category: "Classical mechanics",
+							difficulty: 2,
+							length: 10,
+							target: 1,
+							creator_id: 11, 
+							content: "A horizontal disc rotates with a constant angular velocity
+$\omega= 6.0 rad/s$ about a vertical axis passing through its centre. A
+small body of mass $m = 0.50 kg$ moves along a
+diameter of the disc with a velocity $v_1 = 50 cm/s$
+which is constant relative to the disc. Find the
+force that the disc exerts on the body at the
+moment when it is located at the distance
+$r = 30 cm $ from the rotation axis.",
+)
+
+#23
+Problem.create!(
+							title: "Coriolis force",
+							answer: 28,
+							degree_of_answer: -1,
+							units_of_answer: "s",
+							category: "Classical mechanics",
+							difficulty: 3,
+							length: 10,
+							target: 2,
+							creator_id: 11, 
+							content: "A horizontal smooth rod $AB$ rotates
+with a constant angular velocity $\omega_o = 2.00 rad/s$
+about a vertical axis passing through its end
+$A$. A freely sliding sleeve of mass $m = 0.50 kg$
+moves along the rod from the point $A$ with the
+initial velocity $v_o = 1.00 m/s$. Find the Coriolis
+force acting on the sleeve (in the reference frame
+fixed to the rotating rod) at the moment when
+the sleeve is located at the distance $r = 50 cm$
+from the rotation axis.",
+)
+
+#24
+Problem.create!(
+							title: "Fall on the equator",
+							answer: 24,
+							degree_of_answer: -2,
+							units_of_answer: "m",
+							category: "Classical mechanics",
+							difficulty: 3,
+							length: 10,
+							target: 1,
+							creator_id: 11, 
+							content: "At the equator a stationary (relative to the Earth) body
+falls down from  $ 500 m$. Assuming the air drag to be
+negligible, find how much off the vertical the body will deviate when it hits the ground.",
+)
 Problem.create!(
 							title: "ship and wind",
 							answer: 579,
@@ -358,5 +436,5 @@ Problem.create!(
 							length: 10,
 							target: 1,
 							creator_id: 11, 
-							content: "",
+							content: "s",
 )
