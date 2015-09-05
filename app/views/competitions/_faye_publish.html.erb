@@ -1,5 +1,5 @@
 <script type="text/javascript">
-	faye = new Faye.Client('/faye');
+	var faye = new Faye.Client('/faye');
 	<% @competition.users.each do |u| %>
 	
 		<% if @competition.started_at.present? %>

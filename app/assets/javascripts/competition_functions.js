@@ -5,9 +5,7 @@ function change_view(message) {
 		location.reload();
 	} else if ( message.mess == "results" && !( $("#ranking-players").length ) ) {
 		location.reload();
-	} else if ( message.mess == "ping" ) {
-		return;
-	} else if ( message.mess != "reload" && message.mess != "results" && message.mess != "ping" ) {
+	} else if ( message.mess != "reload" && message.mess != "results" ) {
 		if ( $(message.component).length ) {
 			$(message.component).html(message.mess);
 		}
