@@ -24,7 +24,6 @@
 
 <script type="text/javascript">
 	$(function(){
-		faye = new Faye.Client('/faye');
 		$('#faye-cancel').click(function() {
 			subscription.cancel();
 			window.location = "/";
@@ -40,5 +39,4 @@
 		});
 		
 	});
-
 </script>

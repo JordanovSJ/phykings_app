@@ -1,11 +1,8 @@
 <% if user_signed_in? %>
 	<script type="text/javascript">
 		var subscription;
-		var faye = new Faye.Client('/faye');
-		
-		//~ setInterval(function(){ faye = new Faye.Client('/faye'); }, 20000);
-		
 		$(function(){
+			var faye = new Faye.Client('/faye');
 			subscription = faye.subscribe('/competitions/<%= current_user.id %>', change_view);
 		});
 	</script>
