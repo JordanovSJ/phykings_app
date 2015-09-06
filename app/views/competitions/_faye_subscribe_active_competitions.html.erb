@@ -1,0 +1,18 @@
+<% if user_signed_in? %>
+	<script type="text/javascript">
+		var subscription_active;
+		$(function(){
+			var faye = new Faye.Client('/faye');
+			subscription_active = faye.subscribe('/active_competitions', change_view);
+			
+			// Refresh the active competitions table every 50 sec
+			setInterval(function() {
+				jQuery.ajax({
+					url: "/competitions/refresh", // it should be mapped in routes.rb in rails
+					type: "GET"
+				});
+			}, 50000);
+			
+		});
+	</script>
+<% end %>
