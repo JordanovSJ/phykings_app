@@ -9,6 +9,9 @@
 			//~ that particular user the competition has already started.
 			faye.publish('/competitions/<%= u.id %>', { component: "#competition-show", mess: "reload" } );
 			
+			// Also need to reload the active competitions table
+			faye.publish('/active_competitions', { component: "#active-competitions-table", mess: "<%= j render partial: 'active_competitions_table' %>" } );
+			
 			//~ During the competition, if a user submits his answers, the other users are notified with a
 			//~ with a tick appearing next to that user's name. Therefore, when a user has submitted his
 			//~ answers, everyone should reload the list with players. There are two such lists: one during
@@ -29,6 +32,9 @@
 			//~ If the competition has not started, reload the header button and the screen.
 			faye.publish('/competitions/<%= u.id %>', { component: "#competition-show", mess: "<%= j render partial: 'show_competition' %>" } );
 			faye.publish('/competitions/<%= u.id %>', { component: "#header-competition-button", mess: "<%= j render partial: 'header_competition_button' %>" } );
+			
+			// Also need to reload the active competitions table
+			faye.publish('/active_competitions', { component: "#active-competitions-table", mess: "<%= j render partial: 'active_competitions_table' %>" } );
 			
 		<% end %>
 		
