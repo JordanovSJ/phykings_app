@@ -33,6 +33,10 @@ class CompetitionsController < ApplicationController
 			# Find problems only once.
 			if @competition.problems.empty?
 				choose_problems(@competition)
+				#prevents sa6o bug
+				if @competition.nil?
+					redirect_to competitions_path
+				end
 			end
 			
 			@problems = @competition.problems
@@ -265,7 +269,7 @@ class CompetitionsController < ApplicationController
 						u.update_attributes!(competition_id: nil)
 					end
 					@competition.destroy
-					redirect_to competitions_path
+					#redirect_to competitions_path
 					return false
 				end
 				#//

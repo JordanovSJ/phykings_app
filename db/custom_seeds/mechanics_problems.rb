@@ -1,5 +1,3 @@
-#10 minute problems ########################################################
-#####################
 #1
 Problem.create!(
 							title: "ship and wind",
@@ -426,15 +424,361 @@ Problem.create!(
 falls down from  $ 500 m$. Assuming the air drag to be
 negligible, find how much off the vertical the body will deviate when it hits the ground.",
 )
+
+#25
 Problem.create!(
-							title: "ship and wind",
-							answer: 579,
+							title: "Powers",
+							answer: 750,
+							degree_of_answer: -2,
+							units_of_answer: "W",
+							category: "Classical mechanics",
+							difficulty: 2,
+							length: 10,
+							target: 1,
+							creator_id: 11, 
+							content: "A particle of mass $m=300 g$ moves along a circle of radius $R=2 m& with
+a normal acceleration varying with time as $a_n = kt^2$, where $k$ is
+a constant and equals $2.5 m / s^4$. Find the mean value of the power developed by all the forces
+averaged over the first $10$ seconds after the beginning of motion.",
+)
+
+#26 My problem(teo)
+Problem.create!(
+							title: "Ball on a table",
+							answer: 165,
 							degree_of_answer: -2,
 							units_of_answer: "s",
+							category: "Classical mechanics",
+							difficulty: 9,
+							length: 30,
+							target: 2,
+							creator_id: 11, 
+							content: "A small rigid ball of mass $m=500 g$ is located at the center of a perfectly flat table in a small 
+house near the Indian ocean. The ball is imparted some small velocity and starts performing small oscillations about 
+the center of the table. Assuming there is no slip between the ball and the table, so that no energy is lost while 
+the ball is moving , find the period of these oscillations.",
+)
+
+#27
+Problem.create!(
+							title: "Stretching",
+							answer: 267,
+							degree_of_answer: -2,
+							units_of_answer: "J",
+							category: "Classical mechanics",
+							difficulty: 1,
+							length: 10,
+							target: 1,
+							creator_id: 11, 
+							content: "A system consists of two springs in series and
+having the stiffnesses  $k_1=666 N/m$ and $k_2=42 N/m$. Find the minimum work
+to required in order to stretch this system by $26 cm$.",
+)
+
+#28
+Problem.create!(
+							title: "Disc sliding down the hill",
+							answer: 10,
+							degree_of_answer: 0,
+							units_of_answer: "m",
 							category: "Classical mechanics",
 							difficulty: 4,
 							length: 10,
 							target: 1,
 							creator_id: 11, 
-							content: "s",
+							content: "A small disc slides down with zero initial velocity 
+from the top of a smooth hill of height $H=10 m$ (shape showed on the figure).
+Assuming we can vary $h$ what is the maximum distance s covered by the disc?",
 )
+
+#29
+Problem.create!(
+							title: "Centrifuge",
+							answer: 542,
+							degree_of_answer: -2,
+							units_of_answer: "m/s",
+							category: "Classical mechanics",
+							difficulty: 3,
+							length: 10,
+							target: 1,
+							creator_id: 11, 
+							content: "A small ball is suspended by a thread of length $60 cm$. With
+what minimum velocity has the point of suspension to be shifted
+in the horizontal direction for the ball to move along the circle about
+that point? ",
+)
+
+#30
+Problem.create!(
+							title: "Rotationg sleeve",
+							answer: 172,
+							degree_of_answer: -2,
+							units_of_answer: "J",
+							category: "Classical mechanics",
+							difficulty: 6,
+							length: 30,
+							target: 1,
+							creator_id: 11, 
+							content: "A smooth light horizontal rod can rotate about a ver-
+tical axis passing through one of its ends. The rod is fitted with a small
+sleeve attached to the same end by a weightless. What work must be performed to slowly get this
+system going and reaching angular velocity $ 10 rad/s$?
+The mass of the sleeve is 60 g,
+the length of the spring is 10 cm
+and its stiffnes is 300 N/m",
+)
+
+#31
+Problem.create!(
+							title: "Collision",
+							answer: 25,
+							degree_of_answer: -2,
+							units_of_answer: "dimentionless",
+							category: "Classical mechanics",
+							difficulty: 4,
+							length: 10,
+							target: 1,
+							creator_id: 11, 
+							content: "A smooth ball moving translationally in a horizontal direction 
+collides elastically with another, identical stationary ball. During the impact
+the angle between the straight line passing through the centres of
+the balls and the direction of the initial motion of the striking ball
+is equal to $\alpha = 45^o$. Find the fraction of the kinetic energy of the striking ball that turned into poten-
+tial energy at the moment of the maximum deformation.",
+)
+
+#32
+Problem.create!(
+							title: "Spaceship",
+							answer: 157,
+							degree_of_answer: -3,
+							units_of_answer: "radians",
+							category: "Classical mechanics",
+							difficulty: 5,
+							length: 10,
+							target: 1,
+							creator_id: 11, 
+							content: " A spaceship of mass $m_o$ travels in the deep space (no external
+forces) with a constant velocity $v_o$. To change the its direction of motion,
+a jet engine is switched on. It starts ejecting a gas jet with velocity $u$
+which is constant relative to the spaceship and directed at right
+angle to the direction of motion. The engine is shut down when the
+mass of the spaceship becomes $m$. Through what angle did the
+ direction of motion of the spaceship deviate due to the jet engine op-
+eration? 
+$m_o=16000 kg$
+$v_o=9 km/s$
+$u=3 km/s$
+$m=10000 kg$",
+)
+
+
+#33
+Problem.create!(
+							title: "Two discs",
+							answer: 417,
+							degree_of_answer: -4,
+							units_of_answer: "dimentionless",
+							category: "Classical mechanics",
+							difficulty: 5,
+							length: 30,
+							target: 1,
+							creator_id: 11, 
+							content: " Two small identical discs, each of mass $m=100 g$, lie on a smooth
+horizontal plane. The discs are connected by a light spring of length $10 cm$ (when not deformed)
+and stiffness $60 N/m$. At a certain moment one of the discs is set in motion in direction perpendicular
+to the spring with velocity $0.5 m/s$. Find the maximum elongation of the
+spring in the process of motion, if it is known to be considerably
+less than unity. ",
+)
+
+
+#34
+Problem.create!(
+							title: "Spaceship on the moon",
+							answer: 697,
+							degree_of_answer: 0,
+							units_of_answer: "m/s",
+							category: "Classical mechanics",
+							difficulty: 2,
+							length: 10,
+							target: 1,
+							creator_id: 11, 
+							content: " A spaceship approaches the Moon along a parabolic trajectory which is almost 
+tangent to the surface of the Moon. At the moment
+of the maximum approach the brake rocket was fired for a short time
+interval, and the spaceship was transferred into a circular orbit of
+a Moon satellite. Find by how much the speed of the ship decreased in the proccess.
+The answer must be a positive number!!!
+The mass of the moon is $ 7.35 × 10^22 kg$
+The radius of the moon is $1737.4 km$",
+)
+
+#35
+Problem.create!(
+							title: "To the moon",
+							answer: 23,
+							degree_of_answer: 10,
+							units_of_answer: "J",
+							category: "Classical mechanics",
+							difficulty: 4,
+							length: 10,
+							target: 1,
+							creator_id: 11, 
+							content: " What is the minimum work that has to be performed to
+bring a spaceship of mass $3500 kg$ from the surface of the Earth
+to the Moon? ",
+)
+
+#36
+Problem.create!(
+							title: "Spinning disc",
+							answer: 319,
+							degree_of_answer: -2,
+							units_of_answer: "s",
+							category: "Classical mechanics",
+							difficulty: 3,
+							length: 10,
+							target: 1,
+							creator_id: 11, 
+							content: " A uniform disc of radius $R=50 cm$ is spinned to the angular velocity
+$\omega=50 rad/s$ and then placed on a horizontal surface. How long will
+the disc rotate on the surface if the friction coefficient is $k=0.6$?
+The pressure exerted by the disc on the surface is uniform. ",
+)
+
+#37
+Problem.create!(
+							title: "Locomotive",
+							answer: 1978,
+							degree_of_answer: 0,
+							units_of_answer: "N",
+							category: "Classical mechanics",
+							difficulty: 4,
+							length: 30,
+							target: 2,
+							creator_id: 11, 
+							content: " A locomotive is propelled by a turbine whose axle is perpendicular
+to the rails (the direction of motiton).The rotation direction of the turbine coincides
+with that of the wheels. The moment of inertia of the turbine rotor relative 
+to its own axis is equal to $I = 340 kg.m^2$. Find the additional
+forces exerted by the gyroscopic forces on the rails when the locomotive
+ moves along a circle of radius $R = 250 m$ with velocity $v =50 km/h$.
+The distance between the raisl is equal to $1.5 m$. The angular
+velocity of the turbine equals $n = 1500 rpm$. ",
+)
+
+#38
+Problem.create!(
+							title: "The ring",
+							answer: 364,
+							degree_of_answer: -6,
+							units_of_answer: "N.m",
+							category: "Classical mechanics",
+							difficulty: 4,
+							length: 10,
+							target: 1,
+							creator_id: 11, 
+							content: " A uniform ring of mass $m=100 g$, with outside radius $R_2=2 cm$, is
+fitted tightly on a shaft of radius $R_1=1 cm$. The shaft is rotated about its
+axis with a constant angular acceleration $\beta=20 rad/s^2$. Find the moment of
+elastic forces in the ring at distance $r=1.5 cm$ from the rotation axis. ",
+)
+
+#39
+Problem.create!(
+							title: "Rotating rod",
+							answer: 161,
+							degree_of_answer: -6,
+							units_of_answer: "m",
+							category: "Classical mechanics",
+							difficulty: 6,
+							length: 30,
+							target: 1,
+							creator_id: 11, 
+							content: " A thin uniform copper rod of length $60 cm$ rotates
+uniformly with an angular velocity $100 rad/s$ horizontally about a
+vertical axis passing through one of its ends. Find the elongation of the rod.
+the density of copper is $8.96$x$ 10^3 kg/m^3$
+the Young's modulus of copper is $120 GPa $ ",
+)
+
+#40
+Problem.create!(
+							title: "Pouring water",
+							answer: 704,
+							degree_of_answer: -2,
+							units_of_answer: "seconds",
+							category: "Classical mechanics",
+							difficulty: 4,
+							length: 10,
+							target: 1,
+							creator_id: 11, 
+							content: "A cylindrical vesseel of heigth $h=3 m$ and base area $S=225 cm^2$ is filled
+with pure water. An orifice of area $s=25 cm^2$ is opened in the bottom of the
+vessel. Neglecting the effects of the viscosity of water, determine the time required
+fot the water to pour out of the vessel. 
+Assume $g=9.81 m / s^2$ ",
+)
+
+#41
+Problem.create!(
+							title: "Rotating discs in oil",
+							answer: 144,
+							degree_of_answer: 0,
+							units_of_answer: "W",
+							category: "Classical mechanics",
+							difficulty: 2,
+							length: 30,
+							target: 1,
+							creator_id: 11, 
+							content: " A thin horizontal disc of radius $R = 20 cm$ is located with-
+in a cylindrical cavity filled with oil (see the figure). The viscosity of the oil is $k= 0.08 Pa$.
+ The distances between the disc and the horizontal planes
+of the cavity are both equal to $h = 1.0 mm$. Find the power developed by
+the viscous force acting on the disc while it rotates with angular
+velocity equal to $\omega = 60 rad/s$. Neglect the end effects!!! ",
+)
+
+#42
+Problem.create!(
+							title: "Two cylinders",
+							answer: 740,
+							degree_of_answer: -3,
+							units_of_answer: "N.m",
+							category: "Classical mechanics",
+							difficulty: 5,
+							length: 30,
+							target: 2,
+							creator_id: 11, 
+							content: " A fluid with viscosity $\eta=0.09 Pa$ fills the space between two long
+co-axial cylinders of radii $R_1=10 cm$, and $R_2=12 cm$. The small cylinder
+doesnt rotates while the outer one is rotated with a constant
+angular velocity $\omega=20 rad/s$. The flow of the fluid is laminar. The
+ friction force acting on a unit area of a cylindrical surface
+of radius $r$ is defined by the formula: $$\sigma= \eta r (\frac{\partial \omega}{\partial r})$$
+Find he moment of the friction force acting on the outer cylinder if the length of both cylinders 
+is $1 m$. Neglect the end effects!!! ",
+)
+
+#43
+Problem.create!(
+							title: "Sinking ball",
+							answer: 20,
+							degree_of_answer: -2,
+							units_of_answer: "seconds",
+							category: "Classical mechanics",
+							difficulty: 5,
+							length: 10,
+							target: 2,
+							creator_id: 11, 
+							content: " A ball of steel of diameter $d = 3.0 mm$ starts sinking with
+initial velocity equal to zero in olive oil the viscosity of which is $\eta = 0.90 Pa$. What 
+time after the beginning of motion will the velocity of the ball differ
+from the steady-state velocity by $n = 1.0%$? 
+Assume that $g=9.81 m/ s^2$",
+)
+
+
+
+
