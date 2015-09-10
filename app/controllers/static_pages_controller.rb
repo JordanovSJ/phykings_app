@@ -70,5 +70,9 @@ class StaticPagesController < ApplicationController
 	
 	end
 	
+	def rules
+	
+	end
+	
 end
 

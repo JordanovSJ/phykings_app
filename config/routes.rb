@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   get "static_pages/click_help"
   get "static_pages/click_admin"
   get "static_pages/latex_guide"
+  get "static_pages/rules"
   
   resources :users, only: [:show] do
 		collection do
