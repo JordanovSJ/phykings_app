@@ -66,5 +66,9 @@ class StaticPagesController < ApplicationController
 		end
 	end
 	
+	def latex_guide
+	
+	end
+	
 end
 
