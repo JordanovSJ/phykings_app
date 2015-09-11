@@ -13,7 +13,7 @@ module CompetitionsHelper
 				previous_user=sorted_users[count-1]
 				#check if both the user's percents and submitted time are equal to the those of the previous user and if not it change the rank +1
 				#if they are percents and the times are equal the rank is not changed!!!
-				if user_percents(previous_user) != user_percents(u) ||  u.submitted_at != previous_user.submitted_at #balta6tina   ((previous_user.submitted_at - u.submitted_at) > 5)
+				if user_percents(previous_user) != user_percents(u) ||  u.submitted_at != previous_user.submitted_at #ATTENTION SA6O!!!   ((previous_user.submitted_at - u.submitted_at) > 5)
 					rank = count+1
 				end
 			end
