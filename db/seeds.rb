@@ -123,81 +123,9 @@ end
 
          
 
-problem1=Problem.create!(
-							title: "sopol1",
-							content: "elza",
-							answer: 242,
-							degree_of_answer: 2,
-							units_of_answer: "nenkos",
-							category: "Electromagnetism",
-							difficulty: 10,
-							length: 60,
-							target: 1,
-							creator_id: 1,
-)
 
 
-problem2=Problem.create!(
-							title: "sopol2",
-							content: "elza",
-							answer: 24,
-							degree_of_answer: 2,
-							units_of_answer: "nenkos",
-							category: "Electromagnetism",
-							difficulty: 10,
-							length: 60,
-							target: 1,
-							
-							creator_id: 1,
-)
 
-problem3=Problem.create!(
-							title: "sopol3",
-							content: "elza",
-							answer: 124,
-							degree_of_answer: 2,
-							units_of_answer: "nenkos",
-							category: "Electromagnetism",
-							difficulty: 10,
-							length: 60,
-							target: 1,
-							creator_id: 2,						
-)
 
-problem4=Problem.create!(
-							title: "sopol4",
-							content: "elza",
-							answer: 2224,
-							degree_of_answer: 2,
-							units_of_answer: "nenkos",
-							category: "Electromagnetism",
-							difficulty: 10,
-							length: 60,
-							target: 1,
-							creator_id: 2,
-)
 
-#~ relation1=UserProblemRelation.create!(
-							#~ viewer_id: 1,
-							#~ seen_problem_id: 1,
-#~ )
-#~ 
-#~ relation2=UserProblemRelation.create!(
-							#~ viewer_id: 1,
-							#~ seen_problem_id: 3,
-#~ )
-#~ 
-#~ 
-#~ relation3=UserProblemRelation.create!(
-							#~ viewer_id: 2,
-							#~ seen_problem_id: 1,
-#~ )
-#~ 
-#~ 
-#~ solution1=Solution.create!(
-						#~ content: "solution of problem 3 by user 1",
-						#~ user_problem_relation_id: 2,
-						#~ answer: 42,
-						#~ degree_of_answer: 1,
-						#~ units_of_answer: "lols",
-#~ )
+

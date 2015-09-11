@@ -47,10 +47,17 @@ class CapybaraCompetitionTest	< ActionDispatch::IntegrationTest
 		assert_match "Players:", response.body
 		assert_match "Length:", response.body
 		assert_match "Weight:", response.body
-		#capybara
-		#find('answer_answer').set('some text')
-		#fill_in 'answer_answer', :with => 3
-		
+		#answer_params={answer: problems.first.answer, degree_of_answer: problems.first.degree_of_answer}
+		post  submit_answer_competitions_path(id: competition.id, 
+																					answer: {
+																					answer: problems.first.answer,
+																					degree_of_answer: problems.first.degree_of_answer 
+																					}, 
+																					problem_id: problems.first.id)
+		follow_redirect!
+		@user1.reload
+		#get submit_competitions_path(competition)
+		#assert @user1.results["asnwer_#{problems.first.id}"][:answer] == problems.first.answer
 		
 	end
 	
