@@ -78,7 +78,8 @@
 			<%= f.label :text  %>
 			<%= f.text_area :content, placeholder: "Problem text...", class: "form-control problem-text" %>
 			<span class="picture">
-				<%= f.file_field :picture, accept: 'image/jpeg,image/gif,image/png', class: "form-control" %>
+				<%= f.label :picture, "Attach an image to your problem (500kB max)" %>
+				<%= f.file_field :picture, accept: 'image/jpeg,image/gif,image/png', class: "form-control"%>
 			</span>
 		</div>
 		<div class="col-sm-2">

@@ -23,9 +23,11 @@
 						<li class="list-group-item">Effectiveness (ratio): <%= label_tag @free_efficiency.round(1).to_s+"%", nil, class: "label label-default pull-right" %></li>
 					</ul>
 					<h3><%=label_tag "Free Level: "+current_user.free_level.to_s, 
-								 nil, class: "label label-default" %></h3>
+								 nil, class: "label label-default", title: "Free Level measures your performance in competitions with less than 500 entry gold (free competitions)." %></h3>
+					<p>*These stats refer to free competitions, i.e. competitions with entry gold less than 500.</p>
 				</div>
 			</div>
+			
 		</div>
 		
 		<div class="col-sm-6">
@@ -41,9 +43,10 @@
 						<li class="list-group-item">Effectiveness (ratio): <%= label_tag @premium_efficiency.round(1).to_s+"%", nil, class: "label label-success pull-right" %></li>
 					</ul>
 					<h3><%=label_tag "Premium Level: "+current_user.premium_level.to_s, 
-								 nil, class: "label label-success" %>
+								 nil, class: "label label-success", title: "Premium Level measures your performance in competitions with more than 500 entry gold (premium competitions)." %>
 					<%=label_tag "Gold: "+current_user.gold.to_s, 
-								 nil, class: "label label-warning" %></h3>
+								 nil, class: "label label-warning", title: "You pay with gold to see answers and/or solutions of problems. The more gold you have, the more answers and solutions you can unlock. You can earn gold from competitions, by submitting problems and solutions or by simply purchasing some from us."  %></h3>
+					<p>*These stats refer to premium competitions, i.e. competitions with entry gold more than 500.</p>
 				</div>
 			</div>
 		</div>

@@ -12,6 +12,10 @@ Rails.application.routes.draw do
   get "static_pages/click_p_and_s"
   get "static_pages/click_help"
   get "static_pages/click_admin"
+  get "static_pages/latex_guide"
+  get "static_pages/rules"
+  get "static_pages/mission"
+  get "static_pages/about"
   
   resources :users, only: [:show] do
 		collection do

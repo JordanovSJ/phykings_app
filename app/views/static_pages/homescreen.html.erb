@@ -1,7 +1,31 @@
-<h1>PhyKings</h1>
-<p class="lead">Become the King of Physics</p>
-<div>&nbsp;</div>
-<p class="lead">Start your journey via:</p>
-<%= link_to "Facebook", user_omniauth_authorize_path(:facebook), class: "btn btn-default btn-lg" %><br/>
-<%= link_to "Google+", user_omniauth_authorize_path(:google_oauth2), class: "btn btn-default btn-lg" %><br/>
-<%= link_to "Email", new_user_registration_url, class: "btn btn-default btn-lg" %>
+<div class="row">
+	<div class="col-md-8 text-center">
+		<h1>PhyKings</h1>
+		<p class="lead">Changing the Physics of tomorrow</p>
+	</div>
+</div>
+
+<div class="row">
+	
+	<div class="col-md-7 col-md-offset-1 text-justify">
+		<p class="header-text">Solving Physics problems has never been so exciting.</p>
+		<ul class="header-text">
+			<li>A unique new format of physics competitions.</li>
+			<li>Boost your problem solving skills.</li>
+			<li>Compete with bright minds from around the globe.</li>
+			<li>Earn gold and raise your level to become the best Phyking.</li>
+		</ul>
+	</div>
+	
+	<div class="col-md-4">
+		<p class="lead lead-text">Start your journey via:</p>
+		<%= link_to "Facebook", user_omniauth_authorize_path(:facebook), class: "btn btn-default btn-lg" %><br/>
+		<%= link_to "Google+", user_omniauth_authorize_path(:google_oauth2), class: "btn btn-default btn-lg" %><br/>
+		<%= link_to "Email", new_user_registration_url, class: "btn btn-default btn-lg" %>
+	</div>
+
+
+</div>
+
+
+
