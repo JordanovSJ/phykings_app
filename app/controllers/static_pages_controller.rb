@@ -74,5 +74,13 @@ class StaticPagesController < ApplicationController
 	
 	end
 	
+	def mission
+	
+	end
+	
+	def about
+	
+	end
+	
 end
 
