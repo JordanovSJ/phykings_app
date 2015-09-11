@@ -6,10 +6,10 @@
 # real admin user 1
 
 user_admin1 = User.new( first_name: "Aleksandar",
-											 last_name: "Sasho",
+											 last_name: "Sklyarov",
 											 age: 23,
 											 country: "Bulgaria",
-											 email: "sasho.alex.sk@gmail.com",
+											 email: "admin.sasho@gmail.com",
 											 password: "tarator1elza",
 											 password_confirmation: "tarator1elza",
 											 admin: true )
@@ -23,7 +23,7 @@ user_admin2 = User.new( first_name: "Jordan",
 											 last_name: "Jordanov",
 											 age: 21,
 											 country: "Bulgaria",
-											 email: "jordanovsj@gmail.com",
+											 email: "admin.dachko@gmail.com",
 											 password: "tarator2elza",
 											 password_confirmation: "tarator2elza",
 											 admin: true )
