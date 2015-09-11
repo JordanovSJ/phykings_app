@@ -6,12 +6,20 @@ class CompetitionsController < ApplicationController
 	before_action :logged_in_user
 	before_action :check_for_id, only: [:show]
 	before_action :not_in_competition, only: [:create, :new, :show]
-	before_action :belongs_to_competition, except: [:create, :new, :index]
+	before_action :belongs_to_competition, except: [:create, :new, :index, :refresh_index_table]
 	before_action :enough_gold, only: [:show, :create]
-	before_action :not_finished, except: [:create, :new, :index]
+	before_action :not_finished, except: [:create, :new, :index, :refresh_index_table]
 	
   def index
 		@competitions = Competition.all
+  end
+  
+  #~ Used to refresh the #active-competition-table on the index page.
+  def refresh_index_table
+		@competitions = Competition.all
+		respond_to do |format|
+			format.js
+		end
   end
     
   def show

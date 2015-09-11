@@ -35,6 +35,7 @@
 					faye.publish('/competitions/<%= u.id %>', { component: "#competition-show", mess: "reload" } );
 				<% end %>
 			<% end %>
+			
 			subscription.cancel();
 		});
 		

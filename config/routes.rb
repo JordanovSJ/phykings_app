@@ -52,8 +52,11 @@ Rails.application.routes.draw do
 			#get "leave" #not sure for get, maybe delete
 			get ":id/show_problem", to: "competitions#show_problem", as: "show_problem"
 			post ":id/submit_answer", to: "competitions#submit_answer", as: "submit_answer"
+			get "refresh" => "competitions#refresh_index_table"
 		end
   end
+  
+  
   
   mount Commontator::Engine => '/commontator'
 end

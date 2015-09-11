@@ -2,33 +2,10 @@
 	Active Competitions
 </h1>
 
-<% unless @competitions.where(started_at: nil).empty? %>
+<%= render 'faye_subscribe_active_competitions' %>
 
-	<table class="table table-bordered table-hover text-center" id="competition-table">
-		<thead>
-			<tr>
-				<th class="text-center">Created</th>
-				<th class="text-center">Title</th>
-				<th class="text-center">Players</th>
-				<th class="text-center">Length (min)</th>
-				<th class="text-center">Enter</th>
-			</tr>
-		</thead>
-		<tbody>
-			<% @competitions.where(started_at: nil).each do |com| %>
-				<tr>
-					<td>
-						<%=time_ago_in_words(com.created_at) %> ago
-					</td>
-					<td>Competition <%= com.id %></td>
-					<td><%= com.users.count %> / <%= com.n_players %></td>
-					<td><%= com.length  %></td>
-					<td><%= link_to "Enter (#{com.entry_gold} gold)", competition_path(com), class: "btn btn-success" %></td>
-				</tr>
-			<% end %>
-		</tbody>
-	</table>
+<div id="active-competitions-table">
 
-<% else %>
-	<p>There are no active competitions at this moment. You can always create a new one ;)</p>
-<% end %>
+	<%= render 'active_competitions_table'%>
+
+</div>
