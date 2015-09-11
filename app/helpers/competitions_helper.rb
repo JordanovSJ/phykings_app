@@ -13,7 +13,7 @@ module CompetitionsHelper
 				previous_user=sorted_users[count-1]
 				#check if both the user's percents and submitted time are equal to the those of the previous user and if not it change the rank +1
 				#if they are percents and the times are equal the rank is not changed!!!
-				if user_percents(previous_user) != user_percents(u) || u.submitted_at != previous_user.submitted_at #balta6tina
+				if user_percents(previous_user) != user_percents(u) ||  u.submitted_at != previous_user.submitted_at #ATTENTION SA6O!!!   ((previous_user.submitted_at - u.submitted_at) > 5)
 					rank = count+1
 				end
 			end
@@ -79,7 +79,13 @@ module CompetitionsHelper
 			premium=false
 		end
 		competition.users.each do |u|
-			lvl_change=rank_lvl_change(u, premium) + problems_lvl_change(u) 
+			#if the user solved nothing gets 0
+			if user_percents(u) == 0
+				lvl_change=0
+			else
+				lvl_change=rank_lvl_change(u, premium) + problems_lvl_change(u)
+			end
+			 
 			u.results["lvl_change"]=lvl_change
 			if premium
 				u.increment(:premium_level, lvl_change )
@@ -146,6 +152,10 @@ module CompetitionsHelper
 	
 	#calculates the result in percents of a user after sumbmission
 	def user_percents(user)
+		if user.results["score"].present?
+			return user.results["score"]
+		end
+	
 		competition=Competition.find(user.competition_id)
 		problems_percents=competition.problems_percents
 		problems=competition.problems
@@ -157,10 +167,14 @@ module CompetitionsHelper
 				user_perc += problems_percents["percent_problem_#{p.id}"]
 			end
 		end		
+		user.results["score"]=user_perc
+		user.save!
 		return user_perc
 	end
 	
 	
+	
+	#GOld
 	def creators_get_gold(competition, gold)
 		problems=competition.problems
 		sum_to_pay=(gold.to_f / problems.count).to_i
@@ -170,6 +184,8 @@ module CompetitionsHelper
 		end		
 	end
 	
+	
+	#GOld
 	def players_get_gold(competition, gold)
 		users=competition.users
 		#sorted by rank 
@@ -224,20 +240,27 @@ module CompetitionsHelper
 		end	
 	end
 	
+	
+	
+	#Levels	
 	def problems_lvl_change(user)
 		competition = Competition.find(user.competition_id)
 		problems=competition.problems
 		lvl_change=0
 		problems.each do |p|
 			if user.results["answer_#{p.id}"][:check_answer]
-				lvl_change += (p.difficulty * p.length * MAX_EXP_CHANGE_PROBLEM) / (MAX_DIFFICULTY * LENGTH.last)
+				lvl_change += (p.difficulty * p.length * MAX_EXP_CHANGE_PROBLEM).to_f / (MAX_DIFFICULTY * LENGTH.last)
 			else
-				lvl_change -= ((11 - p.difficulty) * p.length * MAX_EXP_CHANGE_PROBLEM) / (MAX_DIFFICULTY * LENGTH.last)
+				lvl_change -= ((11 - p.difficulty) * p.length * MAX_EXP_CHANGE_PROBLEM).to_f / (MAX_DIFFICULTY * LENGTH.last)
 			end
 		end
-		return lvl_change
+		lvl_change += ((user_percents(user) * MAX_EXP_CHANGE_PROBLEM).to_f / 100)
+		return lvl_change.to_i
 	end
 	
+	
+	
+	#Levels	
 	def rank_lvl_change(user, premium)
 		if premium
 			user_lvl=user.premium_level
@@ -269,6 +292,8 @@ module CompetitionsHelper
 		return lvl_change
 	end
 	
+	
+	#Levels	
 	def get_median_rank(sorted_users)
 		n_players=sorted_users.count
 		if (n_players % 2) ==0
@@ -281,6 +306,10 @@ module CompetitionsHelper
 		end
 		return median_rank
 	end
+	
+	
+	
+	
 	
 	# Needed for SUBMIT 2
 	def final_submit_do(competition)
