@@ -1,46 +1,26 @@
-default: &default
+production:
   adapter: postgresql
   encoding: unicode
-  # For details on connection pooling, see rails configuration guide
-  # http://guides.rubyonrails.org/configuring.html#database-pooling
+  database: phykings_app_production
   pool: 5
-<<<<<<< HEAD
   timeout: 5000
   username: jordan
   password:
-=======
-  host: localhost
-  username: rails
-  password: <%= ENV['APP_DATABASE_PASSWORD'] %>
->>>>>>> 387666b29fef4d170679ff2b2619361088a30e47
 
 development:
-  <<: *default
+  adapter: postgresql
+  encoding: unicode
   database: phykings_app_development
-<<<<<<< HEAD
   pool: 5
   timeout: 5000
   username: jordan
   password:
-=======
->>>>>>> 387666b29fef4d170679ff2b2619361088a30e47
 
-# Warning: The database defined as "test" will be erased and
-# re-generated from your development database when you run "rake".
-# Do not set this db to the same as development or production.
 test:
-  <<: *default
+  adapter: postgresql
+  encoding: unicode
   database: phykings_app_test
-<<<<<<< HEAD
   pool: 5
   timeout: 5000
   username: jordan
   password:
-=======
-
-production:
-  <<: *default
-  database: phykings_app_production
-  username: rails
-  password: <%= ENV['APP_DATABASE_PASSWORD'] %>
->>>>>>> 387666b29fef4d170679ff2b2619361088a30e47
