@@ -50,7 +50,12 @@ h1 {
 	font-size: 1.4em;
 }
 
-.white-text, .header {
+.header-text .alert li {
+	color: white;
+	font-size: 0.7em;
+}
+
+.white-text, .header, .header .field label {
 	color: white;
 }
 
@@ -185,7 +190,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#27662e', end
 }
 
 .alt .lead, .field label, .header h2, .lead-text {
-  color: white;
+  color: $black;
 }
 
 .alt li a:hover, .alt li.active {
