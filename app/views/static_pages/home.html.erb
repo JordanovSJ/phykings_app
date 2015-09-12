@@ -76,7 +76,7 @@
 					
 					<div class="col-sm-12">
 						<p><strong><%= current_user.solutions.count %></strong> solutions that you have submitted.</p>
-						<p><strong><%= Problem.select { |p| p.solutions.count == 0}.count %></strong> problems waiting for their first solution.</p>
+						<p><strong><%= Problem.select { |p| ( p.solutions.count == 0 && p.checked? ) }.count %></strong> problems waiting for their first solution.</p>
 					</div>
 					
 				</div>
