@@ -21,3 +21,7 @@
 
 # Ignore application configuration
 /config/application.yml
+
+# Ignore database configuration and public assets
+/config/database.yml
+/public/assets
