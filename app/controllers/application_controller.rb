@@ -29,6 +29,8 @@ class ApplicationController < ActionController::Base
 		devise_parameter_sanitizer.for(:account_update) << :age
 		devise_parameter_sanitizer.for(:account_update) << :country
 		devise_parameter_sanitizer.for(:account_update) << :school_name
+		devise_parameter_sanitizer.for(:account_update) << :image
+		devise_parameter_sanitizer.for(:account_update) << :image_cache
 	end
 	
 	# Confirms a logged-in user.

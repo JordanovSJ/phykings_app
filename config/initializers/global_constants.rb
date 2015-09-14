@@ -1,5 +1,5 @@
 # Default image
-DEF_IMAGE = "http://api.randomuser.me/portraits/thumb/men/12.jpg"
+DEF_IMAGE = "crown.png"
 
 # Problem categories:
 
