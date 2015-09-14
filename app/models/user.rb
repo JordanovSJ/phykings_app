@@ -166,6 +166,8 @@ class User < ActiveRecord::Base
 	
 	#not so obvious one, but trust me
   validates :gold, :numericality => { :only_integer => true, :greater_than => -1}
+  
+  default_scope -> { order(created_at: :desc) }
   	
   # Code initially taken from Devise Omniauth documentation, but changed.
   # Changed first_or_create to first_or_initialize, so that we can use
