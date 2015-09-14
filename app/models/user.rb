@@ -184,7 +184,7 @@ class User < ActiveRecord::Base
 			user.last_name = auth.info.last_name   # fill the last_name
 			user.country = auth.extra.raw_info.locale # NOTE: this is not exactly the country!
 			user.age = Integer(auth.extra.raw_info.age_range.min[1]) # Finally found an age estimate
-			user.image = auth.info.image # fill the link to the profile image
+			user.remote_image_url = auth.info.image # fill the link to the profile image
 			user.skip_confirmation! # a key step to allow direct log in without confirmation email
 			user.save! # save the user in the database
 		end
@@ -199,7 +199,7 @@ class User < ActiveRecord::Base
 			user.last_name = auth.info.last_name   # fill the last_name
 			user.country = auth.extra.raw_info.locale # NOTE: this is not exactly the country!
 			user.age = 100 # Finally found an age estimate
-			user.image = auth.info.image # fill the link to the profile image
+			user.remote_image_url = auth.info.image # fill the link to the profile image
 			user.skip_confirmation! # a key step to allow direct log in without confirmation email
 			user.save! # save the user in the database
 		end

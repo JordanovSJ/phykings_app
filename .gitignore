@@ -24,4 +24,5 @@
 
 # Ignore database configuration and public assets
 /config/database.yml
+/public/assets
 /public
