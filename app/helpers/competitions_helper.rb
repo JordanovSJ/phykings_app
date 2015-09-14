@@ -94,7 +94,7 @@ module CompetitionsHelper
 			else
 				u.increment(:free_level, lvl_change )
 				u.save!
-				u.notifications.create!(message: "You participated in a competition less than 500 entry gold(free competition). Your free level has changed by <span class='label label-default'>#{lvl_change}</span> .")
+				u.notifications.create!(message: "You participated in a competition with less than 500 entry gold(free competition). Your free level has changed by <span class='label label-default'>#{lvl_change}</span> .")
 			end
 		end
 	end
