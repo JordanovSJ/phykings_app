@@ -15,3 +15,13 @@
 /log/*
 !/log/.keep
 /tmp
+
+# Ignore Spring files.
+/spring/*.pid
+
+# Ignore application configuration
+/config/application.yml
+
+# Ignore database configuration and public assets
+/config/database.yml
+/public/assets
