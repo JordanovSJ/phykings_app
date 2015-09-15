@@ -10,11 +10,11 @@ CATEGORY = ["Classical mechanics",
 						"Relativity", 
 						"Optics"]
 						
-LENGTH = [10, 30, 60]
+LENGTH = [1, 10, 30, 60]
 
 MAX_DIFFICULTY = 10
 
-LENGTH_COMPETITION=[10, 30, 60, 120]
+LENGTH_COMPETITION=[1, 10, 30, 60, 120]
 
 # At every this many votes the problem parameters will refresh
 VOTES_REFRESH = 20
@@ -26,17 +26,19 @@ MAX_ACPT_ERR=0.05
 MAX_PIC_SIZE=500
 
 
-#free gold to get after N_PROBLEMS_FREE_GOLD
-FREE_GOLD=1000
+
 #number of problems solved at competition required to get FREE_GOLD free gold
 N_PROBLEMS_FREE_GOLD=10
 
-
 #GOLD
+#free gold to get after N_PROBLEMS_FREE_GOLD
+FREE_GOLD=1000
 MIN_PREMIUM_ENTRY_GOLD=500
 COST_TO_UNLOCK_ANSWER= 100
 COST_TO_UNLOCK_SOLUTIONS=500
 	#percents
+#PERCENR is used for unlock answer and unlock solution
+#it defines the percent gold that remains for us
 PERCENT=0.1
 REPAY_PERCENT=1-PERCENT
 COMPETITION_PERCENT_FOR_US=0.1
@@ -54,3 +56,6 @@ RANK_LVL_CHANGE_COEFF=25
 
 # Rescue timer after end of time
 RESCUE_TIME = 60
+
+#days of trial which allows u see solutions and answer without unlocking them
+DAYS_TRIAL=20

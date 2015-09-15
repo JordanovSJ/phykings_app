@@ -218,7 +218,7 @@ class SolutionsController < ApplicationController
 	#check if the user is allowed to see solution
 	#before action method for show only	
 	def permitted_to_see_solution
-		unless current_user.id==Solution.find(params[:id]).problem.creator.id || valid_relation_show || current_user.admin? || current_user.moderator?
+		unless current_user.id==Solution.find(params[:id]).problem.creator.id || valid_relation_show || current_user.admin? || current_user.moderator? || current_user.trial?
 			flash[:danger] = "You are not allowed to see this solution!!!"
 			redirect_to root_path
 		end
@@ -237,8 +237,8 @@ class SolutionsController < ApplicationController
 		if current_user.competition_id.present? && !current_user.admin? 
 			solution=Solution.find(params[:id])
 			competition=Competition.find(current_user.competition_id)
-			if competition.problems.include?(solution.problem)
-				flash[:danger]="You cannot see this solutions while in competition!!!"
+			if competition.problems.include?(solution.problem) && !competition.finished?
+				flash[:danger]="You cannot see this solutions while your competition is  not over!!!"
 				redirect_to competition_path(competition)
 			end
 		end

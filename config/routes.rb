@@ -29,6 +29,7 @@ Rails.application.routes.draw do
 			get "admin_problems"
 			get "admin_solutions"
 			get "free_gold"
+			get "activate_trial"
 		end
 	end
 

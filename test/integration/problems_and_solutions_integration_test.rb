@@ -51,7 +51,7 @@ class ProblemsAndSolutionsIntegrationsTest < ActionDispatch::IntegrationTest
 	
 	test "get redirected to root if you try to acces a solution without such an id" do
 		sign_in_as(@user1)
-		get solution_path(10)
+		get solution_path(1222)
 		assert_redirected_to root_path
 		assert_not flash.empty?
 	end

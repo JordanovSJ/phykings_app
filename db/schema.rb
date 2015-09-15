@@ -11,7 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 20150915105224) do
+=======
+ActiveRecord::Schema.define(version: 20150915093221) do
+>>>>>>> 594df3fa5abc1829d79f6b2d34bedbb381491eaa
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -199,7 +203,11 @@ ActiveRecord::Schema.define(version: 20150915105224) do
     t.integer  "number_free_games",      default: 0
     t.integer  "number_premium_games",   default: 0
     t.boolean  "got_free_gold",          default: false
+<<<<<<< HEAD
     t.integer  "times_buy_gold",         default: 0
+=======
+    t.datetime "trial_started_at"
+>>>>>>> 594df3fa5abc1829d79f6b2d34bedbb381491eaa
   end
 
   add_index "users", ["competition_id"], name: "index_users_on_competition_id", using: :btree

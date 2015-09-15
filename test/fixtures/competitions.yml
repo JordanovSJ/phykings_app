@@ -5,3 +5,4 @@ one:
  n_players: 3
  length: 10
  entry_gold: 0
+ target: 4

@@ -83,6 +83,6 @@
   </div>
 </div>
 
-<% if current_user.relation_of(@problem).can_see_solution? %>
+<% if current_user.relation_of(@problem).can_see_solution? || current_user.trial?%>
 	<%= commontator_thread(@problem) %>
 <% end %>

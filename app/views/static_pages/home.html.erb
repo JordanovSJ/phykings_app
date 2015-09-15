@@ -33,9 +33,14 @@
 	<div class="row">
 		<div class="col-sm-12 text-center">
 			<%= link_to "Buy Gold", static_pages_buy_gold_path, class: "btn btn-sm btn-warning" %>
+			<% if current_user.trial_started_at.nil? %>
+				<%= link_to "Get #{DAYS_TRIAL} days Free Trial" ,  activate_trial_users_path, class: "btn btn-sm btn-warning" %>
+			<% end %>
 		</div>
 	</div>
+
 	
+
 	<br/>
 
 	<div class="row equal">
