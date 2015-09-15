@@ -13,6 +13,8 @@ class Solution < ActiveRecord::Base
 	validates :answer, presence: true
 	validates :degree_of_answer, presence: true
 	validate :picture_size
+	
+	default_scope -> { order(created_at: :desc) }
 
 	#methods
 	

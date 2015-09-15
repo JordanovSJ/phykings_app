@@ -7,7 +7,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <%= link_to "PhyKings", static_pages_click_home_path(sidebar_item: "profile-home"), remote: true, class: "navbar-brand" %>
+          <%= link_to image_tag("crown.png", class: "navbar-brand"), static_pages_click_home_path(sidebar_item: "profile-home"), remote: true %>
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
@@ -41,11 +41,10 @@
               Help <b class="caret"></b>
             </a>
             <ul class="dropdown-menu">
-              <li><%= link_to "LaTeX 1", static_pages_click_help_path, remote: true  %></li>
-              <li><%= link_to "LaTeX 2", static_pages_click_help_path, remote: true %></li>
-              <li><%= link_to "Rules", static_pages_click_help_path, remote: true %></li>  
-              <li><%= link_to "The Mission", static_pages_click_help_path, remote: true %></li>  
-              <li><%= link_to "About us", static_pages_click_help_path, remote: true %></li>  
+              <li><%= link_to "LaTeX Guide", static_pages_click_help_path(sidebar_item: "help-guide"), remote: true  %></li>
+              <li><%= link_to "Rules", static_pages_click_help_path(sidebar_item: "help-rules"), remote: true %></li>  
+              <li><%= link_to "The Mission", static_pages_click_help_path(sidebar_item: "help-mission"), remote: true %></li>  
+              <li><%= link_to "About", static_pages_click_help_path(sidebar_item: "help-about"), remote: true %></li>  
 						</ul>    
 						</li>
 						

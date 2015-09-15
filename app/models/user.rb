@@ -6,6 +6,9 @@ class User < ActiveRecord::Base
 			#CAN ADD COMMENTS	
 	acts_as_commontator
 	
+	# CarrierWave avatar uploader
+	mount_uploader :image, UserImageUploader
+	
 	# Serializes the results field to be used as a Hash
 	serialize :results, Hash
 
@@ -159,9 +162,12 @@ class User < ActiveRecord::Base
 									greater_than_or_equal_to: 1,
 									less_than_or_equal_to: 100 }
 	validates :country, presence: true
+	validate :image_size
 	
 	#not so obvious one, but trust me
   validates :gold, :numericality => { :only_integer => true, :greater_than => -1}
+  
+  default_scope -> { order(created_at: :desc) }
   	
   # Code initially taken from Devise Omniauth documentation, but changed.
   # Changed first_or_create to first_or_initialize, so that we can use
@@ -178,7 +184,7 @@ class User < ActiveRecord::Base
 			user.last_name = auth.info.last_name   # fill the last_name
 			user.country = auth.extra.raw_info.locale # NOTE: this is not exactly the country!
 			user.age = Integer(auth.extra.raw_info.age_range.min[1]) # Finally found an age estimate
-			user.image = auth.info.image # fill the link to the profile image
+			user.remote_image_url = auth.info.image.gsub('http:', 'https:') # fill the link to the profile image
 			user.skip_confirmation! # a key step to allow direct log in without confirmation email
 			user.save! # save the user in the database
 		end
@@ -193,15 +199,21 @@ class User < ActiveRecord::Base
 			user.last_name = auth.info.last_name   # fill the last_name
 			user.country = auth.extra.raw_info.locale # NOTE: this is not exactly the country!
 			user.age = 100 # Finally found an age estimate
-			user.image = auth.info.image # fill the link to the profile image
+			user.remote_image_url = auth.info.image.gsub('http:', 'https:') # fill the link to the profile image
 			user.skip_confirmation! # a key step to allow direct log in without confirmation email
 			user.save! # save the user in the database
 		end
 	end
   
   private
-
   
+  # Validates the size of an uploaded avatar image.
+	def image_size
+		if image.size > 500.kilobytes
+			errors.add(:image, "should be less than 500kB")
+		end
+	end
+
   def send_gold_to_solvers(problem,cost)
 		#send gold to the solvers of the problem
 		number_solvers=problem.solutions.count

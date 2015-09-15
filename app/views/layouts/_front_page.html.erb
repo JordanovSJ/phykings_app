@@ -1,7 +1,8 @@
 <div class="navbar navbar-fixed-top alt" data-spy="affix" data-offset-top="1000">
   <div class="container">
     <div class="navbar-header">
-      <%= link_to "PhyKings", root_url, class: "navbar-brand" %>
+			
+      <%= link_to image_tag("crown.png", class: "navbar-brand"), root_url %>
       <a class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -10,8 +11,8 @@
     </div>
     <div class="navbar-collapse collapse" id="navbar">
       <ul class="nav navbar-nav">
-        <li><a href="#sec1">Our Mission</a></li>
-        <li><a href="#sec2">Rules</a></li>
+        <li><a href="#sec1">What we offer you</a></li>
+        <li><a href="#sec2">Overview</a></li>
         <li><a href="#sec3">About us</a></li>
         <li><a href="#sec4">Contact</a></li>
       </ul>
@@ -29,26 +30,26 @@
   </div>
 </div>
 
-<hr>
-
 <div id="sec1" class="blurb">
   <div class="container">
     <div class="row">
-      <div class="col-md-7">
-        <h1>Our Mission</h1>
-        <ul class="lead">
-					<li>Very important and inspiring stuff</li>
-					<li>Very important and inspiring stuff</li>
-					<li>Very important and inspiring stuff</li>
-					<li>Very important and inspiring stuff</li>
-					<li>Very important and inspiring stuff</li>
-					<li>Very important and inspiring stuff</li>
-				</ul>
-        <p class="lead">Very important and inspiring stuff</p>
+      
+      <div class="col-md-10 col-md-offset-1">
+				<div class="panel panel-default">
+					<div class="panel-heading text-center custom-heading"><h3>What we offer you</h3></div>
+					<div class="panel-body">
+						<ul class="lead-text">
+							<li>Enjoy a unique environment that will motivate you to solve more problems than ever before.</li>
+							<li>Draw from a rich database of interesting physics problems.</li>
+							<li>Take part in competitions against other phykings to raise your level and win gold.</li>
+							<li>Contribute with your own problems and solutions and get rewards.</li>
+							<li>Learn from your peers' solutions and improve your problem solving skills.</li>
+							<li>Become a real phyking in a growing community of phykings.</li>
+						</ul>
+					</div>
+				</div>
       </div>
-      <div class="col-md-5">
-        <h1 class="pull-right"><i class="icon-mobile-phone icon-3x"></i> <i class="icon-tablet icon-3x"></i> <i class="icon-laptop icon-3x"></i></h1>
-      </div>
+      
     </div>
   </div>
 </div>
@@ -57,36 +58,36 @@
   <div class="container">
     <div class="row">
       <div class="col-md-12 text-center">
-        <h1>Rules</h1>
+        <h1>Overview</h1>
       </div>
     </div>
     <div class="row">
       <div class="col-md-2 col-md-offset-2 text-center">
         <div class="featurette-item">
-          <i class="icon-rocket"></i>
-          <h4>Rule 1</h4>
-          <p>Lorem ipsum dolor sit amet, libero quis, ligula mollis aenean a quam non nec, nisl iaculis mi pulvinar sapien praesent, a ut in consectetuer amet, phasellus consectetuer molestie molestie mauris arcu consequat.</p>
+          <i class="glyphicon glyphicon-star"></i>
+          <h4>Competitions</h4>
+          <p>Competitions can have one of four different durations - 10 min, 30 min, 60 min and 120 min. Players will be expected to solve a number of problems, specially chosen to fit into the timeframe of the competition.</p>
         </div>
       </div>
       <div class="col-md-2 text-center">
         <div class="featurette-item">
-          <i class="icon-magnet"></i>
-          <h4>Rule 2</h4>
-          <p>Lorem ipsum dolor sit amet, libero quis, ligula mollis aenean a quam non nec, nisl iaculis mi pulvinar sapien praesent, a ut in consectetuer amet, phasellus consectetuer molestie molestie mauris arcu consequat.</p>
+          <i class="glyphicon glyphicon-question-sign"></i>
+          <h4>Problems</h4>
+          <p>Problems are differentiated by topic, length and difficulty. You can contribute with your own original problems. As a reward, everytime one of your problems gets chosen for a competition you will receive gold.</p>
         </div>
       </div>
       <div class="col-md-2 text-center">
         <div class="featurette-item">
-          <i class="icon-shield"></i>
-          <h4>Rule 3</h4>
-          <p>Lorem ipsum dolor sit amet, libero quis, ligula mollis aenean a quam non nec, nisl iaculis mi pulvinar sapien praesent, a ut in consectetuer amet, phasellus consectetuer molestie molestie mauris arcu consequat.</p>
+          <i class="glyphicon glyphicon-ok-sign"></i>
+          <h4>Solutions</h4>
+          <p>You are encouraged to submit solutions to problems from past competitions, new problems and your own problems. As a reward, everytime someone reads your solution you will receive gold.</p>
         </div>
       </div>
       <div class="col-md-2 text-center">
         <div class="featurette-item">
-          <i class="icon-pencil"></i>
-          <h4>Rule 4</h4>
-          <p>Lorem ipsum dolor sit amet, libero quis, ligula mollis aenean a quam non nec, nisl iaculis mi pulvinar sapien praesent, a ut in consectetuer amet, phasellus consectetuer molestie molestie mauris arcu consequat.</p>
+          <i class="glyphicon glyphicon-usd"></i>
+          <h4>Gold and Stats</h4>
+          <p>Results from competitions will change your level, stats and gold. You can earn gold by taking part in competitions, contributing problems and submitting solutions. You can also purchase additional gold from us.</p>
         </div>
       </div>
     </div>
@@ -99,9 +100,13 @@
     <div class="col-md-12 text-center">&nbsp;</div>
     <div class="col-md-8 col-md-offset-2 text-justify">
       <div class="row hidden-xs">
-       <div class="col-sm-2"><img class="img-circle grayscale" src="http://api.randomuser.me/portraits/thumb/men/12.jpg"></div>
-       <p class="col-sm-8 lead">Lorem ipsum dolor sit amet, vulputate morbi aliquam diam placerat, ac imperdiet, sed libero fermentum. Auctor nunc suscipit tristique sed urna. Numquam semper id purus occaecat rhoncus placerat, pellentesque adipiscing sed, cras accumsan, justo nam eu, pellentesque erat metus scelerisque vitae. <br/> Ac ornare sed egestas nunc at. Luctus aliquam mauris tempor, feugiat montes justo eget faucibus, vivamus mi interdum sem mollis. Varius erat urna sed egestas felis condimentum. Vel pretium sed in est, nec est cras per et class.</p> 
-       <div class="col-sm-2"><img class="img-circle grayscale" src="http://api.randomuser.me/portraits/thumb/men/18.jpg"></div>
+       <div class="col-sm-2 text-center">
+				 <%= image_tag "sasho.png", class:"img-circle grayscale" %>
+				</div>
+       <p class="col-sm-8" id="about-us">These are Phyking I and Phyking II. They love Physics. They have solved thousands of problems to become who they are today as physicists. And there are many more thousands still to come. Phyking I has just graduated with a degree in Physics from the University of Cambridge and Phyking II is starting his second year there. Before university they both participated repeatedly in the International Physics Olympiad(IPhO). Phyking I won two bronze medals and Phyking II won one bronze and two silver medals. Having gone through all of this, they know how important problem solving is for the development of a physicist.  </p> 
+       <div class="col-sm-2 text-center">
+				 <%= image_tag "dacho.png", class:"img-circle grayscale" %>
+				</div>
       </div>
     </div>
   </div>
@@ -119,13 +124,10 @@
   <div class="row">
     <div class="col-sm-4 col-sm-offset-4">
          <div class="panel panel-default">
-         <div class="panel-heading text-center"><h2><i class="icon-chevron-left"></i>Zoar Kazablist</h2></div>
+         <div class="panel-heading text-center custom-heading"><h2><i class="icon-chevron-left"></i>PhyKings Team</h2></div>
          <div class="panel-body text-center">
 					 <ul class="text-justify">
-						 <li>Address Line</li>
-						 <li>Address Line</li>
-						 <li>Address Line</li>
-						 <li>Email</li>
+						 <li>team@phykings.com</li>
 						 <li>Facebook</li>
 						 <li>Twitter</li>
 					 </ul>

@@ -4,9 +4,8 @@
       
 <ul class="nav nav-sidebar">
 	<li><h3>Help</h3></li>
-	<li><%= link_to "LaTeX 1", '#' %></li>	
-	<li><%= link_to "LaTeX 2", '#' %></li>
-	<li><%= link_to "Rules", '#' %></li>
-	<li><%= link_to "The Mission", '#' %></li>
-	<li><%= link_to "About us", '#' %></li>
+	<li><%= link_to '$\LaTeX$ Guide', static_pages_latex_guide_path, id: "help-guide" %></li>	
+	<li><%= link_to "Rules", static_pages_rules_path, id: "help-rules" %></li>
+	<li><%= link_to "The Mission", static_pages_mission_path, id: "help-mission" %></li>
+	<li><%= link_to "About", static_pages_about_path, id: "help-about" %></li>
 </ul>

@@ -4,7 +4,7 @@ production:
   database: phykings_app_production
   pool: 5
   timeout: 5000
-  username: jordan
+  username: aleksandar
   password:
 
 development:
@@ -13,7 +13,7 @@ development:
   database: phykings_app_development
   pool: 5
   timeout: 5000
-  username: jordan
+  username: aleksandar
   password:
 
 test:
@@ -22,5 +22,5 @@ test:
   database: phykings_app_test
   pool: 5
   timeout: 5000
-  username: jordan
+  username: aleksandar
   password:

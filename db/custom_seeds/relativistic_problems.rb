@@ -8,7 +8,7 @@ Problem.create!(
 							difficulty: 4,
 							length: 10,
 							target: 1,
-							creator_id: 11, 
+							creator_id: 2, 
 							content: " Two particles movingg in a laboratory frame of reference
 along the same straigtht line with the same velocity $v = (3/4)c$ (where $c$ is the speed of light) strike
 against a static target with the time interval $\delta t = 50 ns$. Determine the proper distance between the $ $ two particles, 
@@ -26,7 +26,7 @@ Problem.create!(
 							difficulty: 3,
 							length: 10,
 							target: 1,
-							creator_id: 11, 
+							creator_id: 2, 
 							content: " Two identical rods of length $l_0=10 m$ travel toward each
 other parallel to a common axis. In the reference frame
 of one of the rods the time interval between the moments, when
@@ -45,7 +45,7 @@ Problem.create!(
 							difficulty: 3,
 							length: 10,
 							target: 1,
-							creator_id: 11, 
+							creator_id: 2, 
 							content: " Two unstable particles move in the reference frame $K$
 parallel to a straight line in the same direction with the same velocities equal to $v = 0.990 c$ (where c is the 
 speed of light.The distance between them in the $K$ reference frame is equal to $l = 120 m$.
@@ -64,7 +64,7 @@ Problem.create!(
 							difficulty: 4,
 							length: 10,
 							target: 1,
-							creator_id: 11, 
+							creator_id: 2, 
 							content: " The components of the velocity of a particle moving in the  $K$
 frame of reference are equal to $v_x=\frac{1}{2} c$ and $v_y=0.75 c$. Find the velocity $v'$
  of the particle in the frame $K'$ which moves with the velocity
@@ -81,7 +81,7 @@ Problem.create!(
 							difficulty: 3,
 							length: 10,
 							target: 1,
-							creator_id: 11, 
+							creator_id: 2, 
 							content: " A particle travels in the reference frame $K$ with a velocity $v=0.6 c$ at an
 angle $\theta= 30^o$ to the $x$ axis. Find the tangens of the corresponding angle $\theta '$ in the frame $K'$
 moving with a velocity $V=0.5 c$ relative to the frame $K$ in the positive direction
@@ -98,7 +98,7 @@ Problem.create!(
 							difficulty: 2,
 							length: 10,
 							target: 1,
-							creator_id: 11, 
+							creator_id: 2, 
 							content: " The density of a static body is  $\rho_o=3600 kg/m^3$. Find the
 velocity (relative to the body) of a reference frame $K'$ in which the
 density of the body $\rho' = 125 $% $\rho$ .",
@@ -114,7 +114,7 @@ Problem.create!(
 							difficulty: 1,
 							length: 10,
 							target: 1,
-							creator_id: 11, 
+							creator_id: 2, 
 							content: " Find the speed at which the kinetic energy of a particle
 equals its rest energy. ",
 )
@@ -129,7 +129,7 @@ Problem.create!(
 							difficulty: 3,
 							length: 30,
 							target: 1,
-							creator_id: 11, 
+							creator_id: 2, 
 							content: " A spherical body moves with a relativistic velocity $v=0.4 c$ through a gas
 whose unit volume contains $n=10^3$ slowly moving particles, each of mass
 $m=5/10^12 kg$. Find the pressure $P$ exerted by the gas on the spherical surface element,
@@ -146,7 +146,7 @@ Problem.create!(
 							difficulty: 4,
 							length: 10,
 							target: 1,
-							creator_id: 11, 
+							creator_id: 2, 
 							content: " A particle of rest mass $m_o=12 m_p$ (where m_p is the mass of the proton)
 with kinetic energy $T=120 MeV$ strikes another identical particle (the same mass). Find the
 speed of the particle formed as a result of the collision.
@@ -164,7 +164,7 @@ Problem.create!(
 							difficulty: 3,
 							length: 30,
 							target: 1,
-							creator_id: 11, 
+							creator_id: 2, 
 							content: " What must be the kinetic energy $T$ of a proton striking
 another, stationary, proton so that their combined kinetic energy $T_c$ in the
 zero frame of reference ( the frame of the centre of inertia) to be equal to the total kinetic energy
@@ -183,7 +183,7 @@ Problem.create!(
 							difficulty: 5,
 							length: 30,
 							target: 1,
-							creator_id: 11, 
+							creator_id: 2, 
 							content: "A motionless particle of rest mass $M=4 GeV/ c^2$ decays into three smaller
 particles whose rest masses  are $m_1=120 MeV/c^2$ , $m_2=240 MeV/c^2$, and $m_3=500 MeV/c^2$. Find the maximum possible
 total energy of the first particle (the one with mass $m_1$).  ",

@@ -5,11 +5,7 @@
 <div class="col-sm-4 col-sm-offset-4 text-center lead">
 	<div class="panel panel-default">
 		<div class="panel-body">
-			<% if @user.image.present? %>
-				<%= image_tag(@user.image, class: "img-circle profile-info-img") %> <br/>
-			<% else %>
-				<%= image_tag("http://api.randomuser.me/portraits/thumb/men/12.jpg", class: "img-circle profile-info-img") %> <br/>
-			<% end %>
+			<%= image_tag(@user.image, class: "img-circle profile-info-img") %> <br/>
 			<p><%= @user.first_name + " " + @user.last_name %></p>
 
 			<% if @user.age < 100 %>

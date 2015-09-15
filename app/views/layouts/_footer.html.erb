@@ -6,9 +6,11 @@ Used in layout!
 <footer>
 <div class="col-md-12">
 	<ul class="nav navbar-nav">
-		<li><a href="">About</a></li>
+		<li><%= link_to '$\LaTeX$ Guide', static_pages_latex_guide_path, id: "help-guide" %></li>
+		<li><%= link_to "Rules", static_pages_rules_path, id: "help-rules" %></li>
+		<li><%= link_to "The Mission", static_pages_mission_path, id: "help-mission" %></li>
+		<li><%= link_to "About", static_pages_about_path, id: "help-about" %></li>
 		<li><a href="">Contact</a></li>
-		<li><a href="">Help</a></li>
 	</ul>
 </div>
 </footer>

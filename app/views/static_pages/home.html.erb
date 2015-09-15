@@ -6,11 +6,11 @@
 	<div class="row">
 		<div class="col-sm-8">
 			<h3><%=label_tag "Free Level: " + current_user.free_level.to_s, 
-									 nil, class: "label label-default" %>
+									 nil, class: "label label-default", title: "Free Level measures your performance in competitions with less than 500 entry gold (free competitions)." %>
 					<%=label_tag "Premium Level: " + current_user.premium_level.to_s, 
-										nil, class: "label label-success" %>
+										nil, class: "label label-success", title: "Premium Level measures your performance in competitions with more than 500 entry gold (premium competitions)." %>
 					<%=label_tag "Gold: " + current_user.gold.to_s, 
-										nil, class: "label label-warning" %></h3>
+										nil, class: "label label-warning", title: "You pay with gold to see answers and/or solutions of problems. The more gold you have, the more answers and solutions you can unlock. You can earn gold from competitions, by submitting problems and solutions or by simply purchasing some from us."  %></h3>
 		</div>
 		
 		<div class="col-sm-4">
@@ -76,7 +76,7 @@
 					
 					<div class="col-sm-12">
 						<p><strong><%= current_user.solutions.count %></strong> solutions that you have submitted.</p>
-						<p><strong><%= Problem.select { |p| p.solutions.count == 0}.count %></strong> problems waiting for their first solution.</p>
+						<p><strong><%= Problem.select { |p| ( p.solutions.count == 0 && p.checked? ) }.count %></strong> problems waiting for their first solution.</p>
 					</div>
 					
 				</div>

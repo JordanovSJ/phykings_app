@@ -8,7 +8,7 @@ Problem.create!(
 							difficulty: 1,
 							length: 10,
 							target: 1,
-							creator_id: 11, 
+							creator_id: 2, 
 							content: "A ship moves along the equator to the east with velocity $$
 v_o = 30  km/hour $$. The southeastern wind blows at an angle $ \alpha = 60° $
 to the equator with velocity $ v = 15 $ km/hour . Find the wind velocity
@@ -27,7 +27,7 @@ Problem.create!(
 							difficulty: 4,
 							length: 10,
 							target: 1,
-							creator_id: 11, 
+							creator_id: 2, 
 							content: "Three points are located at the vertices of an equilateral
 triangle whose side equals $ 6 m $. They all start moving simultaneously
 with velocity $ 3,6 km/hour $ constant in modulus, with the first point heading
@@ -44,7 +44,7 @@ Problem.create!(
 							difficulty: 4,
 							length: 10,
 							target: 2,
-							creator_id: 11, 
+							creator_id: 2, 
 							content: "Point A moves uniformly with velocity $v=3 m/s$ so that the vector $v$
 is continually 'aimed' at point B which in its turn moves recti-
 linearly and uniformly with velocity $u=2 m/s $. At the initial moment of
@@ -63,7 +63,7 @@ Problem.create!(
 							difficulty: 5,
 							length: 10,
 							target: 1,
-							creator_id: 11, 
+							creator_id: 2, 
 							content: "Two particles, 1 and 2, move with constant velocities $v_1=10m/s$
 and $v_2=13 m/s$ along two mutually perpendicular straight lines toward the
 intersection point $ O $. At the moment $t = 0$ the particles were located
@@ -79,7 +79,7 @@ Problem.create!(
 							difficulty: 3,
 							length: 10,
 							target: 1,
-							creator_id: 11, 
+							creator_id: 2, 
 							#picture: open("")
 							content: "From point $A$ located on a highway (see figure) one has to get
 by car as soon as possible to point $B$ located in the field at a distance $l=200 m$
@@ -98,7 +98,7 @@ Problem.create!(
 							difficulty: 3,
 							length: 10,
 							target: 1,
-							creator_id: 11, 
+							creator_id: 2, 
 							content: "A ball starts falling with zero initial velocity on a smooth
 inclined plane forming an angle $\alpha =30^o$ with the horizontal. Having fall-
 en the distance $h=1 m$, the ball rebounds elastically off the inclined plane.
@@ -116,7 +116,7 @@ Problem.create!(
 							difficulty: 2,
 							length: 10,
 							target: 1,
-							creator_id: 11, 
+							creator_id: 2, 
 							content: "Two solid bodies rotate about stationary mutually perpen-
 dicular intersecting axes with constant angular velocities $\omega_1=
 3.0 rad/s$ and $\omega_2 = 4.0 rad/s$. Find the angular
@@ -133,7 +133,7 @@ Problem.create!(
 							difficulty: 1,
 							length: 10,
 							target: 1,
-							creator_id: 11, 
+							creator_id: 2, 
 							content: "A horizontal plane with the coefficient of friction $k=0.75$ supports
 two bodies: a bar and an electric motor with a battery on a block.
 A thread attached to the bar is wound on the shaft of the electric
@@ -151,7 +151,7 @@ Problem.create!(
 							difficulty: 2,
 							length: 10,
 							target: 1,
-							creator_id: 11, 
+							creator_id: 2, 
 							content: "In the arrangement shown in Figure the mass of ball 1
 is = 1.8 times as great as that of rod 2. The length of the latter is
 $l = 100 cm$. The masses of the pulleys and the threads, as well as
@@ -170,7 +170,7 @@ Problem.create!(
 							difficulty: 3,
 							length: 10,
 							target: 1,
-							creator_id: 11, 
+							creator_id: 2, 
 							content: "In the arrangement shown in the Figure the mass of $body_1$
 is $z = 4.0$ times as great as that of $body_2$. The height $h = 20 cm$.
 The masses of the pulleys and the threads, as well as the friction,
@@ -188,7 +188,7 @@ Problem.create!(
 							difficulty: 3,
 							length: 10,
 							target: 1,
-							creator_id: 11, 
+							creator_id: 2, 
 							content: "In the arrangement shown in the Figure the masses of the
 wedge $M$ and the body $m= \frac{M}{2}$ are known. The appreciable friction exists
 only between the wedge and the body $m$, the friction coefficient being
@@ -206,7 +206,7 @@ Problem.create!(
 							difficulty: 5,
 							length: 10,
 							target: 1,
-							creator_id: 11, 
+							creator_id: 2, 
 							content: "Prism 1 of mass $m_1=4 kg$ and with angle $\alpha=30^o$ (see the Figure) rests on
 a horizontal surface. $Bar_2$ of ass $m_2=1 kg$ is placed on the prism. Assum-
 ing the friction to be negligible, find the acceleration of the prism.",
@@ -221,7 +221,7 @@ Problem.create!(
 							difficulty: 1,
 							length: 10,
 							target: 1,
-							creator_id: 11, 
+							creator_id: 2, 
 							content: "A ball suspended by a thread swings in a vertical plane so
 that its acceleration values in the extreme and the lowest position
 are equal. Find the thread deflection angle in the extreme position.",
@@ -237,7 +237,7 @@ Problem.create!(
 							difficulty: 2,
 							length: 10,
 							target: 1,
-							creator_id: 11, 
+							creator_id: 2, 
 							content: "A small body A starts sliding off the top of a smooth sphere
 of radius $R=50 cm$ (see Figure). Find the break-off veloc-
 ity of the body.",
@@ -252,7 +252,7 @@ Problem.create!(
 							difficulty: 1,
 							length: 10,
 							target: 1,
-							creator_id: 11, 
+							creator_id: 2, 
 							content: "A car moves with a constant tangential acceleration $\omega_t =
 0.62 m / s^2$ along a horizontal surface circumscribing a circle of
 radius $R = 40 m$. The coefficient of sliding friction between the
@@ -271,7 +271,7 @@ Problem.create!(
 							difficulty: 1,
 							length: 10,
 							target: 1,
-							creator_id: 11, 
+							creator_id: 2, 
 							content: "A chain of mass $m=200 g$ forming a circle of radius $R=30 cm$ is slipped on a
 smooth round cone with half-angle $\theta=15^o$. Find the tension of the chain
 if it rotates with a constant angular velocity $\omega=2 rad / s$ about a vertical axis
@@ -288,7 +288,7 @@ Problem.create!(
 							difficulty: 4,
 							length: 10,
 							target: 1,
-							creator_id: 11, 
+							creator_id: 2, 
 							content: "A particle of mass $m=50g$ moves along the internal smooth sur-
 face of a vertical cylinder of radius $R=50 cm$. Find the force with which the
 particle acts on the cylinder wall if at the initial moment of time
@@ -305,7 +305,7 @@ Problem.create!(
 							difficulty: 3,
 							length: 10,
 							target: 1,
-							creator_id: 11, 
+							creator_id: 2, 
 							content: "Having gone through a plank of thickness $h=1 cm$, a bullet
 changed its velocity from $v_o=600 m/s$, to $v=400 m/s$. Find the time of motion of the
 bullet in the plank, assuming the resistance force to be proportional
@@ -322,7 +322,7 @@ Problem.create!(
 							difficulty: 3,
 							length: 10,
 							target: 1,
-							creator_id: 11, 
+							creator_id: 2, 
 							content: "A chain of length $l=40 cm is placed on a smooth spherical surface
 of radius $R=30$ with one of its ends fixed at the top of the sphere. What
 will be the acceleration of each element of the chain when its upper
@@ -339,7 +339,7 @@ Problem.create!(
 							difficulty: 5,
 							length: 10,
 							target: 1,
-							creator_id: 11, 
+							creator_id: 2, 
 							content: "A particle moves in a plane under the action of a force
 which is always perpendicular to the particle's velocity and depends
 on a distance to a certain point on the plane as $1/r^n$, where $n$ is a
@@ -357,7 +357,7 @@ Problem.create!(
 							difficulty: 5,
 							length: 10,
 							target: 1,
-							creator_id: 11, 
+							creator_id: 2, 
 							content: "A rifle was aimed at the vertical line on the target located
 precisely in the northern direction, and then fired. Assuming the air
 drag to be negligible, find how much off the line, and in what direc-
@@ -375,7 +375,7 @@ Problem.create!(
 							difficulty: 2,
 							length: 10,
 							target: 1,
-							creator_id: 11, 
+							creator_id: 2, 
 							content: "A horizontal disc rotates with a constant angular velocity
 $\omega= 6.0 rad/s$ about a vertical axis passing through its centre. A
 small body of mass $m = 0.50 kg$ moves along a
@@ -396,7 +396,7 @@ Problem.create!(
 							difficulty: 3,
 							length: 10,
 							target: 2,
-							creator_id: 11, 
+							creator_id: 2, 
 							content: "A horizontal smooth rod $AB$ rotates
 with a constant angular velocity $\omega_o = 2.00 rad/s$
 about a vertical axis passing through its end
@@ -419,7 +419,7 @@ Problem.create!(
 							difficulty: 3,
 							length: 10,
 							target: 1,
-							creator_id: 11, 
+							creator_id: 2, 
 							content: "At the equator a stationary (relative to the Earth) body
 falls down from  $ 500 m$. Assuming the air drag to be
 negligible, find how much off the vertical the body will deviate when it hits the ground.",
@@ -435,7 +435,7 @@ Problem.create!(
 							difficulty: 2,
 							length: 10,
 							target: 1,
-							creator_id: 11, 
+							creator_id: 2, 
 							content: "A particle of mass $m=300 g$ moves along a circle of radius $R=2 m& with
 a normal acceleration varying with time as $a_n = kt^2$, where $k$ is
 a constant and equals $2.5 m / s^4$. Find the mean value of the power developed by all the forces
@@ -452,7 +452,7 @@ Problem.create!(
 							difficulty: 9,
 							length: 30,
 							target: 2,
-							creator_id: 11, 
+							creator_id: 2, 
 							content: "A small rigid ball of mass $m=500 g$ is located at the center of a perfectly flat table in a small 
 house near the Indian ocean. The ball is imparted some small velocity and starts performing small oscillations about 
 the center of the table. Assuming there is no slip between the ball and the table, so that no energy is lost while 
@@ -469,7 +469,7 @@ Problem.create!(
 							difficulty: 1,
 							length: 10,
 							target: 1,
-							creator_id: 11, 
+							creator_id: 2, 
 							content: "A system consists of two springs in series and
 having the stiffnesses  $k_1=666 N/m$ and $k_2=42 N/m$. Find the minimum work
 to required in order to stretch this system by $26 cm$.",
@@ -485,7 +485,7 @@ Problem.create!(
 							difficulty: 4,
 							length: 10,
 							target: 1,
-							creator_id: 11, 
+							creator_id: 2, 
 							content: "A small disc slides down with zero initial velocity 
 from the top of a smooth hill of height $H=10 m$ (shape showed on the figure).
 Assuming we can vary $h$ what is the maximum distance s covered by the disc?",
@@ -501,7 +501,7 @@ Problem.create!(
 							difficulty: 3,
 							length: 10,
 							target: 1,
-							creator_id: 11, 
+							creator_id: 2, 
 							content: "A small ball is suspended by a thread of length $60 cm$. With
 what minimum velocity has the point of suspension to be shifted
 in the horizontal direction for the ball to move along the circle about
@@ -518,7 +518,7 @@ Problem.create!(
 							difficulty: 6,
 							length: 30,
 							target: 1,
-							creator_id: 11, 
+							creator_id: 2, 
 							content: "A smooth light horizontal rod can rotate about a ver-
 tical axis passing through one of its ends. The rod is fitted with a small
 sleeve attached to the same end by a weightless. What work must be performed to slowly get this
@@ -538,7 +538,7 @@ Problem.create!(
 							difficulty: 4,
 							length: 10,
 							target: 1,
-							creator_id: 11, 
+							creator_id: 2, 
 							content: "A smooth ball moving translationally in a horizontal direction 
 collides elastically with another, identical stationary ball. During the impact
 the angle between the straight line passing through the centres of
@@ -557,7 +557,7 @@ Problem.create!(
 							difficulty: 5,
 							length: 10,
 							target: 1,
-							creator_id: 11, 
+							creator_id: 2, 
 							content: " A spaceship of mass $m_o$ travels in the deep space (no external
 forces) with a constant velocity $v_o$. To change the its direction of motion,
 a jet engine is switched on. It starts ejecting a gas jet with velocity $u$
@@ -583,7 +583,7 @@ Problem.create!(
 							difficulty: 5,
 							length: 30,
 							target: 1,
-							creator_id: 11, 
+							creator_id: 2, 
 							content: " Two small identical discs, each of mass $m=100 g$, lie on a smooth
 horizontal plane. The discs are connected by a light spring of length $10 cm$ (when not deformed)
 and stiffness $60 N/m$. At a certain moment one of the discs is set in motion in direction perpendicular
@@ -603,7 +603,7 @@ Problem.create!(
 							difficulty: 2,
 							length: 10,
 							target: 1,
-							creator_id: 11, 
+							creator_id: 2, 
 							content: " A spaceship approaches the Moon along a parabolic trajectory which is almost 
 tangent to the surface of the Moon. At the moment
 of the maximum approach the brake rocket was fired for a short time
@@ -624,7 +624,7 @@ Problem.create!(
 							difficulty: 4,
 							length: 10,
 							target: 1,
-							creator_id: 11, 
+							creator_id: 2, 
 							content: " What is the minimum work that has to be performed to
 bring a spaceship of mass $3500 kg$ from the surface of the Earth
 to the Moon? ",
@@ -640,7 +640,7 @@ Problem.create!(
 							difficulty: 3,
 							length: 10,
 							target: 1,
-							creator_id: 11, 
+							creator_id: 2, 
 							content: " A uniform disc of radius $R=50 cm$ is spinned to the angular velocity
 $\omega=50 rad/s$ and then placed on a horizontal surface. How long will
 the disc rotate on the surface if the friction coefficient is $k=0.6$?
@@ -657,7 +657,7 @@ Problem.create!(
 							difficulty: 4,
 							length: 30,
 							target: 2,
-							creator_id: 11, 
+							creator_id: 2, 
 							content: " A locomotive is propelled by a turbine whose axle is perpendicular
 to the rails (the direction of motiton).The rotation direction of the turbine coincides
 with that of the wheels. The moment of inertia of the turbine rotor relative 
@@ -678,7 +678,7 @@ Problem.create!(
 							difficulty: 4,
 							length: 10,
 							target: 1,
-							creator_id: 11, 
+							creator_id: 2, 
 							content: " A uniform ring of mass $m=100 g$, with outside radius $R_2=2 cm$, is
 fitted tightly on a shaft of radius $R_1=1 cm$. The shaft is rotated about its
 axis with a constant angular acceleration $\beta=20 rad/s^2$. Find the moment of
@@ -695,7 +695,7 @@ Problem.create!(
 							difficulty: 6,
 							length: 30,
 							target: 1,
-							creator_id: 11, 
+							creator_id: 2, 
 							content: " A thin uniform copper rod of length $60 cm$ rotates
 uniformly with an angular velocity $100 rad/s$ horizontally about a
 vertical axis passing through one of its ends. Find the elongation of the rod.
@@ -713,7 +713,7 @@ Problem.create!(
 							difficulty: 4,
 							length: 10,
 							target: 1,
-							creator_id: 11, 
+							creator_id: 2, 
 							content: "A cylindrical vesseel of heigth $h=3 m$ and base area $S=225 cm^2$ is filled
 with pure water. An orifice of area $s=25 cm^2$ is opened in the bottom of the
 vessel. Neglecting the effects of the viscosity of water, determine the time required
@@ -731,7 +731,7 @@ Problem.create!(
 							difficulty: 2,
 							length: 30,
 							target: 1,
-							creator_id: 11, 
+							creator_id: 2, 
 							content: " A thin horizontal disc of radius $R = 20 cm$ is located with-
 in a cylindrical cavity filled with oil (see the figure). The viscosity of the oil is $k= 0.08 Pa$.
  The distances between the disc and the horizontal planes
@@ -750,7 +750,7 @@ Problem.create!(
 							difficulty: 5,
 							length: 30,
 							target: 2,
-							creator_id: 11, 
+							creator_id: 2, 
 							content: " A fluid with viscosity $\eta=0.09 Pa$ fills the space between two long
 co-axial cylinders of radii $R_1=10 cm$, and $R_2=12 cm$. The small cylinder
 doesnt rotates while the outer one is rotated with a constant
@@ -771,7 +771,7 @@ Problem.create!(
 							difficulty: 5,
 							length: 10,
 							target: 2,
-							creator_id: 11, 
+							creator_id: 2, 
 							content: " A ball of steel of diameter $d = 3.0 mm$ starts sinking with
 initial velocity equal to zero in olive oil the viscosity of which is $\eta = 0.90 Pa$. What 
 time after the beginning of motion will the velocity of the ball differ

@@ -33,9 +33,6 @@ body {
 /* use special fonts in certain elements */
 h1,h2,h3,h4,.lead,.btn,.navbar a {
   text-transform:uppercase;
-/*
-  font-family:'Exo',Arial,sans-serif;
-*/
   letter-spacing:1px;
 }
 
@@ -43,11 +40,50 @@ h1 {
   font-size:50px;
 }
 
+#front-logo {
+	padding-bottom: 50px;
+	padding-top: 20px;
+}
+
+.lead-text, .lead-text li {
+  font-size:1.2em;
+  color: #1A1A1A;
+}
+
+.header .lead-text, p.lead.lead-text, .header-text {
+	color: white;
+	font-size: 1.4em;
+}
+
+.header-text .alert li {
+	color: white;
+	font-size: 0.7em;
+}
+
+.white-text, .header, .header .field label {
+	color: white;
+}
+
+.header-text li {
+    padding-bottom: 10px;
+}
+
+ul.header-text, p.header-text {
+    padding-top: 20px;
+}
+
+#about-us {
+	color: white;
+	font-size: 1.6em;
+}
+
 /* make images gray */
 img.grayscale {
     filter: url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\'><filter id=\'grayscale\'><feColorMatrix type=\'matrix\' values=\'0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0 0 0 1 0\'/></filter></svg>#grayscale"); /* Firefox 10+, Firefox on Android */
     filter: gray; /* IE6-9 */
     -webkit-filter: grayscale(100%); /* Chrome 19+, Safari 6+, Safari 6+ iOS */
+    height: 75px;
+    width: 75px;
 }
 
 .icon-bar {
@@ -82,7 +118,7 @@ img.grayscale {
    padding:15px;
    background-color:transparent;
    color:#ffffff;
-   width: 30%;
+   width: 70%;
 }
 
 .header .btn-xs {
@@ -134,22 +170,32 @@ img.grayscale {
 }
 
 .header {
-  height: 80%;
-  background: #f68076 url('http://www.bootply.com/assets/example/pt_topo_l.png') repeat center center fixed;
+  height: 85%;
+  background-color: #1D4C21;
+}
+
+.navbar.alt {
+	background-color: #123115;
 }
 
 /* use alt in navbar and header for different color */
 
-.alt {
-  background-color: $main-green;
+.header.alt {
+/*
+  background-color: #1D4C21;
+*/
+background: #27662e; /* Old browsers */
+background: -moz-linear-gradient(45deg, #27662e 25%, #1d4c21 50%, #173d1b 75%, #102b13 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left bottom, right top, color-stop(25%,#27662e), color-stop(50%,#1d4c21), color-stop(75%,#173d1b), color-stop(100%,#102b13)); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(45deg, #27662e 25%,#1d4c21 50%,#173d1b 75%,#102b13 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(45deg, #27662e 25%,#1d4c21 50%,#173d1b 75%,#102b13 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(45deg, #27662e 25%,#1d4c21 50%,#173d1b 75%,#102b13 100%); /* IE10+ */
+background: linear-gradient(45deg, #27662e 25%,#1d4c21 50%,#173d1b 75%,#102b13 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#27662e', endColorstr='#102b13',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
 }
 
-.alt .lead, .field label, .header h2 {
+.alt .lead, .field label, .header h2, .lead-text {
   color: $black;
-}
-
-.alt.affix {
-  background-color:$main-green;
 }
 
 .alt li a:hover, .alt li.active {
@@ -159,17 +205,28 @@ img.grayscale {
 
 
 .blurb {
-  padding: 120px 0 0 0;
+  padding: 10px 0 0 0;
+/*
   background-color:#fefefe;
+*/
+background: #b5bdc8; /* Old browsers */
+background: -moz-linear-gradient(45deg, #b5bdc8 0%, #828c95 36%, #28343b 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left bottom, right top, color-stop(0%,#b5bdc8), color-stop(36%,#828c95), color-stop(100%,#28343b)); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(45deg, #b5bdc8 0%,#828c95 36%,#28343b 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(45deg, #b5bdc8 0%,#828c95 36%,#28343b 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(45deg, #b5bdc8 0%,#828c95 36%,#28343b 100%); /* IE10+ */
+background: linear-gradient(45deg, #b5bdc8 0%,#828c95 36%,#28343b 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b5bdc8', endColorstr='#28343b',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
 }
 
 .blurb .panel {
   background-color:transparent;
 }
 
-.bright {
-  background: #dbdbdb url('http://www.bootply.com/assets/example/pt_topo.png') repeat center center fixed; 
-  color:#777;
+.panel > .panel-heading.custom-heading {
+    background-image: none;
+    background-color: transparent;
+    color: #1A1A1A;
 }
 
 .featurette {
@@ -231,7 +288,7 @@ footer {
 
 .footer {
     background-color:#ffffff;
-	bottom:0;
+		bottom:0;
   	position:fixed;
     padding:10px;
 }

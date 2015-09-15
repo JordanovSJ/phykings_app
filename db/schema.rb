@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150831115636) do
+ActiveRecord::Schema.define(version: 20150914115232) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -163,12 +163,12 @@ ActiveRecord::Schema.define(version: 20150831115636) do
   add_index "user_problem_relations", ["viewer_id"], name: "index_user_problem_relations_on_viewer_id", using: :btree
 
   create_table "users", force: :cascade do |t|
-    t.string   "email",                  default: "",                                                    null: false
-    t.string   "encrypted_password",     default: "",                                                    null: false
+    t.string   "email",                  default: "",    null: false
+    t.string   "encrypted_password",     default: "",    null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,                                                     null: false
+    t.integer  "sign_in_count",          default: 0,     null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
@@ -177,8 +177,8 @@ ActiveRecord::Schema.define(version: 20150831115636) do
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.string   "unconfirmed_email"
-    t.datetime "created_at",                                                                             null: false
-    t.datetime "updated_at",                                                                             null: false
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
     t.string   "first_name"
     t.string   "last_name"
     t.integer  "age"
@@ -186,7 +186,7 @@ ActiveRecord::Schema.define(version: 20150831115636) do
     t.string   "school_name"
     t.string   "provider"
     t.string   "uid"
-    t.string   "image",                  default: "http://api.randomuser.me/portraits/thumb/men/12.jpg"
+    t.string   "image"
     t.integer  "free_level",             default: 2000
     t.integer  "premium_level",          default: 2000
     t.integer  "gold",                   default: 0

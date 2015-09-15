@@ -1,5 +1,5 @@
 # Default image
-DEF_IMAGE = "http://api.randomuser.me/portraits/thumb/men/12.jpg"
+DEF_IMAGE = "crown.png"
 
 # Problem categories:
 
@@ -29,7 +29,7 @@ MAX_PIC_SIZE=500
 #free gold to get after N_PROBLEMS_FREE_GOLD
 FREE_GOLD=1000
 #number of problems solved at competition required to get FREE_GOLD free gold
-N_PROBLEMS_FREE_GOLD=20
+N_PROBLEMS_FREE_GOLD=10
 
 
 #GOLD
