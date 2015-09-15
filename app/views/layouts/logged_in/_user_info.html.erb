@@ -20,6 +20,7 @@ Used in header_in
 										<li class="list-group-item"><p class="label label-default">Free level: <%= current_user.free_level %></p></li>
 										<li class="list-group-item"><p class="label label-success">Premium level: <%= current_user.premium_level %></p></li>
 										<li class="list-group-item"><p class="label label-warning">Gold: <%= current_user.gold %></p></li>
+										<li class="list-group-item"><%= link_to "Buy Gold", static_pages_buy_gold_path, class: "btn btn-xs btn-warning" %></li>
 									</ul>
 							</li>
 							<li class="divider"></li>

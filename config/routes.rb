@@ -16,6 +16,7 @@ Rails.application.routes.draw do
   get "static_pages/rules"
   get "static_pages/mission"
   get "static_pages/about"
+  get "static_pages/buy_gold"
   
   resources :users, only: [:show] do
 		collection do

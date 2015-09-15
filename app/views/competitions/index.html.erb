@@ -4,8 +4,14 @@
 
 <%= render 'faye_subscribe_active_competitions' %>
 
+<div class="col-sm-12 text-center">
+	<%= link_to "Create New Competition", new_competition_path, class: "btn btn-sm btn-success" %>
+	<%= link_to "Buy Gold", static_pages_buy_gold_path, class: "btn btn-sm btn-warning" %>
+</div>
+
 <div id="active-competitions-table">
 
 	<%= render 'active_competitions_table'%>
 
 </div>
+
