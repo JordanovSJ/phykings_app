@@ -30,7 +30,7 @@ class User < ActiveRecord::Base
 		full_name="#{self.first_name} #{self.last_name}"
 	end
 	
-	
+	#
 	def trial?
 		time_trial= (DAYS_TRIAL * 24 * 3600)
 		return (self.trial_started_at.present? && (Time.now - self.trial_started_at <= time_trial))
