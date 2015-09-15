@@ -319,7 +319,7 @@ class CompetitionsController < ApplicationController
 	def not_finished
 		@competition=Competition.find(params[:id])
 		if @competition.finished && (current_user.competition_id.nil? || current_user.competition_id != @competition.id)
-			flash[:danger]="This competition is over!!! You cannot join it!"
+			flash[:danger]="This competition is over!!!"
 			redirect_to competitions_path
 		end
 	end	

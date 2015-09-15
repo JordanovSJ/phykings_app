@@ -10,6 +10,7 @@
 		<% else %>
 			<p class="alert-danger">At the moment you can access only your own solution to this problem. If you want to see other people's solutions, you need to unlock all solutions.</p>
 			<%= link_to "Unlock Solutions (#{COST_TO_UNLOCK_SOLUTIONS} gold)", unlock_solution_problems_path(problem_id: current_problem.id), method: "post", class: "btn btn-primary" %>
+			<%= link_to "Buy Gold", static_pages_buy_gold_path, class: "btn btn-sm btn-warning" %>
 		<% end %>
 		<hr/>
 	</div>

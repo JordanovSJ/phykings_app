@@ -16,6 +16,7 @@
 				<th class="text-center">Gold</th>
 				<th class="text-center">N Problems</th>
 				<th class="text-center">N Solutions</th>
+				<th class="text-center">N Buy Gold</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -35,6 +36,7 @@
 					<td><p class="label label-warning"><%= u.gold %></p></td>
 					<td><%= u.uploaded_problems.count %></td>
 					<td><%= u.solutions.count %></td>
+					<td><%= u.times_buy_gold %></td>
 				</tr>
 			<% end %>
 		</tbody>

@@ -16,6 +16,7 @@ Rails.application.routes.draw do
   get "static_pages/rules"
   get "static_pages/mission"
   get "static_pages/about"
+  get "static_pages/buy_gold"
   
   resources :users, only: [:show] do
 		collection do
@@ -28,6 +29,7 @@ Rails.application.routes.draw do
 			get "admin_problems"
 			get "admin_solutions"
 			get "free_gold"
+			get "activate_trial"
 		end
 	end
 

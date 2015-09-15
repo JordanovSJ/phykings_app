@@ -27,6 +27,7 @@
 		</div>
 	</div>
 	<% if @user.provider.nil? && current_user.id == @user.id %>
+		<%= link_to "Buy Gold", static_pages_buy_gold_path, class: "btn btn-sm btn-warning" %>
 		<%= link_to "Edit", edit_user_registration_path, class: "btn btn-sm btn-primary" %>
 	<% end %>
 </div>

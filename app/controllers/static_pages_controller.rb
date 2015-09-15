@@ -82,5 +82,9 @@ class StaticPagesController < ApplicationController
 	
 	end
 	
+	def buy_gold
+		current_user.increment(:times_buy_gold).save!
+	end
+	
 end
 
