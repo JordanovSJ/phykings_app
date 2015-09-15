@@ -13,7 +13,7 @@ module CompetitionsHelper
 				previous_user=sorted_users[count-1]
 				#check if both the user's percents and submitted time are equal to the those of the previous user and if not it change the rank +1
 				#if they are percents and the times are equal the rank is not changed!!!
-				if user_percents(previous_user) != user_percents(u) ||  u.submitted_at != previous_user.submitted_at #ATTENTION SA6O!!!   ((previous_user.submitted_at - u.submitted_at) > 5)
+				if (user_percents(previous_user) != user_percents(u)) || ((u.submitted_at - previous_user.submitted_at) > 5) && (user_percents(previous_user) != 0) 
 					rank = count+1
 				end
 			end
@@ -79,13 +79,7 @@ module CompetitionsHelper
 			premium=false
 		end
 		competition.users.each do |u|
-			#if the user solved nothing gets 0
-			if user_percents(u) == 0
-				lvl_change=0
-			else
-				lvl_change=rank_lvl_change(u, premium) + problems_lvl_change(u)
-			end
-			 
+			lvl_change=rank_lvl_change(u, premium) + problems_lvl_change(u)	 
 			u.results["lvl_change"]=lvl_change
 			if premium
 				u.increment(:premium_level, lvl_change )
@@ -99,6 +93,8 @@ module CompetitionsHelper
 		end
 	end
 	
+	#?????
+	#
 	def user_score(user, competition)
 		score = 0
 		competition.problems.each do |prob|

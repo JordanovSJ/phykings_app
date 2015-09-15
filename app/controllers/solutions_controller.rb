@@ -237,8 +237,8 @@ class SolutionsController < ApplicationController
 		if current_user.competition_id.present? && !current_user.admin? 
 			solution=Solution.find(params[:id])
 			competition=Competition.find(current_user.competition_id)
-			if competition.problems.include?(solution.problem)
-				flash[:danger]="You cannot see this solutions while in competition!!!"
+			if competition.problems.include?(solution.problem) && !competition.finished?
+				flash[:danger]="You cannot see this solutions while your competition is  not over!!!"
 				redirect_to competition_path(competition)
 			end
 		end

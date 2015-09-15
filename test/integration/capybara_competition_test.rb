@@ -24,7 +24,9 @@ class CapybaraCompetitionTest	< ActionDispatch::IntegrationTest
 		@params[:entry_gold]=0
 		@params[:target]=1
 		@params[:length]=10
-		post competitions_path, competition: @params
+		assert_difference 'Competition.count' , 1 do
+			post competitions_path, competition: @params
+		end
 		follow_redirect!
 		assert_template 'competitions/show'
 		@user2.reload
