@@ -1,22 +1,24 @@
-<h1 class="page-header">
-	Home
-</h1>
-
-<div class="container-fluid">
+<div class="page-header">
 	<div class="row">
 		<div class="col-sm-8">
-			<h3><%=label_tag "Free Level: " + current_user.free_level.to_s, 
-									 nil, class: "label label-default", title: "Free Level measures your performance in competitions with less than 500 entry gold (free competitions)." %>
-					<%=label_tag "Premium Level: " + current_user.premium_level.to_s, 
-										nil, class: "label label-success", title: "Premium Level measures your performance in competitions with more than 500 entry gold (premium competitions)." %>
-					<%=label_tag "Gold: " + current_user.gold.to_s, 
-										nil, class: "label label-warning", title: "You pay with gold to see answers and/or solutions of problems. The more gold you have, the more answers and solutions you can unlock. You can earn gold from competitions, by submitting problems and solutions or by simply purchasing some from us."  %></h3>
+			<h1> Home </h1>
+			<%=label_tag "Free Level: " + current_user.free_level.to_s, 
+										 nil, class: "label label-default", title: "Free Level measures your performance in competitions with less than 500 entry gold (free competitions)." %>
+			<%=label_tag "Premium Level: " + current_user.premium_level.to_s, 
+								nil, class: "label label-success", title: "Premium Level measures your performance in competitions with more than 500 entry gold (premium competitions)." %>
+			<%=label_tag "Gold: " + current_user.gold.to_s, 
+								nil, class: "label label-warning", title: "You pay with gold to see answers and/or solutions of problems. The more gold you have, the more answers and solutions you can unlock. You can earn gold from competitions, by submitting problems and solutions or by simply purchasing some from us."  %>
 		</div>
-		
-		<div class="col-sm-4">
-			<p class="pull-right">Registered Users: <%= User.count %></p>
+		<div class="col-sm-4 text-right">
+			<p>Registered Users: <%= User.count %></p>
+			<% if current_user.trial? %>
+				<h3 class="label label-default">Free Trial: <%= DAYS_TRIAL - (Time.now.to_date - current_user.trial_started_at.to_date).to_i %> days left</h3>
+			<% end %>
 		</div>
-	</div><br/>
+	</div>
+</div>
+
+<div class="container-fluid">
 
 	<div class="row">
 		<div class="col-sm-12 text-center">

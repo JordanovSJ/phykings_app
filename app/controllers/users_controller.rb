@@ -84,11 +84,8 @@ class UsersController < ApplicationController
 			redirect_to root_path
 		else
 			current_user.update_attributes!(trial_started_at: Time.now)
-			flash[:success]="Your trial have just started!! It will finish after #{DAYS_TRIAL} days. Enjoy!!!"
-			current_user.notifications.create!( message: "You activated yout trial!! It will last for #{DAYS_TRIAL} days.
-																										During that time you can see the answers and the solutions of problems without unlocking them!!
-																										However once your trial is over you will have to unlock the answers and the solutions of these
-																										problems in order to se them." )
+			flash[:success]="You successfully activated your free trial. It will finish after #{DAYS_TRIAL} days. Enjoy!"
+			current_user.notifications.create!( message: "Congratulations! You successfully activated your free trial. It will last for #{DAYS_TRIAL} days. During that time you will be able to see the answers and all solutions of problems without the need to unlock them. Once your trial period is over, you will have to unlock the answers and the solutions of these problems in order to see them." )
 			redirect_to root_path
 		end	
 	end
