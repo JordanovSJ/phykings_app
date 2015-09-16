@@ -17,7 +17,7 @@ MAX_DIFFICULTY = 10
 LENGTH_COMPETITION=[10, 30, 60, 120]
 
 # At every this many votes the problem parameters will refresh
-VOTES_REFRESH = 20
+VOTES_REFRESH = 5
 
 #the acceptable range of error of an answer 
 MAX_ACPT_ERR=0.05
