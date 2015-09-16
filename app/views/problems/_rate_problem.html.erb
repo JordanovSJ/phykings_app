@@ -4,7 +4,7 @@
 		
 		<div class="row">
 			<div class="col-sm-5 text-right">
-				<%= f.label :rating, "Rate Quality:" %>
+				<%= f.label :rating, "Quality:" %>
 			</div>
 			<div class="col-sm-7">
 				<%= f.number_field :rating, class: "rating", "data-max"=>"10", "data-empty-value"=>5 %>
@@ -13,7 +13,7 @@
 		
 		<div class="row">
 			<div class="col-sm-5 text-right">
-				<%= f.label :difficulty, "Rate Length:" %>
+				<%= f.label :difficulty, "Length:" %>
 			</div>
 			<div class="col-sm-7">
 				<%= f.radio_button :length, '10', checked: true %>
@@ -27,7 +27,7 @@
 		
 		<div class="row">
 			<div class="col-sm-5 text-right">
-				<%= f.label :difficulty, "Rate Difficulty:" %>
+				<%= f.label :difficulty, "Difficulty:" %>
 			</div>
 			<div class="col-sm-7">
 				<%= f.number_field :difficulty, class: "rating", "data-max"=>"10", "data-empty-value"=>5 %>

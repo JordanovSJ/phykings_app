@@ -1,7 +1,11 @@
 <% if current_user.id == @problem.creator_id ||
 			current_user.relation_of(@problem).can_see_answer? ||
 			current_user.admin? || current_user.trial? %>
-	Answer: <%= "$ #{@problem.answer} \\times 10^{#{@problem.degree_of_answer}} #{@problem.units_of_answer}$ " %>
+	<% if @problem.degree_of_answer !=0 %>
+		Answer: <%= "$ #{@problem.answer} \\times 10^{#{@problem.degree_of_answer}} #{@problem.units_of_answer}$ " %>
+	<% else %>
+		Answer: <%= "$ #{@problem.answer} #{@problem.units_of_answer}$ " %>
+	<% end %>
 <% else %>
 	Answer: <%= link_to "Unlock (#{COST_TO_UNLOCK_ANSWER} gold)", unlock_answer_problems_path(problem_id: @problem.id), method: "post", class: "btn btn-xs btn-info", data: {confirm: "#{COST_TO_UNLOCK_ANSWER} gold will be deducted from your account."}, remote: true %>
 <% end %>
