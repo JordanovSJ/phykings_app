@@ -41,10 +41,10 @@ class CompetitionsController < ApplicationController
 			# Find problems only once.
 			if @competition.problems.empty?
 				choose_problems(@competition)
-				#prevents sa6o bug
-				if @competition.nil?
-					redirect_to competitions_path
-				end
+				#~ #prevents sa6o bug
+				#~ if @competition.nil?
+					#~ redirect_to competitions_path
+				#~ end
 			end
 			
 			@problems = @competition.problems
@@ -176,15 +176,7 @@ class CompetitionsController < ApplicationController
 			#gold transactions, if any
 			#change of lvl
 			if @competition.users.where(submitted_competition: true).count == @competition.n_players
-				@competition.update_attributes!(finished:	true)			
-							#~ #FOR TEST PURPOSES!!!!/////////
-							#~ #/////////////////////////////
-							#~ @competition.users.each do |u|
-								#~ u.update_attributes!(submitted_at: 42)
-							#~ end
-							#~ #//////////////////////////////
-							#~ #/////////////////////////////	
-								
+				@competition.update_attributes!(finished:	true)					
 				#determine the ranks of the individual players	
 				rank_players(@competition)											
 				#gold transactions (bank to competitors and authors of problems)
@@ -270,16 +262,16 @@ class CompetitionsController < ApplicationController
 			else
 				problem=checked_problems.select{ |p| p.length <= max_length && !competition.problems.include?(p)}.sample
 				#to be removed in future, cause unneccessery
-				if problem.nil?
-					flash[:danger]="Couldnt find problems!"
-					@competition=Competition.find(params[:id])
-					@competition.users.each do |u|
-						u.update_attributes!(competition_id: nil)
-					end
-					@competition.destroy
-					#redirect_to competitions_path
-					return false
-				end
+				#~ if problem.nil?
+					#~ flash[:danger]="Couldnt find problems!"
+					#~ @competition=Competition.find(params[:id])
+					#~ @competition.users.each do |u|
+						#~ u.update_attributes!(competition_id: nil)
+					#~ end
+					#~ @competition.destroy
+					#~ #redirect_to competitions_path
+					#~ return false
+				#~ end
 				#//
 				problems_length += problem.length
 				competition.competition_problems.create!(problem_id: problem.id)
