@@ -32,7 +32,7 @@ class User < ActiveRecord::Base
 	
 	#
 	def trial?
-		time_trial= (DAYS_TRIAL * 24 * 3600)
+		time_trial= 10 #(DAYS_TRIAL * 24 * 3600)
 		return (self.trial_started_at.present? && (Time.now - self.trial_started_at <= time_trial))
 	end
 
