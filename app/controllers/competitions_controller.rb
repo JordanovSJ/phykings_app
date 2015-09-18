@@ -41,10 +41,6 @@ class CompetitionsController < ApplicationController
 			# Find problems only once.
 			if @competition.problems.empty?
 				choose_problems(@competition)
-				#~ #prevents sa6o bug
-				#~ if @competition.nil?
-					#~ redirect_to competitions_path
-				#~ end
 			end
 			
 			@problems = @competition.problems
@@ -261,18 +257,6 @@ class CompetitionsController < ApplicationController
 				competition.competition_problems.create!(problem_id: problem.id)
 			else
 				problem=checked_problems.select{ |p| p.length <= max_length && !competition.problems.include?(p)}.sample
-				#to be removed in future, cause unneccessery
-				#~ if problem.nil?
-					#~ flash[:danger]="Couldnt find problems!"
-					#~ @competition=Competition.find(params[:id])
-					#~ @competition.users.each do |u|
-						#~ u.update_attributes!(competition_id: nil)
-					#~ end
-					#~ @competition.destroy
-					#~ #redirect_to competitions_path
-					#~ return false
-				#~ end
-				#//
 				problems_length += problem.length
 				competition.competition_problems.create!(problem_id: problem.id)
 			end
