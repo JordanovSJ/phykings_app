@@ -1967,7 +1967,118 @@
 				line-height: 1.25em;
 				width: 1em;
 			}
+			
+	ul.side-icons li.one-line {
+		display: block;
+		float: left;
+		text-align: center;
+		width: 50%;
+	}
+			
+		ul.side-icons li.one-line .icon {
+			cursor: default;
+			opacity: 0.35;
+			overflow: hidden;
+			position: relative;
+			display: inline-block;
+			font-size: 4em;
+			height: 1.25em;
+			line-height: 1.25em;
+		}
+/*
+	----------- My Styles --------------
+*/
+	ul.side-icons li.two-line {
+		display: block;
+		float: left;
+		text-align: center;
+		width: 33%;
+		padding: 2em 0.5em 2em 0.5em;
+	}
+			
+		ul.side-icons li.two-line .icon {
+			cursor: default;
+			opacity: 0.35;
+			overflow: hidden;
+			position: relative;
+			display: inline-block;
+			font-size: 3em;
+			height: 1.25em;
+			line-height: 1.25em;
+		}
+		
+	.opinion-pic {
+		width: 100px;
+		border-radius: 50%;
+	}
+	
+	.creator-pic {
+		width: 200px;
+		height: 200px;
+		border-radius: 50%;
+	}
+	
+	#cta {	
+		background-attachment: scroll, scroll, scroll, fixed;
+		background-color: #645862;
+		background-image: image-url("html5up/light-bl.svg"), image-url("html5up/light-br.svg"), image-url("html5up/overlay.png"), image-url("html5up/banner.jpg");
+		background-position: bottom left, bottom right, top left, top center;
+		background-repeat: no-repeat, no-repeat, repeat, no-repeat;
+		background-size: 25em, 25em, auto, cover;
+		color: #fff;
+		cursor: default;
+		padding: 6em 0;
+		text-align: center;
+	}
 
+		#cta .inner {
+
+			background: rgba(52, 27, 43, 0.5);
+			color: #fff;
+			display: inline-block;
+
+			padding: 3em;
+			text-align: center;
+		}
+
+			#cta .inner header {
+				display: inline-block;
+				border-bottom: solid 2px;
+				border-top: solid 2px;
+				margin: 0 0 2em 0;
+				padding: 3px 0 3px 0;
+			}
+
+				#cta .inner header h2 {
+					border-bottom: solid 2px;
+					border-top: solid 2px;
+					font-size: 2.5em;
+					font-weight: 900;
+					letter-spacing: 0.2em;
+					margin: 0;
+					padding-left: 0.05em;
+					position: relative;
+					text-transform: uppercase;
+				}
+
+			#cta .inner p {
+				letter-spacing: 0.1em;
+				margin: 0;
+				text-transform: uppercase;
+			}
+
+				#cta .inner p a {
+					color: inherit;
+					font-weight: 400;
+					text-decoration: none;
+				}
+
+			#cta .inner footer {
+				margin: 1em 0 0 0;
+			}
+/*
+	------------------------------------
+*/
 	ul.buttons {
 		cursor: default;
 	}
@@ -2118,7 +2229,28 @@
 			background-size: 25em, 25em;
 			color: #fff;
 		}
-
+		
+/*
+		------------ My styles -------------
+*/
+			.wrapper.style2 header h2 {
+				text-align: center;
+			}
+			
+			.wrapper.style2 footer .buttons {
+				text-align: center;
+			}
+			
+			.wrapper.style1 section {
+				padding-top: 2em;
+			}
+			
+				.wrapper.style1 section p {
+					text-align: justify;
+				}
+/*
+		------------------------------------
+*/
 			.wrapper.style2 .button:hover {
 				background: rgba(255, 255, 255, 0.15) !important;
 			}
