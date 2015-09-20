@@ -168,6 +168,7 @@ ActiveRecord::Schema.define(version: 20150920210833) do
     t.datetime "created_at",                       null: false
     t.datetime "updated_at",                       null: false
     t.boolean  "voted",            default: false
+    t.boolean  "vote"
   end
 
   add_index "user_solution_relations", ["seen_solution_id"], name: "index_user_solution_relations_on_seen_solution_id", using: :btree
