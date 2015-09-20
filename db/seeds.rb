@@ -14,6 +14,7 @@ pe60 = User.new(
 							country: "Bulgaria",
              email: "pe6o@abv.bg",
              password:              "password",
+             admin: true,
              password_confirmation: "password",
 )
 

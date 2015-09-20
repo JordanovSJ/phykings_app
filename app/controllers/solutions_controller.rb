@@ -20,6 +20,9 @@ class SolutionsController < ApplicationController
 	
 	def show
 		@solution=Solution.find(params[:id])
+		if !@solution.viewers.include?(current_user)
+			UserSolutionRelation.create!(viewer_id: current_user.id, seen_solution_id: params[:id])
+		end
 	end
 	
 	def new
