@@ -3,9 +3,9 @@
 		
 		<p>Thank you.</p>
 		
-		<% if @solution.user_problem_relation.solution_vote? %>
+		<% if @relation.vote? %>
 			<p>You <strong>upvoted</strong> this solution.</p>
-		<% elsif !@solution.user_problem_relation.solution_vote? %>
+		<% elsif !@relation.vote? %>
 			<p>You <strong>downvoted</strong> this solution.</p>
 		<% end %>
 		

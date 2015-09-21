@@ -250,7 +250,7 @@ module CompetitionsHelper
 				lvl_change -= ((11 - p.difficulty) * p.length * MAX_EXP_CHANGE_PROBLEM).to_f / (MAX_DIFFICULTY * LENGTH.last)
 			end
 		end
-		lvl_change += ((user_percents(user) * MAX_EXP_CHANGE_PROBLEM).to_f / 100)
+		lvl_change += ((user_percents(user) * MAX_EXP_CHANGE_PROBLEM).to_f / 100) * (competition.length.to_f / 120)
 		return lvl_change.to_i
 	end
 	

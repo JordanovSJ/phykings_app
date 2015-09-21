@@ -25,10 +25,10 @@
 		
 		<div class="col-sm-3" id="solution-voting">
 			
-			<% unless @solution.user_problem_relation.voted_solution? %>
-				<%= render 'rate_solution' %>
-			<% else %>
+			<% if @relation.voted? %>
 				<%= render 'rate_solution_voted' %>
+			<% else %>
+				<%= render 'rate_solution' %>
 			<% end %>
 		
 		</div>
