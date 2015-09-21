@@ -1,4 +1,10 @@
 <body class="index" id="logged-out">
+	
+	<%= render 'layouts/log_in_modal' %>
+	<%= render 'layouts/sign_up_modal' %>
+	<%= render 'layouts/forgot_pass_modal' %>
+	<%= render 'layouts/resend_confirmation_modal' %>
+	
 	<div id="page-wrapper">
 
 		<!-- Header -->
@@ -6,34 +12,25 @@
 				<%= image_tag "html5up/phykings-logo-2.png", height: "30px" %>
 				<nav id="nav">
 					<ul>
-						<li class="current"><a href="#">Welcome</a></li>
-						<li class="submenu">
-							<a href="#">Layouts</a>
-							<ul>
-								<li><a href="#">Left Sidebar</a></li>
-								<li><a href="#">Right Sidebar</a></li>
-								<li><a href="#">No Sidebar</a></li>
-								<li><a href="#">Contact</a></li>
-								<li class="submenu">
-									<a href="#">Submenu</a>
-									<ul>
-										<li><a href="#">Dolore Sed</a></li>
-										<li><a href="#">Consequat</a></li>
-										<li><a href="#">Lorem Magna</a></li>
-										<li><a href="#">Sed Magna</a></li>
-										<li><a href="#">Ipsum Nisl</a></li>
-									</ul>
-								</li>
-							</ul>
+						<li class="current"><a href="#logged-out" class="scrolly"><span class="icon fa-chevron-up"></span></a></li>
+						<li>
+							<button type="button" class="btn btn-success" data-toggle="modal" data-target="#login">
+								Log in
+							</button>
 						</li>
-						<li><%= link_to "Log in", new_user_session_url, class: "button special" %>
-						<li><a href="#" class="button special">Sign Up</a></li>
+						<li>
+							<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#signup">
+								Sign up
+							</button>
+						</li>
 					</ul>
 				</nav>
 			</header>
 
 		<!-- Banner -->
 			<section id="banner">
+				<%= render 'layouts/error_messages' %>
+				<%= devise_error_messages! %>
 
 				<!--
 					".inner" is set up as an inline-block so it automatically expands
@@ -52,7 +49,7 @@
 							<li><p>Start your journey via:</p></li>
 							<li class="start"><%= link_to "Facebook", user_omniauth_authorize_path(:facebook), class: "button fit" %></li>
 							<li class="start"><%= link_to "Google+", user_omniauth_authorize_path(:google_oauth2), class: "button fit" %></li>
-							<li class="start"><a href="#" class="button fit">Email</a></li>
+							<li class="start"><%= link_to "Email", "#signup", data: {toggle: "modal", target: "#signup"}, class: "button fit"%></li>
 						</ul>
 					</footer>
 
@@ -189,9 +186,9 @@
 									<%= image_tag "kalo-profile.png", class: "opinion-pic"  %>
 									<header>
 										<p>"A lot of people underestimate the importance of solving problems. A place like this is an invaluable gift to all aspiring scientists."</p>
-										<p><strong>Kaloyan Lozanov</strong> <br/>United Kingdom</p>
+										<p><strong>Kaloian Lozanov</strong> <br/>United Kingdom</p>
 									</header>
-									<p>PhD in Astrophysics, University of Cambridge, UK</p>
+									<p>PhD in Astrophysics and Cosmology, University of Cambridge, UK</p>
 								</section>
 
 							</div>
@@ -220,7 +217,7 @@
 										<h3>Alex</h3>
 										<p>"I have always wanted a place like this to exist."</p>
 									</header>
-									<p>Having just graduated from the University of Cambridge, Alex is holding the two pieces of paper for which he worked so hard for four years.</p>
+									<p>Having just graduated from the University of Cambridge, Alex is holding the two pieces of paper for which he spent four years of hard work.</p>
 								</section>
 
 							</div>

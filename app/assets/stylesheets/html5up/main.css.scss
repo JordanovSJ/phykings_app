@@ -1,5 +1,7 @@
 @import url("font-awesome.min.css");
 @import url("http://fonts.googleapis.com/css?family=Lato:300,400,900");
+@import "bootstrap-sprockets";
+@import "bootstrap";
 
 /*
 	Twenty by HTML5 UP
@@ -2076,6 +2078,10 @@
 			#cta .inner footer {
 				margin: 1em 0 0 0;
 			}
+			
+	#banner .inner a, #cta .inner a, .style2 .button.fit.scrolly {
+    color: white !important;
+	}
 /*
 	------------------------------------
 */
@@ -2248,6 +2254,10 @@
 				.wrapper.style1 section p {
 					text-align: justify;
 				}
+				
+			.modal-dialog {
+				padding-top: 50px;
+			}
 /*
 		------------------------------------
 */
