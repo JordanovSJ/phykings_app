@@ -1,4 +1,3 @@
- 
 class User < ActiveRecord::Base
 	include TransactionsHelper
 	include ApplicationHelper
@@ -20,6 +19,11 @@ class User < ActiveRecord::Base
 	has_many :user_problem_relations,:foreign_key => 'viewer_id' #,:dependent => :destroy						
 	has_many :seen_problems, :through => :user_problem_relations 					
 	has_many :solutions, :through => :user_problem_relations 
+	
+	#required for up and down voting solutions...
+	has_many :user_solution_relations,:foreign_key => 'viewer_id' ,:dependent => :destroy						
+	has_many :seen_solutions, :through => :user_solution_relations 		
+	
 	has_many :notifications
 			
 	belongs_to :competition		
@@ -32,7 +36,7 @@ class User < ActiveRecord::Base
 	
 	#
 	def trial?
-		time_trial= (DAYS_TRIAL * 24 * 3600)
+		time_trial= 10 #(DAYS_TRIAL * 24 * 3600)
 		return (self.trial_started_at.present? && (Time.now - self.trial_started_at <= time_trial))
 	end
 

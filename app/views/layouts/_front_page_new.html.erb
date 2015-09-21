@@ -256,7 +256,7 @@
 							<li><p>Start your journey via:</p></li>
 							<li class="start"><%= link_to "Facebook", user_omniauth_authorize_path(:facebook), class: "button fit" %></li>
 							<li class="start"><%= link_to "Google+", user_omniauth_authorize_path(:google_oauth2), class: "button fit" %></li>
-							<li class="start"><a href="#" class="button fit">Email</a></li>
+							<li class="start"><%= link_to "Email", "#signup", data: {toggle: "modal", target: "#signup"}, class: "button fit"%></li>
 						</ul>
 					</footer>
 

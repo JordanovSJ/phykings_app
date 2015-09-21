@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150915105224) do
+ActiveRecord::Schema.define(version: 20150920210833) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -161,6 +161,19 @@ ActiveRecord::Schema.define(version: 20150915105224) do
   add_index "user_problem_relations", ["seen_problem_id"], name: "index_user_problem_relations_on_seen_problem_id", using: :btree
   add_index "user_problem_relations", ["viewer_id", "seen_problem_id"], name: "index_user_problem_relations_on_viewer_id_and_seen_problem_id", unique: true, using: :btree
   add_index "user_problem_relations", ["viewer_id"], name: "index_user_problem_relations_on_viewer_id", using: :btree
+
+  create_table "user_solution_relations", force: :cascade do |t|
+    t.integer  "viewer_id"
+    t.integer  "seen_solution_id"
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
+    t.boolean  "voted",            default: false
+    t.boolean  "vote"
+  end
+
+  add_index "user_solution_relations", ["seen_solution_id"], name: "index_user_solution_relations_on_seen_solution_id", using: :btree
+  add_index "user_solution_relations", ["viewer_id", "seen_solution_id"], name: "index_user_solution_relations_on_viewer_id_and_seen_solution_id", unique: true, using: :btree
+  add_index "user_solution_relations", ["viewer_id"], name: "index_user_solution_relations_on_viewer_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "",    null: false

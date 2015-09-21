@@ -20,6 +20,10 @@ class SolutionsController < ApplicationController
 	
 	def show
 		@solution=Solution.find(params[:id])
+		@relation = @solution.user_solution_relations.find_by(viewer_id: current_user.id)
+		if @relation.nil?
+			@relation=UserSolutionRelation.create!(viewer_id: current_user.id, seen_solution_id: params[:id])
+		end
 	end
 	
 	def new
@@ -93,12 +97,12 @@ class SolutionsController < ApplicationController
 	#Upvotes or downvotes a solution
 	def vote
 		@solution = Solution.find(params[:id])
-		relation = @solution.user_problem_relation
+		@relation = @solution.user_solution_relations.find_by(viewer_id: current_user.id)
 		
-		unless relation.voted_solution?
+		unless @relation.voted?
 			
 			if params[:vote] == "true"
-				relation.update_attributes(solution_vote: true, voted_solution: true)
+				@relation.update_attributes(vote: true, voted: true)
 				@solution.increment( :upvotes, 1 ).save!
 				@solution.user.notifications.create!(message: "Someone just upvoted your " + view_context.link_to( "solution", solution_path(@solution) ).html_safe + ".")
 				
@@ -109,7 +113,7 @@ class SolutionsController < ApplicationController
 				end
 				
 			elsif params[:vote] == "false"
-				relation.update_attributes(solution_vote: false, voted_solution: true)
+				@relation.update_attributes(vote: false, voted: true)
 				@solution.increment( :downvotes, 1 ).save!
 				@solution.user.notifications.create!(message: "Someone just downvoted your " + view_context.link_to( "solution", solution_path(@solution) ).html_safe + ".")
 				
