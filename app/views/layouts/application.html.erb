@@ -3,8 +3,18 @@
 <head>
 	<meta name="google-site-verification" content="ioDKs9-NV_tcb5OgGVqg6k9-z4hNSHZLKu8FGWN1IrA" />
   <title>PhyKings: Online Physics Competitions. Solve Physics problems and learn from solutions. Win prizes.</title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <% if user_signed_in? %>
+		<%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
+	<% else %>
+		<%= stylesheet_link_tag 'application-front', media: 'all', 'data-turbolinks-track' => true %>
+	<% end %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <!--[if lte IE 8]>
+    <%= stylesheet_link_tag "html5up/ie8", :media => "all" %>
+	<![endif]-->
+	<!--[if lte IE 9]>
+    <%= stylesheet_link_tag "html5up/ie9", :media => "all" %>
+	<![endif]-->
   <%= csrf_meta_tags %>
   <meta name="description" content="Online Physics competitions powered by a user generated database with problems and solutions. Appropriate for high school and university students and researchers.">
   
@@ -20,31 +30,27 @@
   
   <%= render 'layouts/shim' %>
 </head>
-
-<body>
 	
-	<% if user_signed_in? %>
-		
-			<div class="container col-sm-12">
-				
-				<div id="wrapper">
-					<div id="flash-field">
-						<%= render 'layouts/error_messages' %>
-					</div>
-				
-					<%= render 'layouts/logged_in/header' %>
-					<%= render 'layouts/logged_in' %>
-
-				</div>
-			</div>
+<% if user_signed_in? %>
+	
+	<body id="logged-in">
+		<div class="container col-sm-12">
 			
+			<div id="wrapper">
+				<div id="flash-field">
+					<%= render 'layouts/error_messages' %>
+				</div>
+			
+				<%= render 'layouts/logged_in/header' %>
+				<%= render 'layouts/logged_in' %>
+
+			</div>
+		</div>
+		
 		<%= render 'layouts/footer' %>
-	 
-	<% else %>
-		<%= render 'layouts/front_page' %>
-	<% end %>
-
-
-</body>
+	</body>
+<% else %>
+	<%= render 'layouts/front_page_new' %>
+<% end %>
 
 </html>
