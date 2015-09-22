@@ -1,0 +1,28 @@
+<!-- Modal -->
+<div class="modal fade" id="resend-conf" tabindex="-1" role="dialog" aria-labelledby="resend-conf">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title text-center" id="resend-conf">Resend Confirmation Email</h4>
+      </div>
+      <div class="modal-body">
+				
+        <%= form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f| %>
+					<%= devise_error_messages! %>
+
+					<div class="field form-group text-center">
+						<%= f.label :email %><br />
+						<%= f.email_field :email, autofocus: true, value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email), class: "form-control" %> 
+					</div>
+
+					<div class="actions text-center">
+						<%= f.submit "Resend confirmation instructions", class: "btn btn-default btn-xs" %>
+					</div>
+				<% end %>
+				
+      </div>
+      
+    </div>
+  </div>
+</div>

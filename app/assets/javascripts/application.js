@@ -15,6 +15,12 @@
 //= require jquery_ujs
 //= require bootstrap
 //= require jquery.countdown
+//= require html5up/jquery.dropotron.min
+//= require html5up/jquery.scrollgress.min
+//= require html5up/jquery.scrolly.min
+//= require html5up/skel.min
+//= require html5up/util
+//= require html5up/main
 //= require_tree .
 //= require faye
 //= require turbolinks

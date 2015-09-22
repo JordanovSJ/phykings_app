@@ -1,4 +1,4 @@
-<% if @solution.user_problem_relation.voted_solution? %>
+<% if @relation.voted? %>
 	$("#solution-voting").html(" <%= j render partial: 'rate_solution_voted' %> ");
 	$("#solution-votes").html(" <%= j render partial: 'solution_votes' %> ");
 <% else %>

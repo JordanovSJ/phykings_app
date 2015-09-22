@@ -6,6 +6,11 @@ class Solution < ActiveRecord::Base
 	has_one :viewer, :through=> :user_problem_relation
 	has_one :seen_problem, :through=> :user_problem_relation
 	
+	#required for up and down voting of solutions...
+	has_many :user_solution_relations, :foreign_key => 'seen_solution_id', :dependent => :destroy						
+	has_many :viewers, :through => :user_solution_relations
+	
+	
 	mount_uploader :picture, SolutionPictureUploader
 	
 	validates :content, presence: true, length: { maximum: 3000 }
